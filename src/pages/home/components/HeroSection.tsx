@@ -159,7 +159,7 @@ export default function HeroSection() {
               </div>
               <div className="absolute -top-4 -left-6 bg-zinc-900/95 border border-sage-500/35 rounded-xl px-4 py-2.5 flex items-center gap-2 glow-border-card">
                 <span className="text-xl font-extrabold text-sage-400 glow-text-sm">3.7</span>
-                <span className="text-xs text-zinc-400 leading-tight">GPA<br />Perfect</span>
+                <span className="text-xs text-zinc-400 leading-tight">GPA</span>
               </div>
               <div className="absolute -bottom-4 -right-6 bg-zinc-900/95 border border-sage-500/35 rounded-xl px-4 py-2.5 glow-border-card">
                 <p className="text-xs text-sage-400 font-bold glow-text-sm">GE Vernova</p>
