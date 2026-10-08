@@ -77,3 +77,20 @@
     else setTimeout(() => caret.classList.add('is-done'), 900);
   }, 450);
 })();
+
+/* Hero photos can be minimized; the choice is remembered. */
+(() => {
+  const btn = document.querySelector('[data-mos-toggle]');
+  const hero = document.querySelector('.hx');
+  if (!btn || !hero) return;
+  const set = (min) => {
+    hero.classList.toggle('is-min', min);
+    btn.setAttribute('aria-expanded', String(!min));
+    btn.setAttribute('aria-label', min ? 'Show photos' : 'Hide photos');
+    try { localStorage.setItem('heroPhotosMin', min ? '1' : '0'); } catch (e) { /* storage blocked */ }
+  };
+  let saved = false;
+  try { saved = localStorage.getItem('heroPhotosMin') === '1'; } catch (e) { /* storage blocked */ }
+  if (saved) set(true);
+  btn.addEventListener('click', () => set(!hero.classList.contains('is-min')));
+})();

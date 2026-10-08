@@ -1463,3 +1463,44 @@ main { flex: 1; }
 .chapter-media .slide .img img, .chapter-media .slide .vid video { object-fit: cover; object-position: center; border-radius: 0; width: 100%; height: 100%; }
 
 .chapter-media .carousel-track { align-items: flex-start; }
+
+/* hero photos: small minimize button */
+.mos-wrap { position: relative; justify-self: end; width: 100%; max-width: 30rem; }
+.mos-wrap .mosaic { max-width: none; transition: opacity .5s var(--ease-out), transform .6s var(--ease-out), max-height .7s var(--ease-out); max-height: 60rem; }
+.mos-toggle {
+  position: absolute; z-index: 4; top: -.7rem; right: -.7rem;
+  display: inline-flex; align-items: center; justify-content: center; gap: .4rem;
+  height: 1.75rem; min-width: 1.75rem; padding: 0; border-radius: 999px;
+  background: rgba(255, 255, 255, .7); border: 1px solid rgba(255, 255, 255, .9);
+  box-shadow: 0 4px 14px -6px rgba(31, 29, 26, .35);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  color: var(--ink); font-size: .7rem; font-weight: 600; opacity: .75;
+  transition: opacity .2s, transform .3s var(--ease-out), padding .3s var(--ease-out);
+}
+.mos-toggle:hover { opacity: 1; transform: scale(1.06); }
+.mos-ico { position: relative; width: .6rem; height: .6rem; }
+.mos-ico::before, .mos-ico::after { content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 1.5px; margin-top: -.75px; border-radius: 2px; background: currentColor; transition: transform .3s var(--ease-out); }
+.mos-ico::after { transform: rotate(90deg) scaleX(0); }
+.mos-label { display: none; }
+.hx.is-min .mos-wrap .mosaic { opacity: 0; transform: scale(.96); max-height: 0; pointer-events: none; }
+.hx.is-min .mos-toggle { position: static; padding: 0 .8rem; opacity: 1; }
+.hx.is-min .mos-ico::after { transform: rotate(90deg) scaleX(1); }
+.hx.is-min .mos-label { display: inline; }
+.hx.is-min .mos-wrap { display: flex; justify-content: flex-end; align-self: start; }
+@media (max-width: 900px) { .mos-wrap { justify-self: start; } .hx.is-min .mos-wrap { justify-content: flex-start; } }
+
+.mos-toggle { white-space: nowrap; }
+.hx.is-min .mos-wrap { justify-self: end; width: auto; }
+
+.hx.is-min .mos-wrap { margin-left: auto; justify-self: end !important; }
+.hx.is-min .hx-grid { grid-template-columns: 1fr auto; }
+.mos-ico:empty { display: inline-block; }
+.hx.is-min .mos-toggle { gap: .45rem; }
+
+/* minimized: wrapper keeps its column, pill sits flush right; icon has real size */
+.hx.is-min .mos-wrap { width: 100%; display: flex; justify-content: flex-end; }
+.mos-ico { display: inline-block; flex: none; width: .6rem; height: .6rem; }
+.mos-toggle { padding: 0 .45rem; }
+.hx.is-min .mos-toggle { padding: 0 .85rem 0 .7rem; }
+
+.hx.is-min .mos-wrap .mosaic { width: 0; flex: 0 0 0; overflow: hidden; }

@@ -386,9 +386,12 @@ function homePage() {
         <a class="b-outline" href="#contact">Get in Touch</a>
       </div>
     </div>
-    <div class="mosaic">
-      <div class="mcol">${tile(home.photo, '50% 28%', 'is-tall', site.name)}${tile('arm-hero', '50% 55%', 'is-short')}</div>
-      <div class="mcol">${tile('gev-lounge', '45% 45%', 'is-short')}${tile('plant-tall', '50% 70%', 'is-tall')}</div>
+    <div class="mos-wrap">
+      <button class="mos-toggle" data-mos-toggle aria-expanded="true" aria-label="Hide photos"><span class="mos-ico" aria-hidden="true"></span><span class="mos-label">Show photos</span></button>
+      <div class="mosaic">
+        <div class="mcol">${tile(home.photo, '50% 28%', 'is-tall', site.name)}${tile('arm-hero', '50% 55%', 'is-short')}</div>
+        <div class="mcol">${tile('gev-lounge', '45% 45%', 'is-short')}${tile('plant-tall', '50% 70%', 'is-tall')}</div>
+      </div>
     </div>
   </div>
 </section>
