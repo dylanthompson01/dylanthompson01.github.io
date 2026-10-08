@@ -1514,3 +1514,10 @@ main { flex: 1; }
 .mos-toggle { height: 1.2rem; min-width: 1.2rem; width: 1.2rem; padding: 0; top: -.45rem; right: -.45rem; }
 .mos-ico { width: .45rem; height: .45rem; }
 .mos-ico::before, .mos-ico::after { height: 1.2px; }
+
+/* minimize keeps the photos' space so nothing below moves */
+.hx.is-min .hx-grid { grid-template-columns: 1.15fr .85fr; }
+.hx.is-min .mos-wrap { display: block; width: 100%; justify-self: end; visibility: hidden; opacity: 0; transition: opacity .45s var(--ease-out), visibility 0s linear .45s; }
+.hx.is-min .mos-wrap .mosaic { width: auto; flex: none; max-height: none; transform: none; opacity: 1; overflow: visible; }
+.mos-wrap { transition: opacity .45s var(--ease-out); }
+@media (max-width: 900px) { .hx.is-min .hx-grid { grid-template-columns: 1fr; } }
