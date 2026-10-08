@@ -1,766 +1,213 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dylan Thompson | Mechanical Engineering</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<style>
-:root {
-  --bg:        #F7F0E4;
-  --bg2:       #EDE3CE;
-  --bg3:       #F0E8D5;
-  --gold:      #C4975A;
-  --orange:    #D4622A;
-  --green:     #4A6741;
-  --green2:    #6B8F61;
-  --text:      #2C2416;
-  --text2:     #6B5C3E;
-  --muted:     #9B8B6E;
-  --border:    rgba(196,151,90,0.22);
-  --shadow:    0 4px 28px rgba(44,36,22,0.08);
-  --shadow-lg: 0 10px 48px rgba(44,36,22,0.14);
-  --ease:      cubic-bezier(0.25,0.46,0.45,0.94);
-}
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:22px 52px;display:flex;justify-content:space-between;align-items:center;transition:all 0.4s var(--ease)}
-nav.scrolled{background:rgba(247,240,228,0.85);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);padding:14px 52px;border-bottom:1px solid var(--border)}
-.nav-logo{font-family:'DM Serif Display',serif;font-size:1.35rem;color:var(--text);text-decoration:none}
-.nav-center{display:flex;gap:32px;list-style:none}
-.nav-center a{color:var(--text2);text-decoration:none;font-size:0.87rem;font-weight:500;letter-spacing:0.02em;transition:color 0.2s ease;position:relative}
-.nav-center a::after{content:'';position:absolute;left:0;bottom:-3px;width:0;height:1.5px;background:var(--orange);transition:width 0.25s var(--ease)}
-.nav-center a:hover{color:var(--orange)}
-.nav-center a:hover::after,.nav-center a.active::after{width:100%}
-.nav-center a.active{color:var(--orange)}
-.nav-resume{background:var(--text);color:var(--bg)!important;padding:8px 18px;border-radius:100px;font-size:0.82rem;font-weight:600;text-decoration:none;letter-spacing:0.02em;transition:all 0.25s var(--ease);display:flex;align-items:center;gap:6px}
-.nav-resume:hover{background:var(--orange);transform:translateY(-1px)}
-.nav-resume::after{display:none!important}
-
-/* HERO */
-.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:0 52px;background:url('IMG_6247.jpeg') center center/cover no-repeat}
-.hero::after{content:'';position:absolute;inset:0;background:rgba(247,240,228,0.88);z-index:0}
-.hero::before{content:'';position:absolute;bottom:0;left:0;right:0;height:160px;background:linear-gradient(to bottom,transparent,var(--bg));z-index:1;pointer-events:none}
-.hero .blob,.hero .hero-inner,.hero .scroll-cue{position:relative;z-index:1}
-.blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:0.28;animation:blobFloat 24s var(--ease) infinite}
-.b1{width:580px;height:580px;background:radial-gradient(circle,#C4975A,#D4622A);top:-160px;right:-140px;animation-delay:0s}
-.b2{width:440px;height:440px;background:radial-gradient(circle,#4A6741,#6B8F61);bottom:-100px;left:-110px;animation-delay:-9s}
-.b3{width:320px;height:320px;background:radial-gradient(circle,#E8D9B8,#C4975A);top:45%;left:55%;animation-delay:-18s}
-@keyframes blobFloat{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(28px,-20px) scale(1.06)}66%{transform:translate(-20px,28px) scale(0.94)}}
-.hero-inner{text-align:center;position:relative;z-index:1;max-width:960px}
-.hero-title{font-family:'DM Serif Display',serif;font-size:clamp(4rem,9vw,7.8rem);line-height:1.02;color:var(--text);margin-bottom:28px;opacity:0;animation:fadeUp 0.9s var(--ease) 0.15s forwards}
-.hero-sub{font-size:clamp(0.82rem,1.4vw,1.05rem);color:var(--text2);font-weight:500;letter-spacing:0.03em;white-space:nowrap;margin:0 auto 52px;opacity:0;animation:fadeUp 0.9s var(--ease) 0.35s forwards}
-.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;opacity:0;animation:fadeUp 0.9s var(--ease) 0.55s forwards}
-.btn{padding:14px 32px;border-radius:100px;font-weight:600;font-size:0.92rem;text-decoration:none;border:none;cursor:pointer;transition:all 0.3s var(--ease);display:inline-block}
-.btn-fill{background:var(--orange);color:#fff}
-.btn-fill:hover{background:#B8501F;transform:translateY(-2px);box-shadow:0 8px 28px rgba(212,98,42,0.38)}
-.btn-outline{background:transparent;color:var(--text);border:1.5px solid var(--border)}
-.btn-outline:hover{border-color:var(--gold);background:rgba(196,151,90,0.09);transform:translateY(-2px)}
-.scroll-cue{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:9px;opacity:0;animation:fadeUp 0.8s var(--ease) 1s forwards}
-.scroll-cue span{font-size:0.7rem;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;font-weight:600}
-.scroll-line{width:1px;height:42px;background:linear-gradient(to bottom,var(--gold),transparent);animation:lineAnim 1.6s ease-in-out infinite}
-@keyframes lineAnim{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
-@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
-
-/* LAYOUT */
-.section{padding:72px 52px;max-width:1180px;margin:0 auto}
-.eyebrow{display:inline-block;font-size:0.72rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--green);margin-bottom:14px}
-.s-title{font-family:'DM Serif Display',serif;font-size:clamp(2.2rem,4vw,3.2rem);color:var(--text);line-height:1.18;margin-bottom:60px}
-.divider{width:100%;max-width:1180px;margin:0 auto;height:1px;background:linear-gradient(to right,transparent,var(--border),transparent)}
-
-/* REVEAL */
-.r{opacity:0;transform:translateY(28px);transition:opacity 0.7s var(--ease),transform 0.7s var(--ease)}
-.r.on{opacity:1;transform:none}
-.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}.d5{transition-delay:.4s}
-
-/* ABOUT */
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:88px;align-items:center}
-.about-text p{font-size:1.04rem;color:var(--text2);line-height:1.9;margin-bottom:22px}
-.about-photo{aspect-ratio:4/5;background:var(--bg2);border-radius:32px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;color:var(--muted);font-size:0.88rem;overflow:hidden;position:relative}
-.about-photo img{width:100%;height:100%;object-fit:cover;border-radius:32px;filter:brightness(0.82) contrast(1.1) saturate(0.92)}
-.about-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(20,16,10,0) 0%,rgba(20,16,10,0) 40%,rgba(20,16,10,0.45) 75%,rgba(20,16,10,0.65) 100%);border-radius:32px;pointer-events:none;z-index:1}
-.photo-ph{display:flex;flex-direction:column;align-items:center;gap:10px}
-
-/* JOURNEY */
-.journey-wrap{position:relative;padding-left:36px;max-width:860px}
-.journey-wrap::before{content:'';position:absolute;left:0;top:8px;bottom:8px;width:1.5px;background:linear-gradient(to bottom,var(--gold),var(--green2),rgba(196,151,90,0.1))}
-.chapter{position:relative;margin-bottom:56px}
-.chapter:last-child{margin-bottom:0}
-.chapter-dot{position:absolute;left:-43px;top:6px;width:13px;height:13px;border-radius:50%;background:var(--gold);border:2.5px solid var(--bg);box-shadow:0 0 0 4px rgba(196,151,90,0.22);transition:box-shadow 0.3s ease}
-.chapter:hover .chapter-dot{box-shadow:0 0 0 6px rgba(196,151,90,0.32)}
-.chapter-time{display:inline-block;background:rgba(196,151,90,0.12);border:1px solid rgba(196,151,90,0.28);border-radius:100px;padding:5px 14px;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
-.chapter-title{font-family:'DM Serif Display',serif;font-size:1.5rem;color:var(--text);margin-bottom:14px;line-height:1.2}
-.chapter-body{font-size:0.93rem;color:var(--text2);line-height:1.85}
-.chapter-body p{margin-bottom:12px}
-.chapter-body p:last-child{margin-bottom:0}
-
-/* EXPERIENCE */
-.timeline{position:relative;padding-left:30px}
-.timeline::before{content:'';position:absolute;left:0;top:10px;bottom:10px;width:1px;background:linear-gradient(to bottom,var(--gold),var(--green),transparent)}
-.exp-card{position:relative;background:var(--bg3);border:1px solid var(--border);border-radius:22px;padding:32px 34px;margin-bottom:22px;transition:all 0.32s var(--ease)}
-.exp-card:hover{border-color:var(--gold);transform:translateX(8px);box-shadow:var(--shadow-lg)}
-.exp-card::before{content:'';position:absolute;left:-38px;top:42px;width:11px;height:11px;border-radius:50%;background:var(--gold);border:2.5px solid var(--bg);box-shadow:0 0 0 3.5px rgba(196,151,90,0.28)}
-.exp-hd{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:14px}
-.exp-co{font-size:0.82rem;font-weight:700;color:var(--orange);letter-spacing:0.02em;margin-bottom:4px}
-.exp-role{font-family:'DM Serif Display',serif;font-size:1.28rem;color:var(--text)}
-.exp-date{font-size:0.77rem;color:var(--muted);font-weight:600;background:rgba(196,151,90,0.11);padding:5px 13px;border-radius:100px;white-space:nowrap}
-.exp-ul{list-style:none;margin-top:4px}
-.exp-ul li{font-size:0.88rem;color:var(--text2);line-height:1.75;padding:3px 0 3px 18px;position:relative}
-.exp-ul li::before{content:'→';position:absolute;left:0;color:var(--gold);font-size:0.78rem;top:5px}
-
-/* PROJECTS */
-.proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:22px}
-.proj-card{background:var(--bg3);border:1px solid var(--border);border-radius:26px;overflow:hidden;transition:all 0.32s var(--ease);cursor:pointer}
-.proj-card:hover{transform:translateY(-7px);box-shadow:var(--shadow-lg);border-color:var(--gold)}
-.proj-img{width:100%;height:210px;display:flex;align-items:center;justify-content:center;background:var(--bg2);overflow:hidden;position:relative}
-.proj-img img{width:100%;height:100%;object-fit:cover}
-.proj-img-ph{font-size:3.4rem;opacity:0.55}
-.proj-body{padding:26px 28px}
-.proj-tag{display:inline-block;background:rgba(212,98,42,0.1);color:var(--orange);padding:4px 12px;border-radius:100px;font-size:0.72rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:12px}
-.proj-title{font-family:'DM Serif Display',serif;font-size:1.28rem;color:var(--text);margin-bottom:10px}
-.proj-desc{font-size:0.87rem;color:var(--text2);line-height:1.75;margin-bottom:18px}
-.proj-more{font-size:0.8rem;font-weight:600;color:var(--gold);display:flex;align-items:center;gap:5px;letter-spacing:0.02em}
-.proj-more svg{width:14px;height:14px;stroke:var(--gold);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform 0.2s var(--ease)}
-.proj-card:hover .proj-more svg{transform:translateX(4px)}
-
-/* PROJ EXPAND */
-.proj-extra{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:22px;margin-top:22px;opacity:0;max-height:0;overflow:hidden;transition:opacity 0.55s var(--ease),max-height 0.75s var(--ease)}
-.proj-extra.open{opacity:1;max-height:4000px}
-.proj-toggle-wrap{display:flex;justify-content:center;margin-top:44px}
-.btn-toggle{display:inline-flex;align-items:center;gap:10px;background:var(--bg3);border:1.5px solid var(--border);color:var(--text);padding:14px 30px;border-radius:100px;font-weight:600;font-size:0.9rem;cursor:pointer;transition:all 0.3s var(--ease);font-family:'Plus Jakarta Sans',sans-serif}
-.btn-toggle:hover{border-color:var(--gold);background:rgba(196,151,90,0.09);transform:translateY(-2px)}
-.btn-toggle svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;transition:transform 0.35s var(--ease)}
-.btn-toggle.open svg{transform:rotate(180deg)}
-.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
-.skill-card{background:var(--bg3);border:1px solid var(--border);border-radius:20px;padding:28px;transition:all 0.3s var(--ease)}
-.skill-card:hover{border-color:var(--green);transform:translateY(-4px);box-shadow:var(--shadow)}
-.skill-cat{font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);margin-bottom:16px}
-.tags{display:flex;flex-wrap:wrap;gap:8px}
-.tag{background:rgba(74,103,65,0.1);border:1px solid rgba(74,103,65,0.22);color:var(--green);padding:6px 14px;border-radius:100px;font-size:0.8rem;font-weight:500}
-
-/* RESUME */
-.resume-card{background:var(--text);border-radius:32px;padding:64px 72px;display:flex;align-items:center;justify-content:space-between;gap:48px;flex-wrap:wrap}
-.resume-card-left h2{font-family:'DM Serif Display',serif;font-size:clamp(1.8rem,3vw,2.6rem);color:var(--bg);line-height:1.2;margin-bottom:14px}
-.resume-card-left p{font-size:0.95rem;color:rgba(247,240,228,0.6);line-height:1.75;max-width:440px}
-.btn-resume{display:inline-flex;align-items:center;gap:10px;background:var(--gold);color:var(--text);padding:16px 34px;border-radius:100px;font-weight:700;font-size:0.95rem;text-decoration:none;white-space:nowrap;transition:all 0.3s var(--ease);flex-shrink:0}
-.btn-resume:hover{background:#B8862A;transform:translateY(-2px);box-shadow:0 8px 28px rgba(196,151,90,0.45)}
-.btn-resume svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-
-/* CONTACT */
-.contact-box{background:linear-gradient(140deg,var(--bg2),var(--bg3));border:1px solid var(--border);border-radius:42px;padding:88px;text-align:center}
-.contact-title{font-family:'DM Serif Display',serif;font-size:clamp(2rem,4.5vw,3.8rem);color:var(--text);margin-bottom:18px}
-.contact-sub{font-size:1.05rem;color:var(--text2);margin-bottom:44px;line-height:1.7}
-.contact-links{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
-
-/* FOOTER */
-footer{text-align:center;padding:38px 52px;font-size:0.8rem;color:var(--muted);border-top:1px solid var(--border)}
-
-/* PROJECT MODAL */
-.modal-overlay{position:fixed;inset:0;background:rgba(44,36,22,0.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);z-index:200;display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;transition:opacity 0.35s var(--ease)}
-.modal-overlay.open{opacity:1;pointer-events:all}
-.modal-box{background:var(--bg);border-radius:28px;width:100%;max-width:800px;max-height:88vh;overflow-y:auto;position:relative;transform:scale(0.95) translateY(16px);transition:transform 0.35s var(--ease);scrollbar-width:none}
-.modal-box::-webkit-scrollbar{display:none}
-.modal-overlay.open .modal-box{transform:scale(1) translateY(0)}
-.modal-close{position:absolute;top:20px;right:20px;z-index:10;background:rgba(44,36,22,0.08);border:none;border-radius:50%;width:38px;height:38px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.2s ease;color:var(--text)}
-.modal-close:hover{background:rgba(44,36,22,0.16)}
-.modal-close svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round}
-.modal-gallery-wrap{position:relative}
-.modal-gallery-wrap:hover .modal-nav-btn{opacity:1}
-.modal-nav-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(247,240,228,0.93);border:none;border-radius:50%;width:40px;height:40px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 14px rgba(0,0,0,0.18);z-index:5;opacity:0.7;transition:all 0.2s ease}
-.modal-nav-btn:hover{background:#fff;opacity:1;transform:translateY(-50%) scale(1.08)}
-.modal-nav-btn svg{width:18px;height:18px;stroke:var(--text);fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
-.modal-nav-left{left:12px}
-.modal-nav-right{right:12px}
-.modal-gallery{width:100%;min-height:280px;background:var(--bg2);border-radius:22px 22px 0 0;overflow-x:auto;overflow-y:hidden;display:flex;align-items:stretch;gap:3px;position:relative;scrollbar-width:none;-webkit-overflow-scrolling:touch}
-.modal-gallery::-webkit-scrollbar{display:none}
-.modal-gallery img{object-fit:cover;flex-shrink:0;width:420px;height:310px;cursor:default}
-.modal-gallery img:first-child{border-radius:22px 0 0 0}
-.modal-gallery img:last-child:not(:first-child){border-radius:0}
-.modal-gallery video{flex-shrink:0;width:420px;height:310px;object-fit:contain;background:#111;cursor:default}
-.modal-gallery video:first-child{border-radius:22px 0 0 0}
-.modal-single img,.modal-single video{border-radius:22px 22px 0 0;width:100%;height:340px;object-fit:cover}
-.modal-gallery-ph{display:flex;flex-direction:column;align-items:center;gap:10px;color:var(--muted);font-size:0.88rem;padding:40px}
-.modal-gallery-ph svg{width:40px;height:40px;stroke:currentColor;fill:none;stroke-width:1.2;opacity:0.4}
-.modal-content{padding:36px 40px 44px}
-.modal-tag{display:inline-block;background:rgba(212,98,42,0.1);color:var(--orange);padding:4px 12px;border-radius:100px;font-size:0.72rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:14px}
-.modal-title{font-family:'DM Serif Display',serif;font-size:2rem;color:var(--text);margin-bottom:18px;line-height:1.2}
-.modal-desc{font-size:0.96rem;color:var(--text2);line-height:1.9}
-
-/* RESPONSIVE */
-@media(max-width:900px){
-  nav,nav.scrolled{padding:16px 24px}
-  .hero{padding:0 24px}
-  .section{padding:56px 24px}
-  .about-grid{grid-template-columns:1fr;gap:44px}
-  .about-photo{aspect-ratio:16/9;max-height:320px}
-  .timeline{padding-left:20px}
-  .journey-wrap{padding-left:28px}
-  .resume-card{padding:44px 32px;flex-direction:column}
-  .contact-box{padding:48px 28px;border-radius:24px}
-  footer{padding:28px 24px}
-  .nav-center{display:none}
-  .hero-sub{white-space:normal;text-align:center}
-  .modal-content{padding:28px 28px 36px}
-}
-</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dylan Thompson · Mechanical Engineering</title>
+<meta name="description" content="Dylan Thompson, mechanical engineering student at the University of Central Florida. Manufacturing, CAD, CNC machining, thermal research, and robotics.">
+<link rel="canonical" href="https://dylanthompson01.github.io/">
+<meta name="theme-color" content="#F2EBDF">
+<meta name="color-scheme" content="light only">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Dylan Thompson">
+<meta property="og:title" content="Dylan Thompson · Mechanical Engineering">
+<meta property="og:description" content="Dylan Thompson, mechanical engineering student at the University of Central Florida. Manufacturing, CAD, CNC machining, thermal research, and robotics.">
+<meta property="og:url" content="https://dylanthompson01.github.io/">
+<meta property="og:image" content="https://dylanthompson01.github.io/assets/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=Inter:opsz,wght@14..32,400..700&display=swap">
+<link rel="stylesheet" href="/assets/css/main.css?v=mv03qxnq">
+<script>(function(){var d=document.documentElement;if('onpagereveal' in window)d.classList.add('vt');d.classList.add('js')})()</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Dylan Thompson","url":"https://dylanthompson01.github.io","email":"mailto:dylan.thompson542@gmail.com","jobTitle":"Mechanical Engineering Student","alumniOf":"University of Central Florida","sameAs":["https://www.linkedin.com/in/dylanthompson01/","https://github.com/dylanthompson01"]}</script>
+<script src="/assets/js/vt.js?v=mv03qxnq"></script>
+<script src="/assets/js/motion.js?v=mv03qxnq" defer></script>
+<script src="/assets/js/main.js?v=mv03qxnq" defer></script>
 </head>
-<body>
-
-<!-- NAV -->
-<nav id="nav">
-  <a href="#home" class="nav-logo">D.T</a>
-  <ul class="nav-center">
-    <li><a href="#about">About</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-  <a href="Thompson_Resume.pdf" download class="nav-resume">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3m0 12l-4-4m4 4l4-4"/><path d="M2 17l.621 2.485A2 2 0 0 0 4.561 21h14.878a2 2 0 0 0 1.94-1.515L22 17"/></svg>
-    Resume
-  </a>
-</nav>
-
-<!-- HERO -->
-<section class="hero" id="home">
-  <div class="blob b1"></div>
-  <div class="blob b2"></div>
-  <div class="blob b3"></div>
-  <div class="hero-inner">
-    <h1 class="hero-title">Dylan Thompson</h1>
-    <p class="hero-sub">Mechanical Engineering &nbsp;·&nbsp; University of Central Florida &nbsp;·&nbsp; Graduating May 2029</p>
-    <div class="hero-btns">
-      <a href="#projects" class="btn btn-fill">View Projects</a>
-      <a href="#contact" class="btn btn-outline">Get in Touch</a>
+<body class="is-home">
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav" data-nav>
+  <div class="nav-inner">
+    <a class="brand" href="/" aria-label="Dylan Thompson, home">Dylan Thompson</a>
+    <nav class="top-links" aria-label="Primary">
+      <a href="/experience/">Experience</a>
+      <a href="/work/">Projects</a>
+      <a href="/about/">About</a>
+      <a href="/photography/">Photography</a>
+      <a class="top-resume" href="/Thompson_Resume.pdf" target="_blank" rel="noopener">Resume</a>
+    </nav>
+    <button class="menu-btn" data-menu-toggle aria-label="Open menu" aria-expanded="false"><span class="menu-open">Menu</span><span class="menu-close">Close</span></button>
+  </div>
+  <div class="sheet" data-sheet>
+    <nav aria-label="Main">
+      <a href="/experience/"><span class="sheet-n">01</span>Experience</a>
+      <a href="/work/"><span class="sheet-n">02</span>Projects</a>
+      <a href="/about/"><span class="sheet-n">03</span>About</a>
+      <a href="/photography/"><span class="sheet-n">04</span>Photography</a>
+    </nav>
+    <div class="sheet-foot">
+      <a href="mailto:dylan.thompson542@gmail.com">dylan.thompson542@gmail.com</a>
+      <a href="https://www.linkedin.com/in/dylanthompson01/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="/Thompson_Resume.pdf" target="_blank" rel="noopener">Resume</a>
     </div>
   </div>
-  <div class="scroll-cue"><span>Scroll</span><div class="scroll-line"></div></div>
-</section>
+</header>
+<main id="main">
 
-<!-- ABOUT -->
-<section class="section" id="about">
-  <span class="eyebrow r">About Me</span>
-  <div class="about-grid">
-    <div class="about-text r d1">
-      <h2 class="s-title" style="margin-bottom:28px">Who I Am</h2>
-      <p>I'm a Mechanical Engineering student at the University of Central Florida, expected to graduate in May 2029. From day one, I made a deliberate choice: real-world experience comes first. While I make sure I genuinely understand the fundamentals and concepts taught in class, I've poured my energy into building things, leading teams, and getting my hands dirty in labs, machine shops, and internships.</p>
-      <p>Currently interning at <strong>GE Vernova</strong> in Supply Chain Manufacturing. My main focus has been preventive maintenance and IBM Maximo integration, redesigning the Maximo UI based on direct feedback from floor workers, and CAD and manufacturing work alongside the engineering team.</p>
-    </div>
-    <div class="about-photo r d2" id="about-photo">
-      <img src="IMG_6228.jpeg" alt="Dylan Thompson">
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- EXPERIENCE -->
-<section class="section" id="experience">
-  <span class="eyebrow r">Experience</span>
-  <h2 class="s-title r d1">My Experience So Far</h2>
-  <div class="timeline">
-
-    <div class="exp-card r d1">
-      <div class="exp-hd">
-        <div><div class="exp-co">GE Vernova</div><div class="exp-role">Supply Chain Manufacturing Intern</div></div>
-        <div class="exp-date">May 2026 – Aug 2026</div>
-      </div>
-      <ul class="exp-ul">
-        <li>Main project is PM (preventive maintenance) integration with IBM Maximo. Built Power Query workflows that pull data from multiple Excel files into one live document that auto-updates and prioritizes maintenance tasks by urgency.</li>
-        <li>Redesigned Maximo's UI after doing a plant walk to interview shop workers directly about what wasn't working, then went and made those exact changes.</li>
-        <li>Working with lead engineers on CAD design, making drawings, and seeing parts through to manufacturing to solve specific floor problems.</li>
-        <li>Collaborating with another associate in a commercial role to build an HTML training site consolidating all onboarding documents for new hires and interns in commercial operations.</li>
-        <li>Wrapping up with a full presentation to floor workers on capacitors and instrument transformers.</li>
-      </ul>
-    </div>
-
-    <div class="exp-card r d2">
-      <div class="exp-hd">
-        <div><div class="exp-co">UCF Interfacial Transport Lab</div><div class="exp-role">Undergraduate Researcher</div></div>
-        <div class="exp-date">Jun 2025 – Present</div>
-      </div>
-      <ul class="exp-ul">
-        <li>Investigating experimental methods to improve efficiency of pulsating heat pipes (PHPs), focusing on single-loop aluminum prototypes using two-phase fluid oscillations for passive thermal transport.</li>
-        <li>Conducted independent CFD analysis using ANSYS to evaluate fluid flow characteristics and thermal performance.</li>
-        <li>Developed SolidWorks exploded-view models, collaborated with UCF machinists on prototype fabrication, and co-authored a research paper abstract.</li>
-        <li>Debugged Python scripts for improved oscillation data visualization and thermal performance analysis.</li>
-      </ul>
-    </div>
-
-    <div class="exp-card r d3">
-      <div class="exp-hd">
-        <div><div class="exp-co">ASME Student Design Competition</div><div class="exp-role">Project Lead</div></div>
-        <div class="exp-date">Sept 2025 – Present</div>
-      </div>
-      <ul class="exp-ul">
-        <li>Led a 60+ member multidisciplinary team designing and fabricating an autonomous waste collection robot for ASME's 2025–26 Student Design Competition.</li>
-        <li>Coordinating CAD modeling, prototyping, and physical testing to optimize navigation, waste sorting accuracy, and material handling across inclines and rough terrain.</li>
-        <li>Managing design validation, fabrication documentation, and competition deliverables to maximize scoring and ensure rule compliance.</li>
-      </ul>
-    </div>
-
-    <div class="exp-card r d4">
-      <div class="exp-hd">
-        <div><div class="exp-co">Baja SAE</div><div class="exp-role">Machinist</div></div>
-        <div class="exp-date">Aug 2025 – Present</div>
-      </div>
-      <ul class="exp-ul">
-        <li>Machined precision components for Baja SAE competition vehicles using CNC lathe (ProtoTRAK), manual mill, and fabrication equipment to meet rigorous performance specifications and tight tolerances.</li>
-        <li>Prototyped, inspected, and documented parts ensuring reliability and compliance with SAE competition rules for endurance, acceleration, and maneuverability events.</li>
-      </ul>
-    </div>
-
-    <div class="exp-card r d5">
-      <div class="exp-hd">
-        <div><div class="exp-co">Robotics Club of Central Florida (Project Storm)</div><div class="exp-role">Drive & Science Team Designer</div></div>
-        <div class="exp-date">Aug – Dec 2025</div>
-      </div>
-      <ul class="exp-ul">
-        <li>Designed and tested mechanical systems for a lunar rover prototype for terrain navigation and autonomous object retrieval using a robotic arm.</li>
-        <li>Fabricated custom wooden test rigs enabling motor load testing up to 150 lbs. and validated structural integrity and power delivery.</li>
-        <li>Utilized precision CAD modeling to improve servo integration across articulated subsystems.</li>
-      </ul>
-    </div>
-
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- PROJECTS -->
-<section class="section" id="projects">
-  <span class="eyebrow r">Projects</span>
-  <h2 class="s-title r d1">My Projects</h2>
-
-  <!-- First 3 always visible -->
-  <div class="proj-grid">
-
-    <div class="proj-card r d1" onclick="openProject('gev')">
-      <div class="proj-img" id="proj-gev" style="background:#1d7a70;padding:0;">
-        <img src="gev-logo.png" alt="GE Vernova" style="width:100%;height:100%;object-fit:cover;">
-      </div>
-      <div class="proj-body">
-        <div class="proj-tag">Internship · Summer 2026</div>
-        <div class="proj-title">GE Vernova: Supply Chain Manufacturing</div>
-        <p class="proj-desc">Working on PM integration with IBM Maximo, redesigning the Maximo UI based on floor worker feedback, CAD and manufacturing work, and building an HTML training site for incoming commercial operations staff.</p>
-        <div class="proj-more">View project <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+<section class="hx">
+  <div class="hx-bg" aria-hidden="true"><span class="img " style="--ar:2304/1536;--lqip:url(data:image/webp;base64,UklGRogAAABXRUJQVlA4IHwAAAAQBACdASoUAA0APu1iqU2ppaOiMAgBMB2JZACsACLKJBnuTxo1xZAVsAD9puFKMzRx0da/Ylc6ty5U1EUvvZOlT0qgJeVefRJ9zkfQl+RmMCHQX4HXOs6qWAAp8vQ/eyQKK1KtZFkpZw8YYGqoEQfT6h781utmFQeSQAAA)"><img src="/assets/media/about/sunset-1400.webp" srcset="/assets/media/about/sunset-800.webp 800w, /assets/media/about/sunset-1400.webp 1400w, /assets/media/about/sunset-2200.webp 2200w" sizes="100vw" width="2304" height="1536" alt="" fetchpriority="high" decoding="async"></span></div>
+  <div class="container hx-grid">
+    <div class="hx-text">
+      <span class="kick">Mechanical Engineering &nbsp;·&nbsp; University of Central Florida</span>
+      <h1 class="hx-title">Dylan Thompson</h1>
+      <p class="hx-lead">I like building things.</p>
+      <div class="hx-btns">
+        <a class="b-orange" href="/work/">View Projects</a>
+        <a class="b-outline" href="#contact">Get in Touch</a>
       </div>
     </div>
-
-    <div class="proj-card r d2" onclick="openProject('cooling')">
-      <div class="proj-img" id="proj-cooling" style="background:linear-gradient(135deg,var(--bg2),var(--bg3));flex-direction:column;gap:10px">
-        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.7"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
-        <span style="font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);opacity:0.8">In Progress</span>
-      </div>
-      <div class="proj-body">
-        <div class="proj-tag">In Progress · Thermal Systems</div>
-        <div class="proj-title">Liquid Cooling Loop</div>
-        <p class="proj-desc">3D printing a full liquid cooling loop from scratch. That includes the reservoir, custom waterblocks, and ANSYS CFD to compare designs.</p>
-        <div class="proj-more">View project <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
-      </div>
-    </div>
-
-    <div class="proj-card r d3" onclick="openProject('putter')">
-      <div class="proj-img" id="proj-putter">
-        <img src="IMG_6734.jpeg" alt="CNC Machined Golf Putter">
-      </div>
-      <div class="proj-body">
-        <div class="proj-tag">CNC · Personal Project</div>
-        <div class="proj-title">Custom CNC Golf Putter</div>
-        <p class="proj-desc">Designed and machined a golf putter head from scratch on a CNC machine.</p>
-        <div class="proj-more">View project <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- Remaining 7 -->
-  <div class="proj-extra" id="proj-extra">
-
-    <div class="proj-card r" onclick="openProject('robot')">
-      <div class="proj-img" id="proj-robot">
-        <img src="IMG_5839.jpeg" alt="ASME Waste Collection Robot at Competition">
-      </div>
-      <div class="proj-body">
-        <div class="proj-tag">Autonomous Systems</div>
-        <div class="proj-title">ASME Waste Collection Robot</div>
-        <p class="proj-desc">Led 60+ members to design and build a robot that collects, sorts, and disposes of waste in a mock city environment.</p>
-        <div class="proj-more">View project <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
-      </div>
-    </div>
-
-    <div class="proj-card r" onclick="openProject('php')">
-      <div class="proj-img" id="proj-php">
-        <img src="IMG_4716.jpeg" alt="UCF Interfacial Transport Lab">
-      </div>
-      <div class="proj-body">
-        <div class="proj-tag">Research · CFD</div>
-        <div class="proj-title">Pulsating Heat Pipe Research</div>
-        <p class="proj-desc">ANSYS CFD analysis, SolidWorks modeling, prototype fabrication, and co-authored research abstract at UCF.</p>
-        <div class="proj-more">View project <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
-      </div>
-    </div>
-
-    <div class="proj-card r" onclick="openProject('arm')">
-      <div class="proj-img" id="proj-arm">
-        <img src="IMG_3758.jpeg" alt="4-Axis Robotic Arm">
-      </div>
-      <div class="proj-body">
-        <div class="proj-tag">Robotics · CAD</div>
-        <div class="proj-title">4-Axis Robotic Arm</div>
-        <p class="proj-desc">4-axis arm controlled in real time by a smaller arm using potentiometersfor full mirrored movement.</p>
-        <div class="proj-more">View project <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
-      </div>
-    </div>
-
-    <div class="proj-card r" onclick="openProject('baja')">
-      <div class="proj-img" id="proj-baja">
-        <img src="IMG_4113.jpeg" alt="CNC Mill at UCF Machine Shop">
-      </div>
-      <div class="proj-body">
-        <div class="proj-tag">Manufacturing · CNC</div>
-        <div class="proj-title">Baja SAE Race Components</div>
-        <p class="proj-desc">Machined precision competition vehicle parts on CNC lathe and manual mill to tight tolerances.</p>
-        <div class="proj-more">View project <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
-      </div>
-    </div>
-
-    <div class="proj-card r" onclick="openProject('boat')">
-      <div class="proj-img" id="proj-boat">
-        <img src="IMG_5536.jpeg" alt="RC Boat at the pool">
-      </div>
-      <div class="proj-body">
-        <div class="proj-tag">3D Printed · UCF Competition</div>
-        <div class="proj-title">RC Boat, Great Naval Orange Race</div>
-        <p class="proj-desc">Designed, 3D printed, waterproofed, and raced a fully functional RC boat for UCF's Great Naval Orange Race.</p>
-        <div class="proj-more">View project <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
-      </div>
-    </div>
-
-    <div class="proj-card r" onclick="openProject('plant')">
-      <div class="proj-img" id="proj-plant">
-        <img src="DSC_0729.jpeg" alt="Automatic Plant Watering System">
-      </div>
-      <div class="proj-body">
-        <div class="proj-tag">Arduino · First Build</div>
-        <div class="proj-title">Automatic Plant Watering System</div>
-        <p class="proj-desc">My first engineering project. Arduino-powered automatic irrigation system with sensor-driven control.</p>
-        <div class="proj-more">View project <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
-      </div>
-    </div>
-
-    <div class="proj-card r" onclick="openProject('solidworks')">
-      <div class="proj-img" id="proj-solidworks">
-        <img src="IMG_3363.jpeg" alt="CSWA Exam Result">
-      </div>
-      <div class="proj-body">
-        <div class="proj-tag">Self-Taught · Summer 2025</div>
-        <div class="proj-title">SolidWorks: CSWA &amp; CSWP</div>
-        <p class="proj-desc">Taught myself SolidWorks from scratch and earned both the CSWA and CSWP certifications by the end of my first summer.</p>
-        <div class="proj-more">View project <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- Toggle button -->
-  <div class="proj-toggle-wrap r">
-    <button class="btn-toggle" id="proj-toggle-btn" onclick="toggleProjects()">
-      <span id="proj-toggle-label">View all 10 projects</span>
-      <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-    </button>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- SKILLS -->
-<section class="section" id="skills">
-  <span class="eyebrow r">Skills</span>
-  <h2 class="s-title r d1">Skills</h2>
-  <div class="skills-grid">
-    <div class="skill-card r d1">
-      <div class="skill-cat">Certifications</div>
-      <div class="tags"><span class="tag">CSWP</span><span class="tag">CSWA</span><span class="tag">Lean Six Sigma YB</span><span class="tag">MOS Excel</span><span class="tag">MOS PowerPoint</span><span class="tag">MOS Word</span></div>
-    </div>
-    <div class="skill-card r d2">
-      <div class="skill-cat">Software &amp; CAD</div>
-      <div class="tags"><span class="tag">SolidWorks</span><span class="tag">ANSYS CFD</span><span class="tag">ProtoTRAK CNC</span></div>
-    </div>
-    <div class="skill-card r d3">
-      <div class="skill-cat">Programming &amp; Electronics</div>
-      <div class="tags"><span class="tag">Python</span><span class="tag">Arduino (C++)</span><span class="tag">Servo Systems</span><span class="tag">Feedback Control</span></div>
-    </div>
-    <div class="skill-card r d4">
-      <div class="skill-cat">Engineering &amp; Manufacturing</div>
-      <div class="tags"><span class="tag">Lean Manufacturing</span><span class="tag">Six Sigma</span><span class="tag">CNC Machining</span><span class="tag">CAD Modeling</span><span class="tag">Prototyping</span><span class="tag">CFD Analysis</span><span class="tag">3D Printing</span></div>
-    </div>
-    <div class="skill-card r d5">
-      <div class="skill-cat">Interpersonal</div>
-      <div class="tags"><span class="tag">Leadership</span><span class="tag">Project Management</span><span class="tag">Communication</span><span class="tag">Problem-Solving</span><span class="tag">Adaptability</span></div>
+    <div class="mosaic">
+      <div class="mcol"><div class="mtile is-tall"><span class="img is-portrait " style="--ar:1536/2304;--lqip:url(data:image/webp;base64,UklGRtIAAABXRUJQVlA4IMYAAACQBQCdASoUAB4APu1ur1KppiQiqAgBMB2JaACsIKo41w9il/SksTMjkaGLLjfv8q2RUxDloAD+4M6yEx6ULaB63uVbKvaUKhQTV+qA77luNGK4Ko/ODCNbSu1YQ+Skp0S9P2OQJ37uP1UdScbz0oyg0G7jONwtTa6HieTxGytCpw1kLQnu+4rLcbzQQkX1+y6z6IlGdW+xBrIOiNpTOtbEGJBwIrfixyvtnSy8SaEaArqPzyZLm4722rJyQ0qq+hiJq0AAAAA=)"><img style="object-position:50% 28%" src="/assets/media/about/portrait-1400.webp" srcset="/assets/media/about/portrait-800.webp 800w, /assets/media/about/portrait-1400.webp 1400w, /assets/media/about/portrait-1536.webp 1536w" sizes="(max-width: 900px) 46vw, 24vw" width="1536" height="2304" alt="Dylan Thompson" fetchpriority="high" decoding="async"></span></div><div class="mtile is-short"><span class="img " style="--ar:5712/4284;--lqip:url(data:image/webp;base64,UklGRpQAAABXRUJQVlA4IIgAAADwAwCdASoUAA8APu1iqU2ppaOiMAgBMB2JbACdMoAC/t/QaAmMzP2YAP7D/e5NF9qNmCq60qJNpG02XpzxzTXCAWGT4ibjsUJh46YDGrHGVg2plM8fJYqC6aEqJJg9p8FH4nGwje1mx+zeM/3KJttMpr2xxHieZO5o54EhR6qiW/++Te69qBAA)"><img style="object-position:50% 55%" src="/assets/media/robotic-arm/arm-hero-1400.webp" srcset="/assets/media/robotic-arm/arm-hero-800.webp 800w, /assets/media/robotic-arm/arm-hero-1400.webp 1400w, /assets/media/robotic-arm/arm-hero-2200.webp 2200w" sizes="(max-width: 900px) 46vw, 24vw" width="5712" height="4284" alt="" fetchpriority="high" decoding="async"></span></div></div>
+      <div class="mcol"><div class="mtile is-short"><span class="img is-portrait " style="--ar:4283/5354;--lqip:url(data:image/webp;base64,UklGRvQAAABXRUJQVlA4IOgAAACQBQCdASoUABkAPu1srFEppaQiqAqpMB2JQBadtQJAUMDfnbIwzjjZdBJLtGsVMJdwoDgTAAD9jij2L2N4pFuwVyyfsOnMxitm2ZwCgT40Bw57vKN09N7lu71ueoUgETA/3hXzzdAO3Bfj5ecai24jQhVRVu+xf6T5LuI8H9ADwEK2ciWPGd1Y8CQcACFPFQr40FnvGC6dQKklj/SqeF7nORf2oUHvC7nGxj2n55birHP2i8BII/VJu4yyNQPgSYHWordqZdu6H1WIsv2y+Eo3qkV84URydeRcbsLhF37tEE91IOItHAAA)"><img style="object-position:45% 45%" src="/assets/media/ge-vernova/gev-lounge-1400.webp" srcset="/assets/media/ge-vernova/gev-lounge-800.webp 800w, /assets/media/ge-vernova/gev-lounge-1400.webp 1400w, /assets/media/ge-vernova/gev-lounge-2200.webp 2200w" sizes="(max-width: 900px) 46vw, 24vw" width="4283" height="5354" alt="" fetchpriority="high" decoding="async"></span></div><div class="mtile is-tall"><span class="img is-portrait " style="--ar:4320/5400;--lqip:url(data:image/webp;base64,UklGRoQAAABXRUJQVlA4IHgAAACwBACdASoUABkAPuVgpk2pJaOiN/VYASAciUAYaqQAqiH3AcO+ku0YXTWsf9/4APtLsDyhUKVdz91XE6CPm/WVtqqXpMGhw0OLHoousrYdR3cZqqRWLC9MJ+xgdr+0Ryg6GjJttvLdaB2RPiQJYEFT9m2h6PPjMAA=)"><img style="object-position:50% 70%" src="/assets/media/plant-watering/plant-tall-1400.webp" srcset="/assets/media/plant-watering/plant-tall-800.webp 800w, /assets/media/plant-watering/plant-tall-1400.webp 1400w, /assets/media/plant-watering/plant-tall-2200.webp 2200w" sizes="(max-width: 900px) 46vw, 24vw" width="4320" height="5400" alt="" fetchpriority="high" decoding="async"></span></div></div>
     </div>
   </div>
 </section>
 
-<div class="divider"></div>
-
-<!-- RESUME DOWNLOAD -->
-<section class="section" id="resume" style="padding-top:90px;padding-bottom:90px">
-  <div class="resume-card r">
-    <div class="resume-card-left">
-      <h2>Resume Download</h2>
-      <p>Everything in one place, experience, certifications, skills, and projects.</p>
+<section class="sx sx-alt" id="experience">
+  <div class="container xp2">
+    <div class="xp2-side" data-reveal>
+      <h2>Experience</h2>
+      <p>Industry, research, and team roles. Currently with Lockheed Martin.</p>
+      <a class="sx-link" href="/experience/">Full experience &rarr;</a>
     </div>
-    <a href="Thompson_Resume.pdf" download class="btn-resume">
-      <svg viewBox="0 0 24 24"><path d="M12 15V3m0 12l-4-4m4 4l4-4"/><path d="M2 17l.621 2.485A2 2 0 0 0 4.561 21h14.878a2 2 0 0 0 1.94-1.515L22 17"/></svg>
-      Download PDF
+    <ol class="xp2-list" data-reveal><li><a class="xp2-row" href="/experience/#lockheed">
+      <img class="xp2-logo" src="/assets/logos/tile-lockheed-martin.svg" alt="" loading="lazy">
+      <span class="xp2-main"><span class="xp2-org">Lockheed Martin</span><span class="xp2-role">Missiles and Fire Control Engineer</span></span>
+      <span class="xp2-date">Oct 2026 to Present</span>
+    </a></li><li><a class="xp2-row" href="/work/ge-vernova/">
+      <img class="xp2-logo" src="/assets/logos/ge-vernova.svg" alt="" loading="lazy">
+      <span class="xp2-main"><span class="xp2-org">GE Vernova</span><span class="xp2-role">Manufacturing Engineering Intern</span></span>
+      <span class="xp2-date">May to Aug 2026</span>
+    </a></li><li class="xp2-group">
+      <div class="xp2-row xp2-head"><img class="xp2-logo" src="/assets/logos/tile-ucf.svg" alt="" loading="lazy"><span class="xp2-main"><span class="xp2-org">University of Central Florida</span><span class="xp2-role">4 roles</span></span></div>
+      <ol class="xp2-sub"><li><a class="xp2-subrow" href="/work/heat-pipe-research/"><span class="xp2-dot" aria-hidden="true"></span><span class="xp2-main"><span class="xp2-org">Undergraduate Researcher</span><span class="xp2-role">Interfacial Transport Lab</span></span><span class="xp2-date">Jun 2025 to Present</span></a></li><li><a class="xp2-subrow" href="/work/asme-robot/"><span class="xp2-dot" aria-hidden="true"></span><span class="xp2-main"><span class="xp2-org">Project Lead</span><span class="xp2-role">ASME Student Design Competition</span></span><span class="xp2-date">Sep 2025 to Present</span></a></li><li><a class="xp2-subrow" href="/work/baja-sae/"><span class="xp2-dot" aria-hidden="true"></span><span class="xp2-main"><span class="xp2-org">Machinist</span><span class="xp2-role">Baja SAE</span></span><span class="xp2-date">Aug 2025 to Aug 2026</span></a></li><li><a class="xp2-subrow" href="/experience/#robotics"><span class="xp2-dot" aria-hidden="true"></span><span class="xp2-main"><span class="xp2-org">Drive &amp; Science Team</span><span class="xp2-role">Robotics Club of Central Florida</span></span><span class="xp2-date">Aug to Dec 2025</span></a></li></ol>
+    </li></ol>
+  </div>
+</section>
+
+<section class="sx" id="projects">
+  <div class="container">
+    <div class="sx-head" data-reveal><h2>Projects</h2><a class="sx-link" href="/work/">All projects &rarr;</a></div>
+    <div class="gallery-grid"><a class="gtile gt-a" href="/work/ge-vernova/" data-vt-card data-filters="industry manufacturing" data-reveal style="--i:0">
+    <span class="img " style="--ar:2496/1664;--lqip:url(data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAACQAwCdASoUAA0APu1iqU2ppaOiMAgBMB2JYwCdACHfxkmDWKQUAP7kt+vUNwu4Lj/wnUfqO+aO561cmCm+CK8EAfgheieWZ0AAAA==)"><img src="/assets/media/ge-vernova/gev-brand-1400.webp" srcset="/assets/media/ge-vernova/gev-brand-800.webp 800w, /assets/media/ge-vernova/gev-brand-1400.webp 1400w, /assets/media/ge-vernova/gev-brand-2200.webp 2200w" sizes="(max-width: 560px) 100vw, 50vw" width="2496" height="1664" alt="GE Vernova" loading="lazy" decoding="async"></span>
+    <div class="gtile-cap">
+      <span class="gtile-year">Summer 2026</span>
+      <h3>GE Vernova</h3>
+      <p>Shop floor tooling, a kaizen that doubled throughput, a live maintenance dashboard, and an onboarding hub.</p>
+    </div>
+  </a><a class="gtile gt-b" href="/work/cnc-putter/" data-vt-card data-filters="manufacturing design" data-reveal style="--i:1">
+    <span class="img is-portrait " style="--ar:3024/4032;--lqip:url(data:image/webp;base64,UklGRsgAAABXRUJQVlA4ILwAAABwBQCdASoUABsAPuVep02pJSOiMAwBIByJZAC+TbAxlsc3T4tktWsVMn8L4s1zok9GYGAAAP04Zg2TPtx7pif7sxTNZgxAnowfPZLkcepZTuke1R70cqWNBAussl5dU3LZ07hsFHq4Z9LrS/+CF4yDEQ6nhlquwjYfbln98Pg70bL//ajeUWTYsxEDrG3Vhf9ksmKJbA+QfrZWoTk/907E2XbttPB49LzgW68MdcrJ7aEdNlFUIE6DewAAAA==)"><img src="/assets/media/cnc-putter/putter-head-1400.webp" srcset="/assets/media/cnc-putter/putter-head-800.webp 800w, /assets/media/cnc-putter/putter-head-1400.webp 1400w, /assets/media/cnc-putter/putter-head-2200.webp 2200w" sizes="(max-width: 560px) 100vw, 50vw" width="3024" height="4032" alt="CNC-Machined Putter" loading="lazy" decoding="async"></span>
+    <div class="gtile-cap">
+      <span class="gtile-year">Personal</span>
+      <h3>CNC-Machined Putter</h3>
+      <p>A putter head designed in CAD and machined from aluminum stock, start to finish.</p>
+    </div>
+  </a><a class="gtile gt-c" href="/work/robotic-arm/" data-vt-card data-filters="robotics design" data-reveal style="--i:2">
+    <span class="img " style="--ar:5712/4284;--lqip:url(data:image/webp;base64,UklGRpQAAABXRUJQVlA4IIgAAADwAwCdASoUAA8APu1iqU2ppaOiMAgBMB2JbACdMoAC/t/QaAmMzP2YAP7D/e5NF9qNmCq60qJNpG02XpzxzTXCAWGT4ibjsUJh46YDGrHGVg2plM8fJYqC6aEqJJg9p8FH4nGwje1mx+zeM/3KJttMpr2xxHieZO5o54EhR6qiW/++Te69qBAA)"><img src="/assets/media/robotic-arm/arm-hero-1400.webp" srcset="/assets/media/robotic-arm/arm-hero-800.webp 800w, /assets/media/robotic-arm/arm-hero-1400.webp 1400w, /assets/media/robotic-arm/arm-hero-2200.webp 2200w" sizes="(max-width: 560px) 100vw, 50vw" width="5712" height="4284" alt="4-Axis Robotic Arm" loading="lazy" decoding="async"></span>
+    <div class="gtile-cap">
+      <span class="gtile-year">2025</span>
+      <h3>4-Axis Robotic Arm</h3>
+      <p>A 3D-printed arm that mirrors a smaller input arm in real time through potentiometers.</p>
+    </div>
+  </a><a class="gtile gt-d" href="/work/solidworks-certification/" data-vt-card data-filters="design" data-reveal style="--i:3">
+    <span class="img is-portrait " style="--ar:3024/4032;--lqip:url(data:image/webp;base64,UklGRpwAAABXRUJQVlA4IJAAAADwBACdASoUABsAPu1iqk+ppSOiMBgIATAdiWUAwoAQ8OQHaYMqv+KDPAn9C9RaFAAA4gGaHl7NYtrOVvCPBkSy5PTl7Dy2rYPfqGwd/oPeru8Dm6eVvoeBbbF2pucw0+0IVS0LBoKhgcuNVZ2A/G3l8nxz444XMi/fZ2OTsk9nm9+he1CqYNCrkfWrOxercAA=)"><img src="/assets/media/solidworks-certification/sw-funnel-1400.webp" srcset="/assets/media/solidworks-certification/sw-funnel-800.webp 800w, /assets/media/solidworks-certification/sw-funnel-1400.webp 1400w, /assets/media/solidworks-certification/sw-funnel-2200.webp 2200w" sizes="(max-width: 560px) 100vw, 50vw" width="3024" height="4032" alt="SolidWorks, Self-Taught" loading="lazy" decoding="async"></span>
+    <div class="gtile-cap">
+      <span class="gtile-year">Summer 2025</span>
+      <h3>SolidWorks, Self-Taught</h3>
+      <p>Zero experience to CSWA and CSWP in one summer.</p>
+    </div>
+  </a><a class="gtile gt-e" href="/work/heat-pipe-research/" data-vt-card data-filters="research" data-reveal style="--i:0">
+    <span class="img is-portrait " style="--ar:4284/5712;--lqip:url(data:image/webp;base64,UklGRuoAAABXRUJQVlA4IN4AAABwBQCdASoUABsAPu1irVAppSQisBgIATAdiWMAvkmMdlaFtyNZy5urS4z3ckSJFqfUX12AAP7hX6hkWzw3PlwwrW/bfwMaFWDT70cHUxXEyAwOUtX/llSmPtMzq0okjMnsCqW56OtUdVnL9e92blrPHekI3/g4Q8k562DwfmAlceUYYZMFbdwae3TNIjrrXGwPMxt1oz2t4ZxDlK9waPXOVZYpOhW3uHre9eZTzeV3+i8va40+WFwe2rqwB520gO26JBYNpOMrlq1E3+5uYtusMMWSgv09BGubiSwMwAA=)"><img src="/assets/media/heat-pipe-research/php-imaging-1400.webp" srcset="/assets/media/heat-pipe-research/php-imaging-800.webp 800w, /assets/media/heat-pipe-research/php-imaging-1400.webp 1400w, /assets/media/heat-pipe-research/php-imaging-2200.webp 2200w" sizes="(max-width: 560px) 100vw, 50vw" width="4284" height="5712" alt="Pulsating Heat Pipe Research" loading="lazy" decoding="async"></span>
+    <div class="gtile-cap">
+      <span class="gtile-year">2025 to Present</span>
+      <h3>Pulsating Heat Pipe Research</h3>
+      <p>Passive two-phase cooling: ANSYS CFD, SolidWorks, aluminum prototypes, and a co-authored research paper.</p>
+    </div>
+  </a><a class="gtile gt-f" href="/work/asme-robot/" data-vt-card data-filters="robotics design" data-reveal style="--i:1">
+    <span class="img is-portrait " style="--ar:1119/1458;--lqip:url(data:image/webp;base64,UklGRuAAAABXRUJQVlA4INQAAACQBQCdASoUABoAPu1srFEppaQiqAqpMB2JYwC/7YwcYSiAnRfLiwzhHC5hvGNV9av9n8NJwAD+RUn+YrEwWaYyMDgp6A1dSzbJ9ETxEwOgxvFTOxk83yGdQz74aPDHJmIqTwBcUCX5E+SF8u98itnNcJEjPJLpRVRnsY/bwaHzsG28cbDKOduSNl0j+t+c00b2+WdMx1JQYWsvRSHsicKSR27uJXA/36fU/rq/BTuAs+M28kg56KZ+PqBzIP35cLNuaKkzX2icDgDB2K/8JP52aAAAAA==)"><img src="/assets/media/asme-robot/asme-robot-1119.webp" srcset="/assets/media/asme-robot/asme-robot-800.webp 800w, /assets/media/asme-robot/asme-robot-1119.webp 1119w" sizes="(max-width: 560px) 100vw, 50vw" width="1119" height="1458" alt="Autonomous Waste-Collection Robot" loading="lazy" decoding="async"></span>
+    <div class="gtile-cap">
+      <span class="gtile-year">2025 to Present</span>
+      <h3>Autonomous Waste-Collection Robot</h3>
+      <p>Led 60+ members to build a robot that collects, sorts, and disposes of waste in a mock city.</p>
+    </div>
+  </a><a class="gtile gt-g is-logo" href="/work/fledge/" data-vt-card data-filters="software design" data-reveal style="--i:2">
+    <span class="fl-logo" role="img" aria-label="Fledge"><svg class="fl-feather" viewBox="125 30 138 308" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M194.25 36.36C198.57 38.02 204.71 46.07 208.19 49.58C219.62 61.13 234.15 72.6 238.83 88.86C240.27 93.89 241.3 99 241.41 104.25C241.5 108.64 240.69 113.8 241.75 118.03C246.75 113.51 251.75 108.98 256.75 104.45C257.94 108.77 257.13 114.25 257.13 118.75C257.12 128.58 257.11 138.42 257.13 148.25C257.13 152.58 258.31 161.89 256.89 165.65C255.72 168.75 250.59 172.15 248.25 174.49C240.9 181.81 233.68 189.27 226.37 196.62C220.14 202.89 213.87 209.12 207.69 215.44C205.57 217.6 201.51 220.23 200.3 223.03C199.5 224.86 199.76 235.26 200.75 236.62C205.61 232.69 209.69 227.77 214.17 223.42C222.78 215.06 231.41 206.63 239.72 197.98C243.33 194.21 252.56 183.81 256.75 182.01C258.45 188.35 257.12 196.66 257.13 203.25C257.16 219.79 259.87 238.64 249.61 252.86C245.3 258.83 239.42 263.8 234.24 268.99C227.42 275.83 220.71 282.8 213.83 289.59C210.3 293.07 202.29 299.35 200.35 303.61C199.3 305.9 200.03 309.75 200.03 312.25C200.03 319.03 201.01 326.69 199.75 333.34C196.25 333.34 192.75 333.34 189.25 333.34C188.07 326.64 188.97 319.07 188.98 312.25C188.98 309.72 189.69 305.89 188.69 303.55C187.19 300.02 173.74 288.08 170.22 284.54C157.24 271.49 137.72 256.4 133.09 238.22C131.28 231.14 131.94 223.52 131.94 216.25C131.93 211.14 131 204.89 132.25 199.97C151.08 218.33 169.92 236.69 188.75 255.05C189.32 251.57 190.07 244.32 188.7 241.04C187.33 237.78 177.58 229.69 174.61 226.64C164.99 216.77 155.19 207.05 145.5 197.25C142.31 194.03 134.27 187.49 132.34 183.92C131.03 181.49 131.95 166.94 131.94 163.25C131.92 149.92 131.93 136.58 131.93 123.25C131.93 117.28 130.76 109.79 132.25 104.05C137.25 108.69 142.25 113.33 147.25 117.98C148.4 114.74 147.6 110.24 147.64 106.75C147.71 100.61 148.41 94.43 150.3 88.56C154.9 74.26 166.57 63.9 176.89 53.63C182.53 48.01 187.85 41.1 194.25 36.36ZM188.96 58.21C184.93 59.28 177.1 69.24 173.85 72.61C160.34 86.6 158.88 96.12 158.91 115.25C158.91 119.48 157.74 125.68 159.05 129.69C159.63 131.46 162.38 133.27 163.68 134.56C167.61 138.47 171.5 142.42 175.41 146.34C178.62 149.56 185.04 158.01 188.96 159.25C188.96 125.57 188.96 91.89 188.96 58.21ZM200.75 58C199.11 60.01 200.04 71.02 200.04 74.25C200.05 87.75 200.03 101.25 200.04 114.75C200.04 118.09 199.1 127.38 200.75 129.68C208.14 122.72 215.12 115.23 222.24 107.98C224.28 105.91 228.9 102.9 229.75 100.07C230.76 96.73 227.67 90.91 226.41 87.83C222.93 79.38 208.2 63.66 200.75 58ZM229.75 116.19C224.35 119.59 213.13 132.55 208.04 137.78C205.77 140.11 201.79 142.65 200.34 145.58C199.48 147.31 199.79 158.31 200.75 159.65C207.77 153.96 213.97 146.49 220.25 140C223.21 136.94 227.85 133.89 229.96 130.17C230.89 128.53 230.47 117.95 229.75 116.19ZM143.75 130.42C142.44 132 143.03 135.09 143.03 137.25C143.03 142.75 143.04 148.25 143.04 153.75C143.04 158.8 141.93 175.25 143.27 179.01C144.43 182.27 151.9 188.07 154.59 190.66C163.17 198.9 171.13 207.79 179.76 215.99C182.48 218.58 185.27 223.02 188.75 224.42C190.39 215.23 188.98 200.09 188.98 190.25C188.98 186.17 190.19 179.77 188.75 175.95C187.46 172.51 178.88 165.68 175.98 162.77C165.35 152.1 155.28 140.08 143.75 130.42ZM245.75 130.75C241.45 132.14 234.02 142.1 230.33 145.57C222.72 152.72 215.29 160.29 208.1 167.86C205.97 170.11 201.34 173.02 200.23 175.92C198.94 179.32 200.04 187.83 200.04 191.75C200.04 194.81 199.18 204.58 200.75 206.51C212.32 196.99 222.55 185 233.1 174.36C235.38 172.05 244.96 163.85 245.84 161.62C246.78 159.23 246.03 155.31 246.03 152.75C246.04 145.88 247.34 137.42 245.75 130.75ZM245.75 208.23C242.28 209.39 232.09 221.3 228.82 224.59C221.86 231.62 214.77 238.52 207.9 245.64C205.7 247.93 201.52 250.5 200.26 253.47C198.76 257.03 200.04 267.48 200.04 271.75C200.04 275.1 199.11 284.3 200.75 286.66C207.88 281 214.04 273.67 220.45 267.21C228.98 258.63 241.12 250.07 244.77 238.06C246.5 232.33 246.02 226.16 246.02 220.25C246.02 216.4 246.59 211.99 245.75 208.23ZM143.75 226.6C141.17 229.93 145.7 241.93 147.99 245.29C153.05 252.71 160.35 258.72 166.65 265.08C173.67 272.17 180.42 280.36 188.25 286.55C189.33 285.25 189.45 274.45 188.84 272.36C188.58 271.46 187.59 270.48 186.97 269.79C178.48 260.5 168.95 252.09 160.22 243.04C155.09 237.71 149.83 230.81 143.75 226.6Z"/></svg><span class="fl-word">Fledge</span></span>
+    <div class="gtile-cap">
+      <span class="gtile-year">Live</span>
+      <h3>Fledge</h3>
+      <p>A job application tracker for students, with a Chrome extension that fills in applications for you.</p>
+    </div>
+  </a><a class="gtile gt-h" href="/work/baja-sae/" data-vt-card data-filters="manufacturing" data-reveal style="--i:3">
+    <span class="img is-portrait " style="--ar:4284/5712;--lqip:url(data:image/webp;base64,UklGRswAAABXRUJQVlA4IMAAAACQBQCdASoUABsAPu1irVAppSQisBgIATAdiWUAt7wIAJ2Zp6DLXB5FQtAoc7PcNI8C4SCeAAD8tDzGV59Ho+SLbmETJECzT/x+bYDypgIGnJIsVkt5JfiHuCvh8gmvktjZYLfJ1es/OfKt3wOmGoE+zKRVVFdi243iNHA4yURfwKw5//PcxJnLtMqptymXaEAbZeb4ZzR4k0JVZ/7F4dnaEPrdJan4rpwEPlu4mjcZ4aO3FYbyL7q/ALxq39foAAA=)"><img src="/assets/media/baja-sae/baja-mill-1400.webp" srcset="/assets/media/baja-sae/baja-mill-800.webp 800w, /assets/media/baja-sae/baja-mill-1400.webp 1400w, /assets/media/baja-sae/baja-mill-2200.webp 2200w" sizes="(max-width: 560px) 100vw, 50vw" width="4284" height="5712" alt="Baja SAE Components" loading="lazy" decoding="async"></span>
+    <div class="gtile-cap">
+      <span class="gtile-year">2025 to 2026</span>
+      <h3>Baja SAE Components</h3>
+      <p>Drivetrain and chassis parts for an off-road race vehicle, held to ±0.005&quot;.</p>
+    </div>
+  </a></div>
+  </div>
+</section>
+
+<section class="sx" id="about">
+  <div class="container">
+    <a class="ab-more" href="/about/" data-reveal>More about me <span aria-hidden="true">&rarr;</span></a>
+  </div>
+</section>
+
+<section class="sx pmos" id="photography">
+  <div class="container pmos-grid">
+    <a class="mosaic pmos-mosaic" href="/photography/" aria-label="Photography gallery">
+      <div class="mcol"><div class="mtile is-tall"><span class="img is-portrait " style="--ar:4284/5712;--lqip:url(data:image/webp;base64,UklGRsQAAABXRUJQVlA4ILgAAAAwBQCdASoUABsAPu1qrVCppaQiqAqpMB2JYwCw7Auq4l3Ph7tjrnknHtU3aqdFnoQ6oAD+yJJN5oxksdvKXEIgFP/wkwrQo7MnmWyUakM/kk74REyquPpS7VSdlwzjMED+gTeQwipwBBIILt64d7F6wuxhbRCbLD+ozs8P3O8sPZcFFX2PNHeRvlvFKfEVwanbVDiuO1xmj3mkyGxSVCAFwgXVp1SQwdF3bhPCR6UqchjSoe0w7KQA)"><img style="object-position:50% 40%" src="/assets/media/photography/photo-img-7161-1400.webp" srcset="/assets/media/photography/photo-img-7161-800.webp 800w, /assets/media/photography/photo-img-7161-1400.webp 1400w, /assets/media/photography/photo-img-7161-2200.webp 2200w" sizes="(max-width: 900px) 46vw, 24vw" width="4284" height="5712" alt="" fetchpriority="high" decoding="async"></span></div><div class="mtile is-short"><span class="img is-portrait " style="--ar:1242/2208;--lqip:url(data:image/webp;base64,UklGRsIAAABXRUJQVlA4ILYAAABQBQCdASoUACQAPu1oqk6ppiQiKqwBMB2JZwC7ABQ9PWwYPlGN84TvzBne8xnajlPClgAA/ufVRWgBJlCA6WSBH9lNLkqGLuBZqN2AXuSSjblbAoHsw3sPpQWGb0Fo5eoBbBZpH8ZM1uvFYh4BKpfCJzAVE2vS5M/53EbRyNTEGHkO0Drkm2MNxudmpJiFFpUU3bDgsccy16dERMdyCCUB/ltX7PdrHqBGO50WiU5osAfBIw4AAA==)"><img style="object-position:50% 45%" src="/assets/media/photography/photo-img-8310-1242.webp" srcset="/assets/media/photography/photo-img-8310-800.webp 800w, /assets/media/photography/photo-img-8310-1242.webp 1242w" sizes="(max-width: 900px) 46vw, 24vw" width="1242" height="2208" alt="" fetchpriority="high" decoding="async"></span></div></div>
+      <div class="mcol"><div class="mtile is-short"><span class="img " style="--ar:2306/1536;--lqip:url(data:image/webp;base64,UklGRnYAAABXRUJQVlA4IGoAAADwAwCdASoUAA0APu1iqU2ppaOiMAgBMB2JQBOmUABsDti52h3VyEx2AP7e1llUgWOZl3Sm9+m3PMkl/3TDUeG6UOAu5CEgs+M4YMMidZl7+3oAwNaGRbcHm6lZUWBAFISB4vuYJli6tQAA)"><img style="object-position:50% 50%" src="/assets/media/photography/photo-img-7856-1400.webp" srcset="/assets/media/photography/photo-img-7856-800.webp 800w, /assets/media/photography/photo-img-7856-1400.webp 1400w, /assets/media/photography/photo-img-7856-2200.webp 2200w" sizes="(max-width: 900px) 46vw, 24vw" width="2306" height="1536" alt="" fetchpriority="high" decoding="async"></span></div><div class="mtile is-tall"><span class="img is-portrait " style="--ar:1536/2304;--lqip:url(data:image/webp;base64,UklGRsQAAABXRUJQVlA4ILgAAABQBQCdASoUAB4APu1sq1EppaOiqAqpMB2JaACdMyGFMfXSo4x4oOtCqaQM1HFmc1F4Y1AA/d8C+/U435mS6+Xhp+1Sx9bJRWjllcQfyNgtRili38qISTM+6yMzcB5Km3sQ8WkSsOqFSxX3QRcCDzPtOikkTPhhSH+ocfcy/1UlLHaaIjVr8JmTLPHDEaYH/+huixC7YejrfTtKH50PXZ4gN8U0JJ/BfrnRIf4DEvjcYULhpCv73gAA)"><img style="object-position:50% 50%" src="/assets/media/photography/photo-img-7808-1400.webp" srcset="/assets/media/photography/photo-img-7808-800.webp 800w, /assets/media/photography/photo-img-7808-1400.webp 1400w, /assets/media/photography/photo-img-7808-1536.webp 1536w" sizes="(max-width: 900px) 46vw, 24vw" width="1536" height="2304" alt="" fetchpriority="high" decoding="async"></span></div></div>
     </a>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- CONTACT -->
-<section class="section" id="contact" style="padding-bottom:120px">
-  <div class="contact-box r">
-    <span class="eyebrow" style="display:block;margin-bottom:22px">Contact</span>
-    <h2 class="contact-title">Get in Touch</h2>
-    <p class="contact-sub">Feel free to reach out if you have any questions, want to connect, or just want to talk engineering.</p>
-    <div class="contact-links">
-      <a href="mailto:dylan.thompson542@gmail.com" class="btn btn-fill">dylan.thompson542@gmail.com</a>
-      <a href="https://linkedin.com/in/dylanthompson01" target="_blank" class="btn btn-outline">LinkedIn →</a>
+    <div class="pmos-text" data-reveal>
+      <h2>Photography</h2>
+      <p>Something I’ve gotten into recently. Mostly trips, cities, and things I notice day to day.</p>
+      <a class="psplit-link" href="/photography/">View all &rarr;</a>
     </div>
   </div>
 </section>
 
-<footer>
-  <p>© 2026 Dylan Thompson &nbsp;·&nbsp; Mechanical Engineering @ UCF &nbsp;·&nbsp; Orlando, FL</p>
+<section class="sx sx-contact" id="contact">
+  <div class="container" data-reveal>
+    <h2>Let’s connect.</h2>
+    <p>Open to internships, co-ops, research, and conversations about engineering.</p>
+    <div class="ct-row">
+      <a class="ct-mail" href="mailto:dylan.thompson542@gmail.com">dylan.thompson542@gmail.com</a>
+      <button class="copy-btn" data-copy="dylan.thompson542@gmail.com" aria-label="Copy email address"><span class="i-copy"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="3"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg></span><span class="i-check"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg></span></button>
+    </div>
+    <div class="ct-links"><a href="https://www.linkedin.com/in/dylanthompson01/" target="_blank" rel="noopener">LinkedIn &rarr;</a><a href="/Thompson_Resume.pdf" target="_blank" rel="noopener">Resume &rarr;</a></div>
+  </div>
+</section>
+</main>
+<footer class="footer">
+  <div class="container footer-row">
+    <span>© 2026 Dylan Thompson</span>
+    <div class="footer-social">
+      <a href="https://www.linkedin.com/in/dylanthompson01/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true" class="fill"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.75h4v11H3v-11Zm6.5 0h3.8v1.5h.06c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.77 2.65 4.77 6.1v5.45h-4v-4.83c0-1.15-.02-2.63-1.6-2.63-1.6 0-1.85 1.25-1.85 2.55v4.91h-4v-11Z"/></svg></a>
+      <a href="https://github.com/dylanthompson01" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24" aria-hidden="true" class="fill"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
+    </div>
+  </div>
 </footer>
-
-<!-- PROJECT MODAL -->
-<div class="modal-overlay" id="modal" onclick="handleOverlayClick(event)">
-  <div class="modal-box" id="modal-box">
-    <button class="modal-close" onclick="closeModal()">
-      <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-    </button>
-  <div class="modal-gallery-wrap">
-    <button class="modal-nav-btn modal-nav-left" onclick="scrollGallery(-1)"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
-    <div class="modal-gallery" id="modal-gallery"></div>
-    <button class="modal-nav-btn modal-nav-right" onclick="scrollGallery(1)"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
-  </div>
-    <div class="modal-content">
-      <div class="modal-tag" id="modal-tag"></div>
-      <h2 class="modal-title" id="modal-title"></h2>
-      <p class="modal-desc" id="modal-desc"></p>
-    </div>
-  </div>
+<div class="lightbox" data-lightbox hidden>
+  <button class="round-btn lb-close" data-lb-close aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  <button class="round-btn lb-prev" data-lb-prev aria-label="Previous image"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+  <figure class="lb-stage"><img alt=""><figcaption></figcaption></figure>
+  <button class="round-btn lb-next" data-lb-next aria-label="Next image"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+  <span class="lb-count"></span>
 </div>
-
-<script>
-// Always start at top on load
-window.addEventListener('beforeunload', () => window.scrollTo(0, 0));
-if (history.scrollRestoration) history.scrollRestoration = 'manual';
-window.scrollTo(0, 0);
-
-// Nav scroll + active link
-const nav = document.getElementById('nav');
-const navLinks = document.querySelectorAll('.nav-center a');
-window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 60);
-  let cur = '';
-  document.querySelectorAll('section[id]').forEach(s => {
-    if (window.scrollY >= s.offsetTop - 220) cur = s.id;
-  });
-  navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + cur));
-}, {passive:true});
-
-// Scroll reveal
-const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); obs.unobserve(e.target); }});
-}, {threshold:0.08, rootMargin:'0px 0px -50px 0px'});
-document.querySelectorAll('.r').forEach(el => obs.observe(el));
-
-// Project data
-const projects = {
-  gev: {
-    title: 'GE Vernova: Supply Chain Manufacturing',
-    tag: 'Internship · Summer 2026',
-    desc: "My main project has been PM (preventive maintenance) and getting it integrated with IBM Maximo. I built Power Query workflows that pull data from multiple Excel documents into one live spreadsheet that updates automatically and prioritizes maintenance tasks by urgency. On top of that I redesigned Maximo's UI. To figure out what actually needed to change, I did a plant walk and went around the floor interviewing different shop workers, getting them to explain exactly what was frustrating about the system, then went and made those changes. I've also been working with lead engineers on CAD design, creating drawings, and getting parts manufactured to solve specific problems on the floor. And I'm collaborating with another associate on the commercial side to build an HTML training website that puts all the onboarding documents for new hires and interns in commercial operations in one place. Wrapping up the summer with a full presentation to floor workers on capacitors and instrument transformers.",
-    images: [
-      'IMG_6320.jpeg',
-      'IMG_6490.jpeg',
-      'IMG_6572.jpeg',
-      'IMG_6583.jpeg',
-      'IMG_6671.jpeg',
-      'IMG_6833.jpeg',
-      'IMG_6835.jpeg',
-      'IMG_7081.jpeg',
-      'IMG_6904.jpeg'
-    ],
-    videos: []
-  },
-  cooling: {
-    title: 'Liquid Cooling Loop',
-    tag: 'In Progress · Thermal Systems',
-    desc: "Currently building a liquid cooling loop from scratch to understand how GPU liquid cooling actually works. The plan is to 3D print the main components including the reservoir, design and test different waterblock configurations, and run ANSYS CFD on each to compare thermal performance. It's a way to apply heat transfer concepts hands-on outside of research. Photos coming as the build progresses.",
-    images: [],
-    videos: []
-  },
-  arm: {
-    title: '4-Axis Robotic Arm',
-    tag: 'Robotics · CAD',
-    desc: "I designed and built a 4-axis robotic arm in SolidWorks. The way it's controlled is through a smaller master arm, when you move the master arm, the larger arm mirrors it in real time through potentiometers feeding position data to the servo driver. No complex code in between, just the servos reacting to the potentiometer readings. This was my first big project going into fall semester and taught me a lot about servo systems, CAD, and fabrication.",
-    images: ['IMG_3758.jpeg', 'IMG_3613.jpeg'],
-    videos: ['arm_video1.mov', 'arm_video3.mov']
-  },
-  php: {
-    title: 'Pulsating Heat Pipe Research',
-    tag: 'Research · CFD',
-    desc: "As an undergraduate researcher at UCF's Interfacial Transport Lab I've been working on pulsating heat pipes. PHPs are passive thermal devices that move heat through two-phase fluid oscillations instead of a pump. My work involved running CFD analysis in ANSYS on a single-loop aluminum prototype, building a SolidWorks exploded-view model, working with the UCF machine shop on fabricating the actual prototype, co-authoring the research paper abstract, and debugging Python scripts used to visualize the oscillation data.",
-    images: [
-      'IMG_4716.jpeg',
-      'IMG_3318.jpeg',
-      'IMG_3320.jpeg',
-      'IMG_3988.jpeg'
-    ]
-  },
-  robot: {
-    title: 'ASME Waste Collection Robot',
-    tag: 'Autonomous Systems',
-    desc: "As project lead for ASME's 2025-26 Student Design Competition I led a team of 60+ members to design, build, and demonstrate a robot that could collect, sort, and dispose of waste in a mock city environment. That meant coordinating CAD, prototyping, testing, and all the competition documentation across the full academic year. The robot had to navigate different terrain types including inclines and handle multiple types of waste. We ran the full design cycle from kickoff meetings and field schematics, through SolidWorks chassis design, 3D printing, electronics integration, and finally competition day.",
-    images: [
-      'IMG_6208.jpeg',
-      'IMG_6212.jpeg',
-      'IMG_3938.jpeg',
-      'IMG_4204.jpeg',
-      'IMG_4722.jpeg',
-      'IMG_4822.jpeg',
-      'IMG_5368.jpeg',
-      'IMG_4823.jpeg',
-      'IMG_5702.jpeg',
-      'IMG_5839.jpeg',
-      'IMG_5742.jpeg'
-    ],
-    videos: ['robot_video2.mov', 'robot_video3.mov', 'robot_video4.mov']
-  },
-  plant: {
-    title: 'Automatic Plant Watering System',
-    tag: 'Arduino · First Build',
-    desc: "My first engineering project, built with a friend. An Arduino-powered automatic plant watering system in a custom 3D printed enclosure. A moisture sensor detects when the soil gets dry and triggers a pump to water the plant automatically. The window cut into the side lets you check the water reservoir level at a glance. Simple concept but fully functional, my first real intro to Arduino, electronics, and designing something from the ground up.",
-    images: ['DSC_0729.jpeg']
-  },
-  baja: {
-    title: 'Baja SAE Race Components',
-    tag: 'Manufacturing · CNC',
-    desc: "As a machinist on UCF's Baja SAE team I machine the precision parts that go into our competition vehicle. I work on a CNC lathe (ProtoTRAK) and manual mill, cutting components to tight tolerances that have to hold up through endurance, acceleration, and maneuverability events. Joined after someone at GE Vernova recommended I get more manufacturing experience, and it's been one of the best decisions I made freshman year.",
-    images: ['IMG_4113.jpeg', 'IMG_4114.jpeg'],
-    videos: []
-  },
-  boat: {
-    title: 'RC Boat, Great Naval Orange Race',
-    tag: '3D Printed · UCF Competition',
-    desc: "Built a fully functional RC boat from scratch for UCF's Great Naval Orange Race. Started by designing the hull and internal component layout in SolidWorks, then printed it on a Bambu Lab printer. After printing I painted the hull black and waterproofed it, installed a brushless motor, ESC, servo for steering, and receiver, then took it to the pool for testing. The whole build, from CAD to the water, was done from scratch.",
-    images: [
-      'IMG_5526.png',
-      'IMG_5927.jpeg',
-      'IMG_5208.jpeg',
-      'IMG_5322.jpeg',
-      'IMG_5386.jpeg',
-      'IMG_5323.jpeg',
-      'IMG_5536.jpeg'
-    ],
-    videos: ['boat_video1.mov']
-  },
-  putter: {
-    title: 'Custom CNC Golf Putter',
-    tag: 'CNC · Personal Project',
-    desc: "I designed a golf putter head and machined it myself on a CNC machine from aluminum stock. The whole thing was done by me, from the CAD model to the finished part. It's one of those projects that pushed my machining skills because a putter head has angled faces, tight tolerances, and a drilled shaft hole that all have to come together cleanly. The surface finish on the final part came out exactly how I wanted it.",
-    images: ['IMG_6734.jpeg'],
-    videos: ['putter_video1.mov', 'putter_video2.mov']
-  },
-  solidworks: {
-    tag: 'Self-Taught · Summer 2025',
-    desc: "Going into college I had zero SolidWorks experience. I spent the summer teaching myself from scratch, no class, no tutor. I worked through part modeling, assemblies, and drawings by building practice parts every day. By the end of summer I passed the CSWA with a 235 out of 240, and then pushed further to earn my CSWP as well. These photos show some of the parts I modeled along the way, from basic practice problems to more complex geometry.",
-    images: [
-      'IMG_3363.jpeg',
-      'IMG_3285.jpeg',
-      'IMG_3286.jpeg',
-      'IMG_2929.jpeg',
-      'IMG_3359.jpeg',
-      'IMG_3362.jpeg',
-      'IMG_3357.jpeg',
-      'IMG_3018.jpeg'
-    ]
-  }
-};
-
-function toggleProjects() {
-  const extra = document.getElementById('proj-extra');
-  const btn = document.getElementById('proj-toggle-btn');
-  const label = document.getElementById('proj-toggle-label');
-  const isOpen = extra.classList.toggle('open');
-  btn.classList.toggle('open', isOpen);
-  label.textContent = isOpen ? 'Show less' : 'View all 10 projects';
-  if (isOpen) {
-    setTimeout(() => extra.scrollIntoView({behavior:'smooth', block:'nearest'}), 80);
-  }
-}
-
-
-function openProject(id) {
-  const p = projects[id];
-  if (!p) return;
-  document.getElementById('modal-tag').textContent = p.tag;
-  document.getElementById('modal-title').textContent = p.title;
-  document.getElementById('modal-desc').textContent = p.desc;
-  const gallery = document.getElementById('modal-gallery');
-  const imgs = p.images || [];
-  const vids = p.videos || [];
-  if (imgs.length === 0 && vids.length === 0) {
-    gallery.classList.remove('has-imgs');
-    gallery.innerHTML = `<div class="modal-gallery-ph"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>Photos coming soon</span></div>`;
-  } else {
-    gallery.classList.add('has-imgs');
-    const imgHTML = imgs.map(src => `<img src="${src}" alt="${p.title}">`).join('');
-    const vidHTML = vids.map(src => `<video controls playsinline preload="metadata"><source src="${src}" type="video/mp4"><source src="${src}" type="video/quicktime"></video>`).join('');
-    gallery.innerHTML = imgHTML + vidHTML;
-  }
-  document.getElementById('modal').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-
-function scrollGallery(dir) {
-  const g = document.getElementById('modal-gallery');
-  g.scrollBy({left: dir * 400, behavior: 'smooth'});
-}
-
-function closeModal() {
-  document.getElementById('modal').classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-function handleOverlayClick(e) {
-  if (e.target === document.getElementById('modal')) closeModal();
-}
-
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-
-// Helpers for adding content later
-window.setPhoto = src => {
-  const b = document.getElementById('about-photo');
-  b.innerHTML = `<img src="${src}" alt="Dylan Thompson">`;
-};
-window.addProjectImage = (id, src) => {
-  if (projects[id]) projects[id].images.push(src);
-};
-window.setCardImage = (id, src) => {
-  const b = document.getElementById('proj-' + id);
-  if (b) b.innerHTML = `<img src="${src}" alt="Project">`;
-};
-</script>
+<div class="toast" data-toast role="status" aria-live="polite"></div>
 </body>
 </html>
