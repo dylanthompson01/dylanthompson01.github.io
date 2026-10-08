@@ -1504,3 +1504,8 @@ main { flex: 1; }
 .hx.is-min .mos-toggle { padding: 0 .85rem 0 .7rem; }
 
 .hx.is-min .mos-wrap .mosaic { width: 0; flex: 0 0 0; overflow: hidden; }
+
+/* minimized: photos and button both gone until refresh */
+.hx.is-min .mos-toggle { display: none; }
+.hx.is-min .hx-grid { grid-template-columns: 1fr; }
+.hx.is-min .mos-wrap { display: none; }
