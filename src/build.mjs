@@ -129,7 +129,7 @@ const NAV = [
 ];
 
 function layout({ path, title, description = site.description, section = '', body, models = false, image = '/assets/og.jpg', jsonld = '', bare = false }) {
-  const fullTitle = title ? `${title} · ${site.name}` : `${site.name} · Mechanical Engineering`;
+  const fullTitle = title ? `${title} · ${site.name}` : site.name;
   const url = site.url + path;
   const links = NAV.map(([href, label, id]) => `<a href="${href}"${section === id ? ' aria-current="page"' : ''}>${label}</a>`).join('');
   return `<!doctype html>
@@ -492,7 +492,7 @@ ${pageHead('Work', 'Projects', 'Industry work, research, robotics, and things I 
   </div>
 </section>
 ${cta()}`;
-  return layout({ path: '/work/', title: 'Work', section: 'work', body, description: 'Projects by Dylan Thompson: GE Vernova, Fledge, ASME robotics, heat pipe research, CNC machining, and more.' });
+  return layout({ path: '/work/', title: 'Projects', section: 'work', body, description: 'Projects by Dylan Thompson: GE Vernova, Fledge, ASME robotics, heat pipe research, CNC machining, and more.' });
 }
 
 function projectPage(p, idx) {
