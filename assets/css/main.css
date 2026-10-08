@@ -1509,3 +1509,8 @@ main { flex: 1; }
 .hx.is-min .mos-toggle { display: none; }
 .hx.is-min .hx-grid { grid-template-columns: 1fr; }
 .hx.is-min .mos-wrap { display: none; }
+
+/* smaller minimize button */
+.mos-toggle { height: 1.2rem; min-width: 1.2rem; width: 1.2rem; padding: 0; top: -.45rem; right: -.45rem; }
+.mos-ico { width: .45rem; height: .45rem; }
+.mos-ico::before, .mos-ico::after { height: 1.2px; }
