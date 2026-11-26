@@ -42,9 +42,11 @@ export const home = {
     { slug: 'liquid-cooling', media: null },
   ],
   about: [
-    'I grew up building things, from LEGO to circuits. Before my first semester at UCF, I taught myself SolidWorks and earned my CSWA and CSWP.',
-    'Since then I’ve machined Baja SAE race parts, researched heat pipes, led a 60+ member ASME team, and doubled a production line’s throughput at GE Vernova.',
+    'I’ve always loved building and creating. It started with LEGO and electronics, and going into college I set out to become the best version of myself and learn as much as I could.',
+    'Now I’m putting that to work in industry, at Lockheed Martin today and GE Vernova before that, where I ==helped double a production line’s throughput==. Just as much as building, I love teaching other people what I’ve learned.',
   ],
+  // "Outside of work" section on the home page.
+  freeTime: '==Most of my free time goes to AI==. I’m always experimenting with new tools, building small projects with them, and learning how they actually work.',
   background: 'sunset',
   // "About me" section on the home page: past, present, future.
   story: [
@@ -78,7 +80,7 @@ export const home = {
 export const experience = [
   {
     id: 'lockheed',
-    youtube: 'yJjioe4qafA', // muted looping company video on the homepage card
+    youtube: 'wyK20Q9xxsY', // muted looping company video on the homepage card
     pill: 'lockheedmartin.com',
     org: 'Lockheed Martin',
     role: 'Missiles and Fire Control Engineer',

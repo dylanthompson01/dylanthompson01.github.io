@@ -80,8 +80,16 @@
   const hero = $('[data-hero]');
   if (hero) {
     const go = () => requestAnimationFrame(() => requestAnimationFrame(() => hero.classList.add('is-ready')));
-    const fontReady = document.fonts && document.fonts.load ? document.fonts.load('italic 400 1em "Cormorant Garamond"') : Promise.resolve();
+    const fontReady = document.fonts && document.fonts.load ? document.fonts.load('400 1em "Pinyon Script"') : Promise.resolve();
     Promise.race([fontReady, new Promise((r) => setTimeout(r, 1200))]).then(go);
+  }
+
+  /* ── scroll hint: fades once you start scrolling ──────────────────── */
+  const hint = $('[data-scroll-hint]');
+  if (hint) {
+    const check = () => hint.classList.toggle('is-gone', scrollY > 40);
+    addEventListener('scroll', check, { passive: true });
+    check();
   }
 
   /* ── intro: click the photo to flip to the next one ──────────────── */
@@ -123,6 +131,12 @@
     }, { rootMargin: '200px 0px' });
     yts.forEach((el) => ytIO.observe(el));
   }
+
+  /* ── highlighter marks sweep in when you reach them ─────────────────── */
+  const hlIO = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('is-on'); hlIO.unobserve(e.target); } });
+  }, { rootMargin: '0px 0px -20% 0px', threshold: 1 });
+  $$('mark.hl').forEach((m) => hlIO.observe(m));
 
   /* ── project viewer: hover or focus a build to preview it ──────────── */
   const bench = $('[data-bench]');

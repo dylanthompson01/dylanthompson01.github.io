@@ -155,7 +155,7 @@ function layout({ path, title, description = site.description, section = 'home',
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <link rel="preload" href="/assets/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/assets/fonts/CormorantGaramond-Italic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/PinyonScript.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/css/main.css?v=${V}">
 <script>document.documentElement.classList.add('js');if('onpagereveal' in window)document.documentElement.classList.add('vt')</script>
 ${models ? `<script type="module" src="${MODEL_VIEWER}"></script>\n` : ''}${jsonld}<script src="/assets/js/vt.js?v=${V}"></script>
@@ -348,6 +348,7 @@ function homePage() {
     <h1 class="sig" data-sig>Dylan Thompson</h1>
     <p class="hero-tag">${md(home.tagline)}</p>
   </div>
+  <a class="scroll-hint" href="#intro" data-scroll-hint aria-label="Scroll down"><span class="scroll-mouse" aria-hidden="true"><span></span></span></a>
 </section>
 
 <section class="intro" id="intro">
@@ -356,7 +357,6 @@ function homePage() {
       <button class="stack" data-stack aria-label="Show the next photo of Dylan">
         ${home.photos.slice().reverse().map((name) => `<span class="stack-card">${picture(name, { alt: site.name, sizes: '(max-width: 760px) 74vw, 360px' })}</span>`).join('')}
       </button>
-      <figcaption class="stack-hint">Click to flip</figcaption>
     </figure>
     <div class="intro-copy">
       ${home.about.map((t) => `<p>${md(t)}</p>`).join('')}
@@ -390,12 +390,14 @@ function homePage() {
   </div>
 </section>
 
-<section class="sec" id="photography">
+<section class="sec" id="outside">
   <div class="wrap">
-    ${sheetHead('D', 'Photography', shLink('/photography/', 'See all'))}
+    ${sheetHead('D', 'Outside of work')}
+    <p class="free">${md(home.freeTime)}</p>
     <a class="film" href="/photography/" aria-label="Photography gallery">
       ${['photo-img-9280', 'photo-24-07-08-2357', 'photo-img-7161', 'photo-dsc00066', 'photo-img-7856', 'photo-img-8310'].filter((k) => MEDIA.images[k]).map((k) => `<span class="film-frame">${picture(k, { sizes: '(max-width: 760px) 40vw, 220px' })}</span>`).join('')}
     </a>
+    <p class="free-sub">I also take photos, mostly on trips. <a href="/photography/">See them all</a></p>
   </div>
 </section>
 
