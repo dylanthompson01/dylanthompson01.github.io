@@ -161,8 +161,8 @@ mark.hl {
 
 /* ─── intro: two photos you can flip through, and a short story ────────── */
 .intro { padding: clamp(3rem, 7vw, 5rem) 0 clamp(2.5rem, 5vw, 4rem); }
-.intro-grid { display: grid; grid-template-columns: 14rem minmax(0, 31rem); justify-content: center; gap: clamp(2rem, 4.5vw, 3.5rem); align-items: center; }
-.intro-copy { display: grid; gap: .85rem; font-size: .95rem; line-height: 1.7; color: var(--ink-2); }
+.intro-grid { display: grid; grid-template-columns: 15.5rem minmax(0, 1fr); gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+.intro-copy { display: grid; gap: .85rem; font-size: 1rem; line-height: 1.7; color: var(--ink-2); max-width: 42rem; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: .6rem; }
 .hero-actions .btn { height: 2.5rem; padding: 0 1rem; font-size: .9rem; }
 .hero-actions .btn-line { font-size: .78rem; }
@@ -230,7 +230,7 @@ mark.hl {
 }
 .yt { position: absolute; inset: 0; overflow: hidden; background: #15171A; }
 .yt-badge { position: absolute; inset: 0; z-index: 2; display: grid; place-items: center; pointer-events: none; }
-.yt-badge img { width: min(64%, 19rem); height: auto; padding: 1rem 1.4rem; border-radius: .9rem; background: rgba(250, 249, 245, .84); backdrop-filter: blur(10px) saturate(1.2); -webkit-backdrop-filter: blur(10px) saturate(1.2); box-shadow: 0 10px 30px -12px rgba(0, 0, 0, .45); }
+.yt-badge img { width: min(58%, 17rem); height: auto; filter: drop-shadow(0 2px 3px rgba(0, 0, 0, .35)) drop-shadow(0 6px 18px rgba(0, 0, 0, .45)); }
 .yt img { width: 100%; height: 100%; object-fit: cover; }
 .yt iframe { position: absolute; top: 50%; left: 50%; width: 165%; aspect-ratio: 16 / 9; height: auto; transform: translate(-50%, -50%); border: 0; pointer-events: none; opacity: 0; transition: opacity .9s ease; }
 .yt iframe.is-on { opacity: 1; }
@@ -381,6 +381,23 @@ th.bom-n, td.bom-n { border-right: 1px solid var(--rule); }
   .art .img { height: 8.5rem; }
   .art.is-wide .img { height: 6.25rem; }
 }
+.ai { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.25rem, 3.5vw, 3rem); font-size: 1rem; line-height: 1.7; color: var(--ink-2); }
+.ai p:first-child { color: var(--ink); font-size: 1.12rem; line-height: 1.55; letter-spacing: -.01em; }
+@media (max-width: 760px) { .ai { grid-template-columns: 1fr; } }
+.tools { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(1.5rem, 4vw, 3rem); border-top: 1px solid var(--rule); }
+.tool { display: grid; grid-template-columns: 2rem minmax(0, 1fr) auto; align-items: center; gap: .75rem; padding: .7rem 0; border-bottom: 1px solid var(--rule); }
+.tool .bom-logo { width: 2rem; height: 1.4rem; margin: 0; }
+.tool .bom-logo img, .tool .bom-logo svg { width: 1.2rem; height: 1.2rem; }
+.tool-name { color: var(--ink); font-size: .95rem; }
+.tool-use { color: var(--muted); font-size: .85rem; text-align: right; }
+@media (max-width: 640px) { .tools { grid-template-columns: 1fr; } }
+/* photos: one even row, rounded, no frames, nothing moves */
+.prow { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: .6rem; }
+.prow figure { border-radius: .7rem; overflow: hidden; background: var(--paper-2); }
+.prow .img { aspect-ratio: 3 / 4; height: 100%; }
+.prow .img img { cursor: zoom-in; transition: opacity .25s; }
+.prow figure:hover .img img { opacity: .9; }
+@media (max-width: 640px) { .prow { grid-template-columns: repeat(2, minmax(0, 1fr)); } .prow figure:nth-child(5) { display: none; } }
 .free { max-width: 34rem; font-size: 1.02rem; line-height: 1.6; color: var(--ink); letter-spacing: -.012em; }
 .free-sub { margin-top: 1rem; color: var(--muted); font-size: .98rem; }
 .free-sub a { color: var(--ink); border-bottom: 1px solid var(--rule-2); transition: color .2s, border-color .2s; }

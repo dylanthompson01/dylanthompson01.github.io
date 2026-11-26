@@ -159,7 +159,7 @@
               // loop a moment before the end so YouTube's end screen never shows
               setInterval(() => {
                 const d = pl.getDuration?.() || 0, t = pl.getCurrentTime?.() || 0;
-                if (d && t > d - 1.5) pl.seekTo(start + 0.2, true);
+                if (d && t > d - 1.5) { f.classList.remove('is-on'); pl.seekTo(start + 0.2, true); }
               }, 400);
             },
             onStateChange: (ev) => {
@@ -167,7 +167,7 @@
               clearTimeout(revealT);
               if (ev.data === YT.PlayerState.PLAYING) {
                 // YouTube flashes its own play/pause overlay when playback starts; wait it out
-                revealT = setTimeout(() => f.classList.add('is-on'), f.classList.contains('was-on') ? 0 : 2200);
+                revealT = setTimeout(() => f.classList.add('is-on'), 4200);
               } else if (ev.data === YT.PlayerState.ENDED) {
                 f.classList.remove('is-on');
                 ev.target.seekTo(start + 0.2, true);
@@ -176,7 +176,6 @@
                 f.classList.remove('is-on');
                 ev.target.playVideo();
               }
-              if (f.classList.contains('is-on')) f.classList.add('was-on');
             },
           },
         });

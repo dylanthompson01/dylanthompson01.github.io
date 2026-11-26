@@ -320,24 +320,14 @@ function bench() {
 }
 
 // Bill of materials: tools, what each is for, and how many projects use it.
+// The main tools: logo, name, what it's for.
+const MAIN_TOOLS = ['SolidWorks', 'ANSYS Fluent', 'MATLAB', 'Python', 'Arduino', 'Bambu Lab', 'ProtoTRAK', 'Excel Power Query'];
 function bom() {
-  const total = projects.length;
-  const rows = skills.map((s, i) => {
-    const used = (s.used || []).filter((slug) => bySlug[slug]);
-    const names = used.map((slug) => bySlug[slug].title).join(', ');
+  const rows = MAIN_TOOLS.map((n) => skills.find((s) => s.name === n)).filter(Boolean).map((s) => {
     const art = s.logo ? `<img src="${s.logo}" alt="" loading="lazy">` : s.icon ? brandIcon(s.icon) : `<span class="bom-word">${esc(s.word || '')}</span>`;
-    const bar = Array.from({ length: total }, (_, k) => `<i${k < used.length ? ' class="on"' : ''}></i>`).join('');
-    return `<tr>
-      <td class="bom-n">${i + 1}</td>
-      <td class="bom-tool"><span class="bom-logo${s.wide ? ' is-wide' : ''}">${art}</span>${esc(s.name)}</td>
-      <td class="bom-cat">${esc(s.cat)}</td>
-      <td class="bom-use"><span class="bom-bar" title="${esc(names || 'Coursework and certification')}">${bar}</span><span class="bom-qty">${used.length || '–'}</span><span class="sr">${used.length ? `Used in ${used.length} projects: ${esc(names)}` : 'Coursework and certification'}</span></td>
-    </tr>`;
+    return `<li class="tool"><span class="bom-logo${s.wide ? ' is-wide' : ''}">${art}</span><span class="tool-name">${esc(s.name === 'Excel Power Query' ? 'Excel' : s.name)}</span><span class="tool-use">${esc(s.cat)}</span></li>`;
   }).join('');
-  return `<div class="bom-wrap"><table class="bom">
-    <thead><tr><th class="bom-n">Item</th><th>Tool</th><th class="bom-cat">Used for</th><th>Projects</th></tr></thead>
-    <tbody>${rows}</tbody>
-  </table></div>`;
+  return `<ul class="tools">${rows}</ul>`;
 }
 
 function homePage() {
@@ -383,23 +373,24 @@ function homePage() {
 
 <section class="sec" id="tools">
   <div class="wrap">
-    ${sheetHead('C', 'Bill of materials')}
-    <p class="sec-note">The tools I use, and how many of my ${projects.length} projects each one shows up in.</p>
+    ${sheetHead('C', 'Tools')}
     ${bom()}
   </div>
 </section>
 
-<section class="sec" id="outside">
+<section class="sec" id="ai">
   <div class="wrap">
-    ${sheetHead('D', 'Outside of work')}
-    <p class="free">${md(home.freeTime)}</p>
-    <div class="wall" data-gallery>
-      ${['photo-img-9280', 'photo-24-07-08-2357', 'photo-img-7161', 'photo-img-7856', 'photo-img-8310'].filter((k) => MEDIA.images[k]).map((k) => {
-        const m = MEDIA.images[k];
-        return `<figure class="art${m.w > m.h ? ' is-wide' : ''}">${picture(k, { alt: 'Photo by Dylan Thompson', sizes: '(max-width: 760px) 45vw, 260px', attrs: ' data-zoom' })}</figure>`;
-      }).join('')}
+    ${sheetHead('D', 'AI')}
+    <div class="ai">${home.ai.map((t) => `<p>${md(t)}</p>`).join('')}</div>
+  </div>
+</section>
+
+<section class="sec" id="photography">
+  <div class="wrap">
+    ${sheetHead('E', 'Photography', shLink('/photography/', 'See all'))}
+    <div class="prow" data-gallery>
+      ${['photo-img-9280', 'photo-24-07-08-2357', 'photo-img-7161', 'photo-img-7856', 'photo-img-8310'].filter((k) => MEDIA.images[k]).map((k) => `<figure>${picture(k, { alt: 'Photo by Dylan Thompson', sizes: '(max-width: 760px) 46vw, 200px', attrs: ' data-zoom' })}</figure>`).join('')}
     </div>
-    <p class="free-sub">I also take photos, mostly on trips. <a href="/photography/">See them all</a></p>
   </div>
 </section>
 
