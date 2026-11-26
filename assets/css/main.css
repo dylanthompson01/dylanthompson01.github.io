@@ -97,7 +97,7 @@ mark.hl {
 .mast { position: absolute; top: 0; left: 0; z-index: 20; padding: 1rem 1.25rem; }
 .mast-mark {
   display: block; font-family: 'Parisienne', 'Snell Roundhand', cursive; font-weight: 400;
-  font-size: 1.6rem; line-height: 1; color: var(--ink); transition: color .25s;
+  font-size: 2.1rem; line-height: 1; color: var(--ink); transition: color .25s;
 }
 .mast-mark:hover { color: var(--accent); }
 

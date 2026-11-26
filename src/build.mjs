@@ -130,7 +130,7 @@ const NAV = [
 ];
 
 // The only header: initials in script, top left. It scrolls away with the page.
-const masthead = () => `<header class="mast"><a class="mast-mark" href="/" aria-label="${esc(site.name)}, home">DT</a></header>`;
+const masthead = () => `<header class="mast"><a class="mast-mark" href="/" aria-label="${esc(site.name)}, home">dt</a></header>`;
 
 function layout({ path, title, description = site.description, section = 'home', body, models = false, image = '/assets/og.jpg', jsonld = '' }) {
   const fullTitle = title ? `${title} · ${site.name}` : site.name;
