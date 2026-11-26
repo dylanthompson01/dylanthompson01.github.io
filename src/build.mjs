@@ -123,7 +123,7 @@ function months(start, end) {
 // ─── layout ─────────────────────────────────────────────────────────────────
 
 const NAV = [
-  ['/work/', 'Work', 'work'],
+  ['/work/', 'Projects', 'work'],
   ['/experience/', 'Experience', 'experience'],
   ['/about/', 'About', 'about'],
   ['/photography/', 'Photography', 'photography'],
@@ -461,17 +461,19 @@ function workCard(slug, size) {
 }
 
 function workPage() {
-  const tabs = filters.map(([id, label], i) => `<button class="filter${i ? '' : ' is-active'}" data-filter="${id}" aria-pressed="${i ? 'false' : 'true'}">${label}</button>`).join('');
+  const rows = projects.map((p) => `<li><a class="pl-row" href="/work/${p.slug}/" data-vt-card>
+      <span class="pl-thumb">${projMedia(p, '120px')}</span>
+      <span class="pl-main"><span class="pl-title">${esc(p.title)}</span><span class="pl-sub">${esc(p.subtitle)}</span></span>
+      <span class="pl-year">${esc(p.year)}</span>
+      <span class="pl-go" aria-hidden="true">${I.arrow}</span>
+    </a></li>`).join('');
   const body = `
-${pageHead('Work', 'Industry work, research, robotics, and things I built because I wanted to know how they work.')}
+${pageHead('Projects')}
 <section class="sec sec-tight">
-  <div class="wrap">
-    <div class="filters" role="group" aria-label="Filter projects">${tabs}</div>
-    <div class="wgrid" data-work-grid>${workGallery.map(([slug, size]) => workCard(slug, size)).join('')}</div>
-  </div>
+  <div class="wrap"><ol class="plist">${rows}</ol></div>
 </section>
 ${contactBlock()}`;
-  return layout({ path: '/work/', title: 'Work', section: 'work', body, description: 'Projects by Dylan Thompson: GE Vernova, ASME robotics, heat pipe research, CNC machining, and more.' });
+  return layout({ path: '/work/', title: 'Projects', section: 'work', body, description: 'Projects by Dylan Thompson: GE Vernova, ASME robotics, heat pipe research, CNC machining, and more.' });
 }
 
 function projectPage(p, idx) {
@@ -509,7 +511,7 @@ function projectPage(p, idx) {
   const body = `
 <article class="proj">
   <div class="wrap">
-    <a class="back" href="/work/">${I.back}<span>All work</span></a>
+    <a class="back" href="/work/">${I.back}<span>All projects</span></a>
     <header class="proj-head">
       <p class="proj-sub">${esc(p.subtitle)}</p>
       <h1>${esc(p.title)}</h1>
