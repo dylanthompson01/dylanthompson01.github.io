@@ -499,7 +499,7 @@ ${pageHead('Work', 'Industry work, research, robotics, and things I built becaus
   </div>
 </section>
 ${contactBlock()}`;
-  return layout({ path: '/work/', title: 'Work', section: 'work', body, description: 'Projects by Dylan Thompson: GE Vernova, Fledge, ASME robotics, heat pipe research, CNC machining, and more.' });
+  return layout({ path: '/work/', title: 'Work', section: 'work', body, description: 'Projects by Dylan Thompson: GE Vernova, ASME robotics, heat pipe research, CNC machining, and more.' });
 }
 
 function projectPage(p, idx) {

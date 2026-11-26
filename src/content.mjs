@@ -48,7 +48,6 @@ export const home = {
     { slug: 'cnc-putter', media: 'putter-machining-1' },
     { slug: 'asme-robot', media: 'asme-drive-1' },
     { slug: 'rc-boat', media: 'boat-pool-run' },
-    { slug: 'fledge', media: 'fledge-dashboard' },
     { slug: 'solidworks-certification', media: 'sw-funnel' },
     { slug: 'liquid-cooling', media: null },
   ],
@@ -81,7 +80,6 @@ export const home = {
     { slug: 'solidworks-certification', area: 'd' },
     { slug: 'heat-pipe-research', area: 'e' },
     { slug: 'asme-robot', area: 'f' },
-    { slug: 'fledge', area: 'g' },
     { slug: 'baja-sae', area: 'h' },
   ],
 };
@@ -243,7 +241,6 @@ export const certifications = [
 
 export const activities = [
   { org: 'Seams', role: 'Co-founder, apparel brand', dates: '2023 to 2025', body: 'Direct-to-consumer apparel brand, 2023 to 2025. $200K+ in total sales, owning marketing, product design, fulfillment, and customer experience.' },
-  { org: 'Fledge', role: 'Creator, job application tool', dates: 'Live', href: '/work/fledge/', body: 'A job application tool for students, with a Chrome extension that fills in applications. Live at [fledgejobs.com](https://fledgejobs.com).' },
 ];
 
 // icon: a simple-icons slug, or omit and use `word` for a wordmark tile.
@@ -258,7 +255,7 @@ export const skills = [
   { name: 'Bambu Lab', cat: '3D printing', icon: 'bambulab', used: ['asme-robot', 'robotic-arm', 'rc-boat', 'liquid-cooling', 'plant-watering', 'solidworks-certification'] },
   { name: 'IBM Maximo', cat: 'Maintenance (CMMS)', logo: '/assets/logos/ibm.svg', wide: true, used: ['ge-vernova'] },
   { name: 'Excel Power Query', cat: 'Data pipelines', logo: '/assets/logos/excel.svg', used: ['ge-vernova'] },
-  { name: 'HTML & CSS', cat: 'Internal tools', icon: 'html5', used: ['ge-vernova', 'fledge'] },
+  { name: 'HTML & CSS', cat: 'Internal tools', icon: 'html5', used: ['ge-vernova'] },
   { name: 'GitHub', cat: 'Publishing', icon: 'github', used: ['ge-vernova'] },
   { name: 'Lean Six Sigma', cat: 'Yellow Belt', logo: '/assets/logos/yellow-belt.svg', used: ['ge-vernova'] },
   { name: 'ProtoTRAK', cat: 'CNC machining', word: 'CNC', used: ['baja-sae', 'cnc-putter'] },
@@ -355,44 +352,6 @@ export const projects = [
       img('gev-building'),
       img('gev-display', 'Product display'),
       img('gev-office'),
-    ],
-  },
-  {
-    slug: 'fledge',
-    title: 'Fledge',
-    subtitle: 'Job application platform',
-    year: 'Live',
-    filters: ['software', 'design'],
-    cover: 'fledge-cover',
-    card: 'A job application tracker for students, with a Chrome extension that fills in applications for you.',
-    lead: 'A job application tool I built for students: every role scored against your resume, every application tracked on one screen, and a Chrome extension that fills in applications on Workday, Greenhouse, and Lever.',
-    tags: ['Web app', 'Chrome extension', 'Product design', 'Live'],
-    meta: [
-      ['Role', 'Creator'],
-      ['Product', 'Web app and Chrome extension'],
-      ['For', 'Students applying to internships'],
-      ['Live at', '[fledgejobs.com](https://fledgejobs.com)'],
-    ],
-    sections: [
-      {
-        kicker: 'Matching',
-        title: 'Every role scored against your resume',
-        body: ['Postings come up one at a time with a match score and what it matched on. Keep the ones worth applying to and move past the rest, without tabs or a spreadsheet.'],
-      },
-      {
-        kicker: 'Tracking',
-        title: 'Every application in one place',
-        bullets: [
-          'Applications, with where each one got to.',
-          'Roles saved for later, ready when you are.',
-          'A pipeline of how many are out and how many came back.',
-        ],
-      },
-      {
-        kicker: 'Extension',
-        title: 'Applying, made faster',
-        body: ['A free Chrome extension fills in applications on Workday, Greenhouse, and Lever, and can upload a tailored resume. Try it at [fledgejobs.com](https://fledgejobs.com).'],
-      },
     ],
   },
   {
@@ -726,15 +685,14 @@ export const projects = [
 // Work page gallery: order and tile size. L = large, T = tall, W = wide, S = small.
 export const workGallery = [
   ['ge-vernova', 'L'], ['asme-robot', 'T'], ['heat-pipe-research', 'T'],
-  ['fledge', 'W'], ['cnc-putter', 'S'], ['robotic-arm', 'S'],
+  ['cnc-putter', 'S'], ['robotic-arm', 'S'],
   ['rc-boat', 'T'], ['solidworks-certification', 'T'], ['baja-sae', 'S'],
-  ['liquid-cooling', 'S'], ['plant-watering', 'W'],
+  ['liquid-cooling', 'S'], ['plant-watering', 'L'],
 ];
 
 export const filters = [
   ['all', 'All'],
   ['industry', 'Industry'],
-  ['software', 'Software'],
   ['research', 'Research'],
   ['robotics', 'Robotics'],
   ['manufacturing', 'Manufacturing'],
