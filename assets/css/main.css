@@ -16,6 +16,11 @@
   font-weight: 400; font-style: normal; font-display: swap;
 }
 @font-face {
+  font-family: 'Gloock';
+  src: url('/assets/fonts/Gloock.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
   font-family: 'Geist Mono';
   src: url('/assets/fonts/GeistMono-Variable.woff2') format('woff2');
   font-weight: 100 900; font-style: normal; font-display: swap;
@@ -120,10 +125,10 @@ mark.hl {
 .hero { position: relative; min-height: 100svh; display: grid; place-items: center; padding: 3rem 0 5rem; }
 .hero-c { text-align: center; display: grid; justify-items: center; }
 .sig {
-  font-family: 'Parisienne', 'Snell Roundhand', cursive; font-weight: 400; color: var(--sage);
-  font-size: clamp(3rem, 9.5vw, 8.75rem); line-height: 1.4; letter-spacing: 0; padding: 0 .2em; white-space: nowrap;
+  font-family: 'Gloock', 'Didot', Georgia, serif; font-weight: 400; color: var(--sage);
+  font-size: clamp(2.6rem, 8.2vw, 7.25rem); line-height: 1.12; letter-spacing: -.02em; padding: 0; white-space: nowrap;
 }
-@media (max-width: 560px) { .sig { font-size: 12.6vw; padding: 0 .05em; } }
+@media (max-width: 560px) { .sig { font-size: 10.4vw; } }
 .hero-tag { margin-top: clamp(.5rem, 1.6vw, 1rem); font-size: clamp(1.05rem, 1.6vw, 1.3rem); line-height: 1.45; color: var(--ink-2); letter-spacing: -.01em; }
 .blue { color: var(--accent); }
 .status {
@@ -227,7 +232,7 @@ mark.hl {
 .yt-badge { position: absolute; inset: 0; z-index: 2; display: grid; place-items: center; pointer-events: none; }
 .yt-badge img { width: min(64%, 19rem); height: auto; padding: 1rem 1.4rem; border-radius: .9rem; background: rgba(250, 249, 245, .84); backdrop-filter: blur(10px) saturate(1.2); -webkit-backdrop-filter: blur(10px) saturate(1.2); box-shadow: 0 10px 30px -12px rgba(0, 0, 0, .45); }
 .yt img { width: 100%; height: 100%; object-fit: cover; }
-.yt iframe { position: absolute; top: 50%; left: 50%; width: 136%; aspect-ratio: 16 / 9; height: auto; transform: translate(-50%, -50%); border: 0; pointer-events: none; opacity: 0; transition: opacity .9s ease; }
+.yt iframe { position: absolute; top: 50%; left: 50%; width: 165%; aspect-ratio: 16 / 9; height: auto; transform: translate(-50%, -50%); border: 0; pointer-events: none; opacity: 0; transition: opacity .9s ease; }
 .yt iframe.is-on { opacity: 1; }
 .yt::after { content: ''; position: absolute; inset: 0; z-index: 1; }
 .logo-panel {

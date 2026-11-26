@@ -156,6 +156,7 @@ function layout({ path, title, description = site.description, section = 'home',
 <link rel="icon" href="/favicon.ico?v=${V}" sizes="48x48">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon-dt.png?v=${V}">
 <link rel="preload" href="/assets/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/Gloock.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/Parisienne.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/css/main.css?v=${V}">
 <script>document.documentElement.classList.add('js');if('onpagereveal' in window)document.documentElement.classList.add('vt')</script>
@@ -263,7 +264,7 @@ const LOOP_SCHEMATIC = `<svg class="schematic" viewBox="0 0 320 240" aria-hidden
 function xpCard(x) {
   const p = x.project ? bySlug[x.project] : null;
   const media = x.youtube
-    ? `<span class="yt" data-yt="${x.youtube}"><img src="https://i.ytimg.com/vi/${x.youtube}/maxresdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/${x.youtube}/hqdefault.jpg'" alt="" loading="lazy"></span>`
+    ? `<span class="yt" data-yt="${x.youtube}" data-start="${x.ytStart || 0}">${x.ytPoster === false ? '' : `<img src="https://i.ytimg.com/vi/${x.youtube}/maxresdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/${x.youtube}/hqdefault.jpg'" alt="" loading="lazy">`}</span>`
     : p && p.cover
     ? picture(p.cover, { alt: '', sizes: '(max-width: 760px) 92vw, 560px' })
     : `<span class="logo-panel"><img src="${x.logo}" alt="" loading="lazy"></span>`;

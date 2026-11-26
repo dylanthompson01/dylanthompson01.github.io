@@ -82,6 +82,8 @@ export const experience = [
     id: 'lockheed',
     youtube: 'x2vQAX3hudg', // muted looping company video on the homepage card
     overlay: '/assets/logos/lockheed-martin-full.svg', // logo shown over the video
+    ytStart: 22, // skip the title card at the start
+    ytPoster: false, // no YouTube still image before it plays
     pill: 'lockheedmartin.com',
     org: 'Lockheed Martin',
     role: 'Missiles and Fire Control Engineer',

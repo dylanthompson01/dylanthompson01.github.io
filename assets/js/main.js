@@ -80,7 +80,7 @@
   const hero = $('[data-hero]');
   if (hero) {
     const go = () => requestAnimationFrame(() => requestAnimationFrame(() => hero.classList.add('is-ready')));
-    const fontReady = document.fonts && document.fonts.load ? document.fonts.load('400 1em "Parisienne"') : Promise.resolve();
+    const fontReady = document.fonts && document.fonts.load ? document.fonts.load('400 1em "Gloock"') : Promise.resolve();
     Promise.race([fontReady, new Promise((r) => setTimeout(r, 1200))]).then(go);
   }
 
@@ -139,13 +139,14 @@
         ytIO.unobserve(e.target);
         await loadApi();
         const id = e.target.dataset.yt;
+        const start = +e.target.dataset.start || 0;
         const host = document.createElement('div');
         e.target.append(host);
         let revealT;
         new YT.Player(host, {
           host: 'https://www.youtube-nocookie.com',
           videoId: id,
-          playerVars: { autoplay: 1, mute: 1, controls: 0, modestbranding: 1, playsinline: 1, rel: 0, iv_load_policy: 3, disablekb: 1, fs: 0, cc_load_policy: 0 },
+          playerVars: { autoplay: 1, mute: 1, controls: 0, modestbranding: 1, playsinline: 1, rel: 0, iv_load_policy: 3, disablekb: 1, fs: 0, cc_load_policy: 0, start },
           events: {
             onReady: (ev) => {
               const pl = ev.target;
@@ -158,7 +159,7 @@
               // loop a moment before the end so YouTube's end screen never shows
               setInterval(() => {
                 const d = pl.getDuration?.() || 0, t = pl.getCurrentTime?.() || 0;
-                if (d && t > d - 1.5) pl.seekTo(0.2, true);
+                if (d && t > d - 1.5) pl.seekTo(start + 0.2, true);
               }, 400);
             },
             onStateChange: (ev) => {
@@ -169,7 +170,7 @@
                 revealT = setTimeout(() => f.classList.add('is-on'), f.classList.contains('was-on') ? 0 : 2200);
               } else if (ev.data === YT.PlayerState.ENDED) {
                 f.classList.remove('is-on');
-                ev.target.seekTo(0.2, true);
+                ev.target.seekTo(start + 0.2, true);
                 ev.target.playVideo();
               } else if (ev.data === YT.PlayerState.PAUSED || ev.data === YT.PlayerState.CUED) {
                 f.classList.remove('is-on');
