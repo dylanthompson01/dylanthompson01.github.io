@@ -16,14 +16,47 @@ export const site = {
   github: 'https://github.com/dylanthompson01',
   resume: '/Thompson_Resume.pdf',
   location: 'Orlando, FL',
+  // Social links: shown as small icons in the footer and contact area when filled in.
+  // Left empty for now. To add later, e.g.:
+  //   { id: 'youtube', label: 'YouTube', url: 'https://www.youtube.com/@itsdylanthompson' },
+  social: [],
   description:
     'Dylan Thompson, mechanical engineering student at the University of Central Florida. Manufacturing, CAD, CNC machining, thermal research, and robotics.',
 };
 
 export const home = {
   hello: "Hi, I'm Dylan.",
-  lead: 'Mechanical engineering student at **UCF**. I build things and put them to work.',
+  // ==text== draws a highlighter mark behind the words.
+  // ^^text^^ sets words in blue; ==text== draws a highlighter mark.
+  tagline: 'I like ^^building things^^: machined parts, thermal research, and robots, ==from CAD to the shop floor==.',
+  lead: 'Mechanical engineering student at UCF. I ==design parts, machine them, and test them==, from CAD to the shop floor.',
+  status: 'Looking for Summer 2027 internships',
   photo: 'portrait',
+  // Photos fanned out behind the portrait in the hero.
+  stack: ['putter-head', 'arm-hero'],
+  // Leader-line callouts pointing at the hero photo.
+  callouts: [
+    { k: 'Now', v: 'Lockheed Martin, Missiles and Fire Control' },
+    { k: 'Summer 2026', v: 'GE Vernova, manufacturing intern' },
+    { k: 'Certified', v: 'SolidWorks Professional (CSWP)' },
+  ],
+  // Experience cards (in this order); the rest of `experience` shows as compact rows.
+  featured: ['lockheed', 'ge-vernova', 'itl', 'asme'],
+  // Builds in the project viewer. media: a video or image name shown in the viewer.
+  builds: [
+    { slug: 'robotic-arm', media: 'arm-mirror-1' },
+    { slug: 'cnc-putter', media: 'putter-machining-1' },
+    { slug: 'asme-robot', media: 'asme-drive-1' },
+    { slug: 'rc-boat', media: 'boat-pool-run' },
+    { slug: 'fledge', media: 'fledge-dashboard' },
+    { slug: 'solidworks-certification', media: 'sw-funnel' },
+    { slug: 'liquid-cooling', media: null },
+  ],
+  about: [
+    'I grew up building things: LEGO, then cardboard, then circuits. Going into college I taught myself SolidWorks and ==earned my CSWA and CSWP before my first semester==.',
+    'Since then I’ve machined race parts for Baja SAE, researched pulsating heat pipes, and led a 60+ member ASME team. Last summer at GE Vernova I ==doubled a production line’s throughput== in a kaizen week.',
+    'Long term I want to work on a close team on hard problems, like ==thermal management for computing hardware==. It’s why I’m building a liquid cooling loop on my own time.',
+  ],
   background: 'sunset',
   // "About me" section on the home page: past, present, future.
   story: [
@@ -58,6 +91,7 @@ export const home = {
 export const experience = [
   {
     id: 'lockheed',
+    pill: 'lockheedmartin.com',
     org: 'Lockheed Martin',
     role: 'Missiles and Fire Control Engineer',
     logo: '/assets/logos/tile-lockheed-martin.svg',
@@ -71,6 +105,7 @@ export const experience = [
   },
   {
     id: 'ge-vernova',
+    pill: 'gevernova.com',
     org: 'GE Vernova',
     role: 'Manufacturing Engineering Intern',
     logo: '/assets/logos/ge-vernova.svg',
@@ -93,6 +128,7 @@ export const experience = [
   },
   {
     id: 'itl',
+    pill: 'ucf.edu',
     org: 'UCF Interfacial Transport Lab',
     role: 'Undergraduate Researcher',
     logo: '/assets/logos/tile-ucf.svg',
@@ -112,6 +148,7 @@ export const experience = [
   },
   {
     id: 'asme',
+    pill: 'asme.org',
     org: 'ASME Student Design Competition',
     role: 'Project Lead',
     logo: '/assets/logos/tile-ucf.svg',
@@ -130,6 +167,7 @@ export const experience = [
   },
   {
     id: 'baja',
+    pill: 'bajasae.net',
     org: 'Baja SAE',
     role: 'Machinist',
     logo: '/assets/logos/tile-ucf.svg',
@@ -150,6 +188,7 @@ export const experience = [
   },
   {
     id: 'robotics',
+    pill: 'ucf.edu',
     org: 'Robotics Club of Central Florida',
     role: 'Drive & Science Team',
     logo: '/assets/logos/tile-ucf.svg',
@@ -180,12 +219,12 @@ export const education = {
 // url: link for the "View credential" button (leave '' to hide it). id: shown as "Credential ID".
 export const certifications = [
   {
-    short: 'CSWP', logo: '/assets/logos/solidworks.svg', wide: true, name: 'Certified SolidWorks Professional', issuer: 'Dassault Systèmes', date: 'Aug 2025',
+    short: 'CSWP', icon: 'dassaultsystemes', name: 'Certified SolidWorks Professional', issuer: 'Dassault Systèmes', date: 'Aug 2025',
     note: 'SOLIDWORKS CAD Design Professional: advanced part modeling, configurations, and design changes.',
     url: 'https://cv.virtualtester.com/qr/?b=SLDWRKS&i=C-QRFSNZMG84', id: 'C-QRFSNZMG84',
   },
   {
-    short: 'CSWA', logo: '/assets/logos/solidworks.svg', wide: true, name: 'Certified SolidWorks Associate', issuer: 'Dassault Systèmes', date: 'Summer 2025',
+    short: 'CSWA', icon: 'dassaultsystemes', name: 'Certified SolidWorks Associate', issuer: 'Dassault Systèmes', date: 'Summer 2025',
     note: 'Part modeling, assemblies, and drawings.', url: '', id: '',
   },
   {
@@ -203,27 +242,27 @@ export const certifications = [
 ];
 
 export const activities = [
-  { title: 'Co-Founder, Seams', body: 'Direct-to-consumer apparel brand, 2023 to 2025. $200K+ in total sales, owning marketing, product design, fulfillment, and customer experience.' },
-  { title: 'Creator, Fledge', body: 'A job application tool for students, with a Chrome extension that fills in applications. Live at [fledgejobs.com](https://fledgejobs.com).' },
+  { org: 'Seams', role: 'Co-founder, apparel brand', dates: '2023 to 2025', body: 'Direct-to-consumer apparel brand, 2023 to 2025. $200K+ in total sales, owning marketing, product design, fulfillment, and customer experience.' },
+  { org: 'Fledge', role: 'Creator, job application tool', dates: 'Live', href: '/work/fledge/', body: 'A job application tool for students, with a Chrome extension that fills in applications. Live at [fledgejobs.com](https://fledgejobs.com).' },
 ];
 
 // icon: a simple-icons slug, or omit and use `word` for a wordmark tile.
 // icon: a simple-icons slug (drawn in the brand color). logo: an image file. word: text fallback.
 export const skills = [
-  { name: 'SolidWorks', cat: 'CAD · CSWP', logo: '/assets/logos/solidworks.svg', wide: true },
-  { name: 'SolidWorks Simulation', cat: 'FEA', logo: '/assets/logos/solidworks.svg', wide: true },
-  { name: 'ANSYS Fluent', cat: 'CFD', icon: 'ansys', wide: true },
-  { name: 'MATLAB', cat: 'Onramp certified', logo: '/assets/logos/matlab.webp' },
-  { name: 'Python', cat: 'Data analysis', icon: 'python' },
-  { name: 'Arduino', cat: 'Embedded · C++', icon: 'arduino' },
-  { name: 'Bambu Lab', cat: '3D printing', icon: 'bambulab' },
-  { name: 'IBM Maximo', cat: 'Maintenance (CMMS)', logo: '/assets/logos/ibm.svg', wide: true },
-  { name: 'Excel Power Query', cat: 'Data pipelines', logo: '/assets/logos/excel.svg' },
-  { name: 'HTML & CSS', cat: 'Internal tools', icon: 'html5' },
-  { name: 'GitHub', cat: 'Publishing', icon: 'github' },
-  { name: 'Lean Six Sigma', cat: 'Yellow Belt', logo: '/assets/logos/yellow-belt.svg' },
-  { name: 'ProtoTRAK', cat: 'CNC machining', word: 'CNC' },
-  { name: 'Manual mill', cat: 'Machining', word: 'MILL' },
+  { name: 'SolidWorks', cat: 'CAD · CSWP', icon: 'dassaultsystemes', used: ['ge-vernova', 'asme-robot', 'heat-pipe-research', 'cnc-putter', 'robotic-arm', 'rc-boat', 'liquid-cooling', 'solidworks-certification'] },
+  { name: 'SolidWorks Simulation', cat: 'FEA', icon: 'dassaultsystemes', used: ['ge-vernova'] },
+  { name: 'ANSYS Fluent', cat: 'CFD', icon: 'ansys', used: ['heat-pipe-research', 'liquid-cooling'] },
+  { name: 'MATLAB', cat: 'Onramp certified', logo: '/assets/logos/matlab.webp', used: [] },
+  { name: 'Python', cat: 'Data analysis', icon: 'python', used: ['heat-pipe-research'] },
+  { name: 'Arduino', cat: 'Embedded · C++', icon: 'arduino', used: ['robotic-arm', 'plant-watering', 'liquid-cooling'] },
+  { name: 'Bambu Lab', cat: '3D printing', icon: 'bambulab', used: ['asme-robot', 'robotic-arm', 'rc-boat', 'liquid-cooling', 'plant-watering', 'solidworks-certification'] },
+  { name: 'IBM Maximo', cat: 'Maintenance (CMMS)', logo: '/assets/logos/ibm.svg', wide: true, used: ['ge-vernova'] },
+  { name: 'Excel Power Query', cat: 'Data pipelines', logo: '/assets/logos/excel.svg', used: ['ge-vernova'] },
+  { name: 'HTML & CSS', cat: 'Internal tools', icon: 'html5', used: ['ge-vernova', 'fledge'] },
+  { name: 'GitHub', cat: 'Publishing', icon: 'github', used: ['ge-vernova'] },
+  { name: 'Lean Six Sigma', cat: 'Yellow Belt', logo: '/assets/logos/yellow-belt.svg', used: ['ge-vernova'] },
+  { name: 'ProtoTRAK', cat: 'CNC machining', word: 'CNC', used: ['baja-sae', 'cnc-putter'] },
+  { name: 'Manual mill', cat: 'Machining', word: 'MILL', used: ['baja-sae'] },
 ];
 
 // ─── Projects ────────────────────────────────────────────────────────────────
@@ -688,7 +727,7 @@ export const projects = [
 export const workGallery = [
   ['ge-vernova', 'L'], ['asme-robot', 'T'], ['heat-pipe-research', 'T'],
   ['fledge', 'W'], ['cnc-putter', 'S'], ['robotic-arm', 'S'],
-  ['rc-boat', 'T'], ['solidworks-certification', 'T'], ['baja-sae', 'L'],
+  ['rc-boat', 'T'], ['solidworks-certification', 'T'], ['baja-sae', 'S'],
   ['liquid-cooling', 'S'], ['plant-watering', 'W'],
 ];
 
@@ -707,9 +746,9 @@ export const about = {
   lead: 'I’m a mechanical engineering student at UCF. I care about being the best version of myself and learning from my mistakes.',
   body: [
     'I grew up building things. LEGO first, then cardboard, then anything I could take apart and put back together. That led to circuits and math, and eventually to engineering.',
-    'I didn’t put in the work I could have in high school. Going into college I decided that wouldn’t happen again: good grades, experience early, and learning as fast as I can.',
-    'I taught myself SolidWorks and earned my CSWA and CSWP before my first semester, then joined undergraduate research, machined parts for Baja SAE, and led a 60+ member ASME design team. That led to GE Vernova last summer, and this fall I’m with Lockheed Martin Missiles and Fire Control.',
-    'Long term, I want to work on a close team that values collaboration and new ideas, on problems like thermal management for computing hardware. It’s part of why I’m building a liquid cooling loop on my own time.',
+    'I didn’t put in the work I could have in high school. Going into college I decided that wouldn’t happen again: ==good grades, experience early, and learning as fast as I can==.',
+    'I taught myself SolidWorks and ==earned my CSWA and CSWP before my first semester==, then joined undergraduate research, machined parts for Baja SAE, and led a 60+ member ASME design team. That led to GE Vernova last summer, and this fall I’m with Lockheed Martin Missiles and Fire Control.',
+    'Long term, I want to work on a close team that values collaboration and new ideas, on problems like ==thermal management for computing hardware==. It’s part of why I’m building a liquid cooling loop on my own time.',
   ],
   hobbies: ['Hanging out with friends', 'Cooking', 'Personal projects', 'Gym', 'Running'],
   photos: [img('portrait'), img('sunset'), img('gev-lounge')],
