@@ -141,24 +141,41 @@
         const id = e.target.dataset.yt;
         const host = document.createElement('div');
         e.target.append(host);
+        let revealT;
         new YT.Player(host, {
           host: 'https://www.youtube-nocookie.com',
           videoId: id,
-          playerVars: { autoplay: 1, mute: 1, controls: 0, loop: 1, playlist: id, modestbranding: 1, playsinline: 1, rel: 0, iv_load_policy: 3, disablekb: 1, fs: 0 },
+          playerVars: { autoplay: 1, mute: 1, controls: 0, modestbranding: 1, playsinline: 1, rel: 0, iv_load_policy: 3, disablekb: 1, fs: 0, cc_load_policy: 0 },
           events: {
             onReady: (ev) => {
-              const f = ev.target.getIframe();
+              const pl = ev.target;
+              const f = pl.getIframe();
               f.tabIndex = -1;
               f.setAttribute('aria-hidden', 'true');
               f.title = 'Company video';
-              ev.target.mute();
-              ev.target.playVideo();
+              pl.mute();
+              pl.playVideo();
+              // loop a moment before the end so YouTube's end screen never shows
+              setInterval(() => {
+                const d = pl.getDuration?.() || 0, t = pl.getCurrentTime?.() || 0;
+                if (d && t > d - 1.5) pl.seekTo(0.2, true);
+              }, 400);
             },
             onStateChange: (ev) => {
               const f = ev.target.getIframe();
-              if (ev.data === YT.PlayerState.PLAYING) f.classList.add('is-on');
-              if (ev.data === YT.PlayerState.PAUSED || ev.data === YT.PlayerState.CUED) f.classList.remove('is-on');
-              if (ev.data === YT.PlayerState.ENDED) { ev.target.seekTo(0); ev.target.playVideo(); }
+              clearTimeout(revealT);
+              if (ev.data === YT.PlayerState.PLAYING) {
+                // YouTube flashes its own play/pause overlay when playback starts; wait it out
+                revealT = setTimeout(() => f.classList.add('is-on'), f.classList.contains('was-on') ? 0 : 2200);
+              } else if (ev.data === YT.PlayerState.ENDED) {
+                f.classList.remove('is-on');
+                ev.target.seekTo(0.2, true);
+                ev.target.playVideo();
+              } else if (ev.data === YT.PlayerState.PAUSED || ev.data === YT.PlayerState.CUED) {
+                f.classList.remove('is-on');
+                ev.target.playVideo();
+              }
+              if (f.classList.contains('is-on')) f.classList.add('was-on');
             },
           },
         });

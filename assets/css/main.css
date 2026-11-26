@@ -155,10 +155,12 @@ mark.hl {
 .hero.is-ready .hero-tag { opacity: 1; transform: none; transition: opacity 1s ease .7s, transform 1.2s var(--ease) .7s; }
 
 /* ─── intro: two photos you can flip through, and a short story ────────── */
-.intro { padding: clamp(3rem, 7vw, 5.5rem) 0 clamp(3rem, 6vw, 4.5rem); }
-.intro-grid { display: grid; grid-template-columns: 21rem minmax(0, 36rem); justify-content: center; gap: clamp(2.5rem, 6vw, 5.5rem); align-items: center; }
-.intro-copy { display: grid; gap: 1.1rem; font-size: clamp(1.08rem, 1.4vw, 1.2rem); line-height: 1.75; }
-.hero-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: .9rem; }
+.intro { padding: clamp(3rem, 7vw, 5rem) 0 clamp(2.5rem, 5vw, 4rem); }
+.intro-grid { display: grid; grid-template-columns: 15.5rem minmax(0, 33rem); justify-content: center; gap: clamp(2rem, 4.5vw, 3.5rem); align-items: center; }
+.intro-copy { display: grid; gap: .9rem; font-size: 1.02rem; line-height: 1.7; color: var(--ink-2); }
+.hero-actions { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: .6rem; }
+.hero-actions .btn { height: 2.5rem; padding: 0 1rem; font-size: .9rem; }
+.hero-actions .btn-line { font-size: .78rem; }
 .btn-line span:last-child { white-space: nowrap; }
 
 .intro-fig { display: grid; justify-items: center; gap: 1.1rem; }
@@ -171,7 +173,7 @@ mark.hl {
 .stack-card .img { height: 100%; }
 .stack-card { transition: transform .9s cubic-bezier(.65, 0, .35, 1); will-change: transform; }
 .stack-card.is-front { transform: rotate(-2deg); z-index: 2; }
-.stack-card.is-back { transform: rotate(4.5deg) translate(.9rem, -.3rem); z-index: 1; }
+.stack-card.is-back { transform: rotate(4.5deg) translate(.7rem, -.25rem); z-index: 1; }
 .stack:hover .stack-card.is-back { transform: rotate(6.5deg) translate(1.4rem, -.5rem); }
 .stack:hover .stack-card.is-front { transform: rotate(-1deg) translateY(-.25rem); }
 /* the front photo swings out to the left, tucks behind, and settles into the back spot */
@@ -180,13 +182,13 @@ mark.hl {
   0%   { transform: rotate(-2deg); z-index: 3; }
   48%  { transform: translate(-62%, -.6rem) rotate(-10deg); z-index: 3; }
   52%  { transform: translate(-62%, -.6rem) rotate(-10deg); z-index: 0; }
-  100% { transform: rotate(4.5deg) translate(.9rem, -.3rem); z-index: 0; }
+  100% { transform: rotate(4.5deg) translate(.7rem, -.25rem); z-index: 0; }
 }
 
 @media (max-width: 860px) {
   .intro-grid { grid-template-columns: 1fr; justify-items: center; }
-  .intro-fig { width: min(17rem, 74vw); }
-  .intro-copy { width: 100%; max-width: 36rem; }
+  .intro-fig { width: min(14rem, 64vw); }
+  .intro-copy { width: 100%; max-width: 33rem; }
 }
 @media (max-width: 520px) { .btn-line span:last-child { font-size: .78rem; } }
 
@@ -227,6 +229,7 @@ mark.hl {
 .yt img { width: 100%; height: 100%; object-fit: cover; }
 .yt iframe { position: absolute; top: 50%; left: 50%; width: 136%; aspect-ratio: 16 / 9; height: auto; transform: translate(-50%, -50%); border: 0; pointer-events: none; opacity: 0; transition: opacity .9s ease; }
 .yt iframe.is-on { opacity: 1; }
+.yt::after { content: ''; position: absolute; inset: 0; z-index: 1; }
 .logo-panel {
   display: grid; place-items: center; height: 100%;
   background:
