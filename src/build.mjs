@@ -369,7 +369,7 @@ function homePage() {
 
 <section class="sec" id="experience">
   <div class="wrap">
-    ${sheetHead('A', 'Experience', shLink('/experience/', 'Full experience'))}
+    ${sheetHead('A', 'Work experience', shLink('/experience/', 'Full experience'))}
     <div class="xgrid">${home.featured.map((id) => experience.find((x) => x.id === id)).map(xpCard).join('')}</div>
   </div>
 </section>

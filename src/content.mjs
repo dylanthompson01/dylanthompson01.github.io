@@ -31,7 +31,7 @@ export const home = {
   // Photos of me in the intro; clicking the photo cycles through them.
   photos: ['portrait', 'gev-lounge'],
   // Experience cards (in this order); the rest of `experience` shows as compact rows.
-  featured: ['lockheed', 'ge-vernova', 'itl', 'asme'],
+  featured: ['lockheed', 'ge-vernova'],
   // Builds in the project viewer. media: a video or image name shown in the viewer.
   builds: [
     { slug: 'robotic-arm', media: 'arm-mirror-1' },
