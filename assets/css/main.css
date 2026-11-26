@@ -11,8 +11,8 @@
   font-weight: 100 900; font-style: normal; font-display: swap;
 }
 @font-face {
-  font-family: 'Pinyon Script';
-  src: url('/assets/fonts/PinyonScript.woff2') format('woff2');
+  font-family: 'Niconne';
+  src: url('/assets/fonts/Niconne.woff2') format('woff2');
   font-weight: 400; font-style: normal; font-display: swap;
 }
 @font-face {
@@ -96,8 +96,8 @@ mark.hl {
 /* ─── masthead: just the initials, in the top-left corner ─────────────────── */
 .mast { position: absolute; top: 0; left: 0; z-index: 20; padding: 1rem 1.25rem; }
 .mast-mark {
-  display: block; font-family: 'Pinyon Script', 'Snell Roundhand', cursive; font-weight: 400;
-  -webkit-text-stroke: .02em currentColor; font-size: 1.9rem; line-height: 1; color: var(--ink); transition: color .25s;
+  display: block; font-family: 'Niconne', 'Snell Roundhand', cursive; font-weight: 400;
+  font-size: 1.85rem; line-height: 1; color: var(--ink); transition: color .25s;
 }
 .mast-mark:hover { color: var(--accent); }
 
@@ -120,9 +120,8 @@ mark.hl {
 .hero { position: relative; min-height: 100svh; display: grid; place-items: center; padding: 3rem 0 5rem; }
 .hero-c { text-align: center; display: grid; justify-items: center; }
 .sig {
-  font-family: 'Pinyon Script', 'Snell Roundhand', cursive; font-weight: 400; color: var(--sage);
-  -webkit-text-stroke: .018em var(--sage); paint-order: stroke fill;
-  font-size: clamp(3.3rem, 12.4vw, 11.5rem); line-height: 1.32; letter-spacing: 0; padding: 0 .2em; white-space: nowrap;
+  font-family: 'Niconne', 'Snell Roundhand', cursive; font-weight: 400; color: var(--sage);
+  font-size: clamp(3.6rem, 13vw, 12.5rem); line-height: 1.25; letter-spacing: 0; padding: 0 .15em; white-space: nowrap;
 }
 .hero-tag { margin-top: clamp(.5rem, 1.6vw, 1rem); font-size: clamp(1.3rem, 2.3vw, 1.85rem); line-height: 1.45; color: var(--ink-2); letter-spacing: -.01em; }
 .blue { color: var(--accent); }
@@ -134,14 +133,18 @@ mark.hl {
 .status-dot { width: .5rem; height: .5rem; border-radius: 50%; background: var(--go); animation: ping 2.4s infinite; }
 @keyframes ping { 0% { box-shadow: 0 0 0 0 rgba(46, 155, 95, .45); } 70%, 100% { box-shadow: 0 0 0 .5rem rgba(46, 155, 95, 0); } }
 
-.scroll-hint { position: absolute; left: 50%; bottom: 2rem; transform: translateX(-50%); padding: .5rem; color: var(--muted); transition: opacity .4s ease, color .2s; }
-.scroll-hint:hover { color: var(--ink); }
-.scroll-mouse { display: block; width: 22px; height: 34px; border: 1.5px solid currentColor; border-radius: 12px; position: relative; }
-.scroll-mouse span { position: absolute; left: 50%; top: 7px; width: 3px; height: 7px; margin-left: -1.5px; border-radius: 2px; background: currentColor; animation: wheel 1.8s var(--ease) infinite; }
-@keyframes wheel { 0% { opacity: 0; transform: translateY(-3px); } 30% { opacity: 1; } 70% { opacity: 1; transform: translateY(8px); } 100% { opacity: 0; transform: translateY(10px); } }
+.scroll-hint {
+  position: absolute; left: 50%; bottom: 2.25rem; transform: translateX(-50%);
+  display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border-radius: 50%;
+  border: 1px solid var(--rule-2); color: var(--ink-2); background: rgba(250, 249, 245, .6);
+  transition: opacity .5s ease, background .25s, color .25s, border-color .25s;
+}
+.scroll-hint svg { width: 1rem; height: 1rem; stroke-width: 1.5; animation: drift 2.4s cubic-bezier(.45, 0, .55, 1) infinite; }
+@keyframes drift { 0%, 100% { transform: translateY(-2px); opacity: .55; } 50% { transform: translateY(3px); opacity: 1; } }
+.scroll-hint:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
 .scroll-hint.is-gone { opacity: 0; pointer-events: none; }
 .js .scroll-hint { opacity: 0; }
-.hero.is-ready .scroll-hint:not(.is-gone) { opacity: 1; transition: opacity 1s ease 1.4s, color .2s; }
+.hero.is-ready .scroll-hint:not(.is-gone) { opacity: 1; transition: opacity 1.2s ease 1.4s, background .25s, color .25s, border-color .25s; }
 
 /* entrance: the name settles in, then the line under it */
 .js .sig, .js .hero-tag { opacity: 0; }
@@ -165,11 +168,19 @@ mark.hl {
   transition: transform .75s var(--ease);
 }
 .stack-card .img { height: 100%; }
-.stack-card:last-child { transform: rotate(-2deg); z-index: 2; }
-.stack-card:first-child { transform: rotate(4.5deg) translate(.9rem, -.3rem); z-index: 1; }
-.stack:hover .stack-card:first-child { transform: rotate(7deg) translate(1.6rem, -.6rem); }
-.stack:hover .stack-card:last-child { transform: rotate(-1deg) translateY(-.3rem); }
-.stack-card.is-leaving { transform: rotate(-9deg) translate(-55%, -.5rem) !important; z-index: 3; transition-duration: .45s; }
+.stack-card { transition: transform .9s cubic-bezier(.65, 0, .35, 1); will-change: transform; }
+.stack-card.is-front { transform: rotate(-2deg); z-index: 2; }
+.stack-card.is-back { transform: rotate(4.5deg) translate(.9rem, -.3rem); z-index: 1; }
+.stack:hover .stack-card.is-back { transform: rotate(6.5deg) translate(1.4rem, -.5rem); }
+.stack:hover .stack-card.is-front { transform: rotate(-1deg) translateY(-.25rem); }
+/* the front photo swings out to the left, tucks behind, and settles into the back spot */
+.stack-card.to-back { animation: toBack 1s cubic-bezier(.65, 0, .35, 1) forwards; }
+@keyframes toBack {
+  0%   { transform: rotate(-2deg); z-index: 3; }
+  48%  { transform: translate(-62%, -.6rem) rotate(-10deg); z-index: 3; }
+  52%  { transform: translate(-62%, -.6rem) rotate(-10deg); z-index: 0; }
+  100% { transform: rotate(4.5deg) translate(.9rem, -.3rem); z-index: 0; }
+}
 
 @media (max-width: 860px) {
   .intro-grid { grid-template-columns: 1fr; justify-items: center; }

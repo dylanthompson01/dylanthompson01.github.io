@@ -153,9 +153,10 @@ function layout({ path, title, description = site.description, section = 'home',
 <meta property="og:image" content="${site.url}${image}">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <link rel="preload" href="/assets/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/assets/fonts/PinyonScript.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/Niconne.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/css/main.css?v=${V}">
 <script>document.documentElement.classList.add('js');if('onpagereveal' in window)document.documentElement.classList.add('vt')</script>
 ${models ? `<script type="module" src="${MODEL_VIEWER}"></script>\n` : ''}${jsonld}<script src="/assets/js/vt.js?v=${V}"></script>
@@ -348,14 +349,14 @@ function homePage() {
     <h1 class="sig" data-sig>Dylan Thompson</h1>
     <p class="hero-tag">${md(home.tagline)}</p>
   </div>
-  <a class="scroll-hint" href="#intro" data-scroll-hint aria-label="Scroll down"><span class="scroll-mouse" aria-hidden="true"><span></span></span></a>
+  <a class="scroll-hint" href="#intro" data-scroll-hint aria-label="Scroll down"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a>
 </section>
 
 <section class="intro" id="intro">
   <div class="wrap intro-grid">
     <figure class="intro-fig">
       <button class="stack" data-stack aria-label="Show the next photo of Dylan">
-        ${home.photos.slice().reverse().map((name) => `<span class="stack-card">${picture(name, { alt: site.name, sizes: '(max-width: 760px) 74vw, 360px' })}</span>`).join('')}
+        ${home.photos.map((name, i) => `<span class="stack-card ${i === 0 ? 'is-front' : 'is-back'}">${picture(name, { alt: site.name, sizes: '(max-width: 760px) 74vw, 360px', eager: i === 1 })}</span>`).join('')}
       </button>
     </figure>
     <div class="intro-copy">

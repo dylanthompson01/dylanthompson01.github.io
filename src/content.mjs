@@ -80,7 +80,7 @@ export const home = {
 export const experience = [
   {
     id: 'lockheed',
-    youtube: 'wyK20Q9xxsY', // muted looping company video on the homepage card
+    youtube: 'x2vQAX3hudg', // muted looping company video on the homepage card
     pill: 'lockheedmartin.com',
     org: 'Lockheed Martin',
     role: 'Missiles and Fire Control Engineer',

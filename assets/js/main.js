@@ -80,7 +80,7 @@
   const hero = $('[data-hero]');
   if (hero) {
     const go = () => requestAnimationFrame(() => requestAnimationFrame(() => hero.classList.add('is-ready')));
-    const fontReady = document.fonts && document.fonts.load ? document.fonts.load('400 1em "Pinyon Script"') : Promise.resolve();
+    const fontReady = document.fonts && document.fonts.load ? document.fonts.load('400 1em "Niconne"') : Promise.resolve();
     Promise.race([fontReady, new Promise((r) => setTimeout(r, 1200))]).then(go);
   }
 
@@ -98,16 +98,24 @@
     let busy = false;
     stack.addEventListener('click', () => {
       if (busy) return;
-      const cards = $$('.stack-card', stack);
-      const front = cards[cards.length - 1];
-      if (reduced) { stack.prepend(front); return; }
+      const front = $('.is-front', stack);
+      const back = $('.is-back', stack);
+      if (!front || !back) return;
+      if (reduced) {
+        front.classList.replace('is-front', 'is-back');
+        back.classList.replace('is-back', 'is-front');
+        return;
+      }
       busy = true;
-      front.classList.add('is-leaving');
-      setTimeout(() => {
-        stack.prepend(front);
-        front.classList.remove('is-leaving');
-        setTimeout(() => { busy = false; }, 500);
-      }, 380);
+      front.classList.add('to-back');
+      front.classList.remove('is-front');
+      // the back photo glides forward while the front one swings around behind it
+      setTimeout(() => back.classList.replace('is-back', 'is-front'), 380);
+      front.addEventListener('animationend', () => {
+        front.classList.add('is-back');
+        front.classList.remove('to-back');
+        busy = false;
+      }, { once: true });
     });
   }
 
