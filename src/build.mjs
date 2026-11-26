@@ -152,9 +152,9 @@ function layout({ path, title, description = site.description, section = 'home',
 <meta property="og:url" content="${url}">
 <meta property="og:image" content="${site.url}${image}">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
-<link rel="icon" href="/favicon.ico" sizes="48x48">
-<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="icon" href="/assets/favicon-dt.svg?v=${V}" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico?v=${V}" sizes="48x48">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon-dt.png?v=${V}">
 <link rel="preload" href="/assets/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/Niconne.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/css/main.css?v=${V}">
@@ -189,10 +189,7 @@ const socialLinks = () => (site.social || [])
 
 function footer(section) {
   return `<footer class="foot">
-  <div class="wrap foot-row">
-    <div class="foot-rev">
-      <span class="tb-k">Revised</span><span>${NOW.toLocaleDateString('en-US', { month: 'long', year: 'numeric', timeZone: 'America/New_York' })}</span>
-    </div>
+  <div class="wrap"><div class="foot-row">
     <nav class="foot-nav" aria-label="Site">${NAV.map(([href, label, id]) => `<a href="${href}"${section === id ? ' aria-current="page"' : ''}>${label}</a>`).join('')}<a href="${site.resume}" target="_blank" rel="noopener">Resume</a></nav>
     <span class="foot-copy">© ${NOW.getFullYear()} Dylan Thompson</span>
     <div class="foot-links">
@@ -200,7 +197,7 @@ function footer(section) {
       <a href="${site.github}" target="_blank" rel="noopener" aria-label="GitHub">${brandIcon('github').replace(/ style="color:#[0-9A-Fa-f]+"/, '')}</a>
       ${socialLinks()}
     </div>
-  </div>
+  </div></div>
 </footer>`;
 }
 
@@ -220,10 +217,12 @@ function xpGroups() {
 
 // ─── new shared pieces ──────────────────────────────────────────────────────
 
-// Section header styled as a drawing view callout: a lettered bubble, the title, a rule.
-function sheetHead(letter, title, link = '') {
+// Section header: a small number, the title, a hairline, and an optional link.
+// Callers pass a letter (A, B, C...) or a number; it shows as 01, 02, 03...
+function sheetHead(key, title, link = '') {
+  const n = typeof key === 'number' ? key : 'ABCDEFGHIJKLMNOP'.indexOf(key) + 1;
   return `<header class="sh">
-    <span class="sh-tag" aria-hidden="true">${letter}</span>
+    <span class="sh-n" aria-hidden="true">${String(n).padStart(2, '0')}</span>
     <h2>${title}</h2>
     <span class="sh-rule" aria-hidden="true"></span>
     ${link}
@@ -270,7 +269,7 @@ function xpCard(x) {
     : `<span class="logo-panel"><img src="${x.logo}" alt="" loading="lazy"></span>`;
   const tools = p ? (p.meta.find(([k]) => k === 'Tools') || [])[1] : '';
   return `<a class="xc" href="${xpHref(x)}">
-    <div class="xc-media">${media}<span class="pill">${esc(x.pill || '')}</span></div>
+    <div class="xc-media">${media}${x.overlay ? `<span class="yt-badge"><img src="${x.overlay}" alt="${esc(x.org)}"></span>` : ''}</div>
     <div class="xc-body">
       <div class="xc-top"><h3>${esc(x.org)}</h3><span class="xc-date">${esc(x.dates)}</span></div>
       <div class="xc-role">${esc(x.role)}<span class="chip">${esc(x.kind)}</span></div>
@@ -295,7 +294,7 @@ function involvementRows() {
 function bench() {
   const items = home.builds.map((b) => ({ ...b, p: bySlug[b.slug] }));
   const fileOf = (b) => (b.media ? `${b.slug}/${b.media}.${MEDIA.videos[b.media] ? 'mp4' : 'webp'}` : `${b.slug}/schematic.svg`);
-  const list = items.map((b, i) => `<li><a class="br${i === 0 ? ' is-on' : ''}" href="/work/${b.slug}/" data-key="${b.slug}" data-file="${esc(fileOf(b))}">
+  const list = items.map((b, i) => `<li><a class="br${i === 0 ? ' is-on' : ''}" href="/work/${b.slug}/" data-key="${b.slug}" data-file="${esc(b.p.year)}">
       <span class="br-title">${esc(b.p.title)}</span>
       <span class="br-tags">${esc(b.p.tags.slice(0, 3).join(' · '))}</span>
       <span class="br-thumb" aria-hidden="true">${b.media ? (MEDIA.videos[b.media] ? `<img src="/assets/media/${MEDIA.videos[b.media].dir}/${b.media}.webp" alt="" loading="lazy">` : picture(b.media, { sizes: '96px' })) : LOOP_SCHEMATIC}</span>
@@ -310,11 +309,9 @@ function bench() {
   return `<div class="bench" data-bench>
     <ol class="bench-list">${list}</ol>
     <div class="vp" aria-hidden="true">
-      <div class="vp-bar"><span data-vp-file>${esc(fileOf(first))}</span><span class="vp-xy" data-vp-xy>x 0.00  y 0.00</span></div>
+      
       <div class="vp-stage" data-vp-stage>
         ${stage}
-        <span class="vp-c tl"></span><span class="vp-c tr"></span><span class="vp-c bl"></span><span class="vp-c br"></span>
-        <span class="vp-cross" data-vp-cross></span>
       </div>
       <div class="vp-foot"><span data-vp-title>${esc(first.p.title)}</span><span data-vp-sub>${esc(first.p.subtitle)}</span></div>
     </div>
@@ -395,9 +392,12 @@ function homePage() {
   <div class="wrap">
     ${sheetHead('D', 'Outside of work')}
     <p class="free">${md(home.freeTime)}</p>
-    <a class="film" href="/photography/" aria-label="Photography gallery">
-      ${['photo-img-9280', 'photo-24-07-08-2357', 'photo-img-7161', 'photo-dsc00066', 'photo-img-7856', 'photo-img-8310'].filter((k) => MEDIA.images[k]).map((k) => `<span class="film-frame">${picture(k, { sizes: '(max-width: 760px) 40vw, 220px' })}</span>`).join('')}
-    </a>
+    <div class="wall" data-gallery>
+      ${['photo-img-9280', 'photo-24-07-08-2357', 'photo-img-7161', 'photo-img-7856', 'photo-img-8310'].filter((k) => MEDIA.images[k]).map((k) => {
+        const m = MEDIA.images[k];
+        return `<figure class="art${m.w > m.h ? ' is-wide' : ''}">${picture(k, { alt: 'Photo by Dylan Thompson', sizes: '(max-width: 760px) 45vw, 260px', attrs: ' data-zoom' })}</figure>`;
+      }).join('')}
+    </div>
     <p class="free-sub">I also take photos, mostly on trips. <a href="/photography/">See them all</a></p>
   </div>
 </section>
@@ -427,17 +427,17 @@ function contactBlock() {
   return `<section class="sec sec-contact" id="contact">
   <div class="wrap">
     <div class="contact">
-      <h2>Let’s talk.</h2>
+      <h2>Let’s talk</h2>
       <p>Open to internships, co-ops, research, and conversations about engineering.</p>
       <div class="contact-row">
         <a class="contact-mail" href="mailto:${esc(site.email)}">${esc(site.email)}</a>
         <button class="copy-btn" data-copy="${esc(site.email)}" aria-label="Copy email address"><span class="i-copy">${I.copy}</span><span class="i-check">${I.check}</span></button>
-      </div>
-      <div class="contact-links">
-        <a href="${site.linkedin}" target="_blank" rel="noopener">LinkedIn ${I.up}</a>
-        <a href="${site.github}" target="_blank" rel="noopener">GitHub ${I.up}</a>
-        <a href="${site.resume}" target="_blank" rel="noopener">Resume ${I.up}</a>
-        ${(site.social || []).map((s) => `<a href="${s.url}" target="_blank" rel="noopener">${esc(s.label)} ${I.up}</a>`).join('')}
+        <span class="contact-links">
+          <a href="${site.linkedin}" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="${site.github}" target="_blank" rel="noopener">GitHub</a>
+          <a href="${site.resume}" target="_blank" rel="noopener">Resume</a>
+          ${(site.social || []).map((x) => `<a href="${x.url}" target="_blank" rel="noopener">${esc(x.label)}</a>`).join('')}
+        </span>
       </div>
     </div>
   </div>
@@ -489,7 +489,7 @@ function projectPage(p, idx) {
     const media = (s.media || []).filter((m) => m.type !== 'model');
     return `<section class="ch${media.length ? '' : ' no-media'}">
       <div class="ch-text">
-        <div class="ch-kick"><span class="sh-tag" aria-hidden="true">${LETTERS[i]}</span><span>${esc(kicker(s.kicker))}</span></div>
+        <div class="ch-kick">${esc(kicker(s.kicker))}</div>
         <h2>${esc(s.title)}</h2>
         <div class="ch-body">${paras(s.body)}${bullets(s.bullets)}</div>
       </div>
@@ -663,12 +663,12 @@ write('.nojekyll', '');
 
 // Social preview image + icons (generated once).
 const og = join(ROOT, 'assets', 'og.jpg');
-if (!existsSync(og) || !existsSync(join(ROOT, 'assets', 'apple-touch-icon.png'))) {
+if (!existsSync(og)) {
   const sharp = (await import('sharp')).default;
   const sunset = MEDIA.images.sunset;
   await sharp(join(ROOT, 'assets', 'media', sunset.dir, `sunset-${sunset.sizes.at(-1)}.webp`)).resize(1200, 630, { fit: 'cover' }).jpeg({ quality: 82 }).toFile(og);
-  const svg = readFileSync(join(ROOT, 'assets', 'favicon.svg'));
-  await sharp(svg, { density: 600 }).resize(180, 180).flatten({ background: '#1F4D36' }).png().toFile(join(ROOT, 'assets', 'apple-touch-icon.png'));
 }
+// Favicon files (assets/favicon-dt.svg, apple-touch-icon-dt.png, favicon.ico) are generated
+// from the script initials; see the commit that added them.
 
 console.log(`built ${urls.length + 1} pages`);

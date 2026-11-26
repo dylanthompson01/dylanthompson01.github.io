@@ -119,44 +119,62 @@
     });
   }
 
-  /* ── company videos on the experience cards: load when scrolled to ── */
+  /* ── company videos on the experience cards ──────────────────────────
+     Uses YouTube's player API so the video only appears once it's actually
+     playing: no play button, no controls, no paused frame. Until then the
+     card shows the video's still image. */
   const yts = $$('[data-yt]');
   if (yts.length && !reduced) {
+    let api;
+    const loadApi = () => api || (api = new Promise((resolve) => {
+      const prev = window.onYouTubeIframeAPIReady;
+      window.onYouTubeIframeAPIReady = () => { prev?.(); resolve(); };
+      const tag = document.createElement('script');
+      tag.src = 'https://www.youtube.com/iframe_api';
+      document.head.append(tag);
+    }));
     const ytIO = new IntersectionObserver((entries) => {
-      entries.forEach((e) => {
+      entries.forEach(async (e) => {
         if (!e.isIntersecting) return;
         ytIO.unobserve(e.target);
+        await loadApi();
         const id = e.target.dataset.yt;
-        const f = document.createElement('iframe');
-        f.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&mute=1&loop=1&playlist=${id}&controls=0&modestbranding=1&playsinline=1&rel=0&iv_load_policy=3&disablekb=1`;
-        f.title = 'Company video';
-        f.allow = 'autoplay; encrypted-media; picture-in-picture';
-        f.tabIndex = -1;
-        f.setAttribute('aria-hidden', 'true');
-        f.addEventListener('load', () => setTimeout(() => f.classList.add('is-on'), 900));
-        e.target.append(f);
+        const host = document.createElement('div');
+        e.target.append(host);
+        new YT.Player(host, {
+          host: 'https://www.youtube-nocookie.com',
+          videoId: id,
+          playerVars: { autoplay: 1, mute: 1, controls: 0, loop: 1, playlist: id, modestbranding: 1, playsinline: 1, rel: 0, iv_load_policy: 3, disablekb: 1, fs: 0 },
+          events: {
+            onReady: (ev) => {
+              const f = ev.target.getIframe();
+              f.tabIndex = -1;
+              f.setAttribute('aria-hidden', 'true');
+              f.title = 'Company video';
+              ev.target.mute();
+              ev.target.playVideo();
+            },
+            onStateChange: (ev) => {
+              const f = ev.target.getIframe();
+              if (ev.data === YT.PlayerState.PLAYING) f.classList.add('is-on');
+              if (ev.data === YT.PlayerState.PAUSED || ev.data === YT.PlayerState.CUED) f.classList.remove('is-on');
+              if (ev.data === YT.PlayerState.ENDED) { ev.target.seekTo(0); ev.target.playVideo(); }
+            },
+          },
+        });
       });
     }, { rootMargin: '200px 0px' });
     yts.forEach((el) => ytIO.observe(el));
   }
-
-  /* ── highlighter marks sweep in when you reach them ─────────────────── */
-  const hlIO = new IntersectionObserver((entries) => {
-    entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('is-on'); hlIO.unobserve(e.target); } });
-  }, { rootMargin: '0px 0px -20% 0px', threshold: 1 });
-  $$('mark.hl').forEach((m) => hlIO.observe(m));
 
   /* ── project viewer: hover or focus a build to preview it ──────────── */
   const bench = $('[data-bench]');
   if (bench) {
     const rows = $$('.br', bench);
     const items = $$('.vp-item', bench);
-    const fileEl = $('[data-vp-file]', bench);
     const titleEl = $('[data-vp-title]', bench);
     const subEl = $('[data-vp-sub]', bench);
     const stage = $('[data-vp-stage]', bench);
-    const xy = $('[data-vp-xy]', bench);
-    const cross = $('[data-vp-cross]', bench);
     const wide = () => getComputedStyle($('.vp', bench)).display !== 'none';
     const show = (row) => {
       const key = row.dataset.key;
@@ -168,21 +186,12 @@
         if (!v) return;
         if (on && wide()) { v.preload = 'auto'; v.play().catch(() => {}); } else v.pause();
       });
-      fileEl.textContent = row.dataset.file;
       titleEl.textContent = $('.br-title', row).textContent;
       subEl.textContent = $('.br-tags', row).textContent;
     };
     rows.forEach((r) => { r.addEventListener('pointerenter', () => show(r)); r.addEventListener('focus', () => show(r)); });
     // start the first clip once the viewer scrolls into view
     new IntersectionObserver((es, o) => { if (es[0].isIntersecting && wide()) { show(rows.find((r) => r.classList.contains('is-on')) || rows[0]); o.disconnect(); } }, { threshold: 0.3 }).observe(stage);
-    stage.addEventListener('pointermove', (e) => {
-      const r = stage.getBoundingClientRect();
-      const x = e.clientX - r.left, y = e.clientY - r.top;
-      cross.style.transform = `translate(${x}px, ${y}px)`;
-      const fx = ((x / r.width) * 2 - 1) * 100, fy = (1 - (y / r.height) * 2) * 100;
-      const f = (n) => `${n < 0 ? '-' : ' '}${Math.abs(n).toFixed(2).padStart(6, '0')}`;
-      xy.textContent = `x${f(fx)}  y${f(fy)}`;
-    });
   }
 
   /* ── reveal hook used by older templates ───────────────────────────── */
