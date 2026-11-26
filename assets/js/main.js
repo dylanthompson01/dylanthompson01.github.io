@@ -80,7 +80,7 @@
   const hero = $('[data-hero]');
   if (hero) {
     const go = () => requestAnimationFrame(() => requestAnimationFrame(() => hero.classList.add('is-ready')));
-    const fontReady = document.fonts && document.fonts.load ? document.fonts.load('400 1em "Niconne"') : Promise.resolve();
+    const fontReady = document.fonts && document.fonts.load ? document.fonts.load('400 1em "Parisienne"') : Promise.resolve();
     Promise.race([fontReady, new Promise((r) => setTimeout(r, 1200))]).then(go);
   }
 

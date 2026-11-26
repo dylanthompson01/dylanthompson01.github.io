@@ -11,8 +11,8 @@
   font-weight: 100 900; font-style: normal; font-display: swap;
 }
 @font-face {
-  font-family: 'Niconne';
-  src: url('/assets/fonts/Niconne.woff2') format('woff2');
+  font-family: 'Parisienne';
+  src: url('/assets/fonts/Parisienne.woff2') format('woff2');
   font-weight: 400; font-style: normal; font-display: swap;
 }
 @font-face {
@@ -96,7 +96,7 @@ mark.hl {
 /* ─── masthead: just the initials, in the top-left corner ─────────────────── */
 .mast { position: absolute; top: 0; left: 0; z-index: 20; padding: 1rem 1.25rem; }
 .mast-mark {
-  display: block; font-family: 'Niconne', 'Snell Roundhand', cursive; font-weight: 400;
+  display: block; font-family: 'Parisienne', 'Snell Roundhand', cursive; font-weight: 400;
   font-size: 1.85rem; line-height: 1; color: var(--ink); transition: color .25s;
 }
 .mast-mark:hover { color: var(--accent); }
@@ -120,10 +120,10 @@ mark.hl {
 .hero { position: relative; min-height: 100svh; display: grid; place-items: center; padding: 3rem 0 5rem; }
 .hero-c { text-align: center; display: grid; justify-items: center; }
 .sig {
-  font-family: 'Niconne', 'Snell Roundhand', cursive; font-weight: 400; color: var(--sage);
-  font-size: clamp(3.6rem, 13vw, 12.5rem); line-height: 1.25; letter-spacing: 0; padding: 0 .15em; white-space: nowrap;
+  font-family: 'Parisienne', 'Snell Roundhand', cursive; font-weight: 400; color: var(--sage);
+  font-size: clamp(3.4rem, 11.8vw, 11.5rem); line-height: 1.4; letter-spacing: 0; padding: 0 .2em; white-space: nowrap;
 }
-@media (max-width: 560px) { .sig { font-size: 11.4vw; padding: 0; } }
+@media (max-width: 560px) { .sig { font-size: 12.6vw; padding: 0 .05em; } }
 .hero-tag { margin-top: clamp(.5rem, 1.6vw, 1rem); font-size: clamp(1.3rem, 2.3vw, 1.85rem); line-height: 1.45; color: var(--ink-2); letter-spacing: -.01em; }
 .blue { color: var(--accent); }
 .status {

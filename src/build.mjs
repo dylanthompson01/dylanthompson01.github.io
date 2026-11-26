@@ -156,7 +156,7 @@ function layout({ path, title, description = site.description, section = 'home',
 <link rel="icon" href="/favicon.ico?v=${V}" sizes="48x48">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon-dt.png?v=${V}">
 <link rel="preload" href="/assets/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/assets/fonts/Niconne.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/Parisienne.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/css/main.css?v=${V}">
 <script>document.documentElement.classList.add('js');if('onpagereveal' in window)document.documentElement.classList.add('vt')</script>
 ${models ? `<script type="module" src="${MODEL_VIEWER}"></script>\n` : ''}${jsonld}<script src="/assets/js/vt.js?v=${V}"></script>
