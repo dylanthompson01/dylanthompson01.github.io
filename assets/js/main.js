@@ -24,7 +24,7 @@
   const cv = $('[data-dots]');
   if (cv && cv.getContext) {
     const ctx = cv.getContext('2d');
-    const GAP = 12;
+    const GAP = 9;
     let w = 0, h = 0, dpr = 1, px = -999, py = -999, pending = false;
     // cheap value noise for the patchy halftone areas
     const hash = (x, y) => { const s = Math.sin(x * 127.1 + y * 311.7) * 43758.5453; return s - Math.floor(s); };
@@ -43,9 +43,9 @@
       for (let y = (-(off % GAP)); y < h; y += GAP) {
         const gy = (y + off) / GAP;
         for (let x = GAP / 2; x < w; x += GAP) {
-          const n = noise(x / GAP / 9, gy / 9);
-          let a = n > 0.62 ? 0.06 + (n - 0.62) * 0.55 : 0.035;
-          let rad = 0.75;
+          const n = noise(x / GAP / 12, gy / 12);
+          let a = n > 0.6 ? 0.13 + (n - 0.6) * 0.5 : 0.085;
+          let rad = 0.7;
           let tint = 0;
           if (finePointer && !reduced) {
             const dx = x - px, dy = y - py, d2 = dx * dx + dy * dy;
@@ -76,72 +76,53 @@
     }
   }
 
-  /* ── hero: the name writes itself once the script font is ready ────── */
+  /* ── hero: the name settles in once its font is ready ───────────────── */
   const hero = $('[data-hero]');
   if (hero) {
     const go = () => requestAnimationFrame(() => requestAnimationFrame(() => hero.classList.add('is-ready')));
-    const fontReady = document.fonts && document.fonts.load ? document.fonts.load('400 1em "Great Vibes"') : Promise.resolve();
+    const fontReady = document.fonts && document.fonts.load ? document.fonts.load('italic 400 1em "Cormorant Garamond"') : Promise.resolve();
     Promise.race([fontReady, new Promise((r) => setTimeout(r, 1200))]).then(go);
   }
 
-  /* ── intro: leader lines draw from each callout to the photo ───────── */
-  const intro = $('.intro');
-  const leaders = $('[data-leaders]');
-  const drawLeaders = (animate) => {
-    if (!leaders) return;
-    $$('.ld', leaders).forEach((n) => n.remove());
-    const box = leaders.parentElement;
-    const photo = $('.s0', box);
-    if (!photo || getComputedStyle(leaders).display === 'none') return;
-    const br = box.getBoundingClientRect();
-    const pr = photo.getBoundingClientRect();
-    $$('.co', box).forEach((co, i) => {
-      const r = co.getBoundingClientRect();
-      const left = r.right < pr.left + pr.width / 2;   // callout sits left of the photo
-      const y1 = r.top - br.top + r.height / 2;
-      const x1 = (left ? r.right + 10 : r.left - 10) - br.left;
-      const knee = x1 + (left ? 22 : -22);
-      const ty = Math.min(Math.max(r.top + r.height / 2, pr.top + pr.height * 0.14), pr.bottom - pr.height * 0.14);
-      const x2 = (left ? pr.left + pr.width * 0.02 : pr.right - pr.width * 0.02) - br.left;
-      const y2 = ty - br.top + (i - 1) * 6;
-      const p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      p.setAttribute('class', 'ld');
-      p.setAttribute('d', `M${x1} ${y1}H${knee}L${x2} ${y2}`);
-      p.setAttribute('marker-end', 'url(#ah)');
-      leaders.append(p);
-      if (animate && !reduced) {
-        const len = p.getTotalLength();
-        p.style.strokeDasharray = len;
-        p.style.strokeDashoffset = len;
-        p.style.transition = `stroke-dashoffset .8s cubic-bezier(.2,.8,.2,1) ${0.35 + i * 0.15}s`;
-        p.setAttribute('marker-end', '');
-        p.getBoundingClientRect();
-        requestAnimationFrame(() => { p.style.strokeDashoffset = 0; });
-        setTimeout(() => p.setAttribute('marker-end', 'url(#ah)'), (1.1 + i * 0.15) * 1000);
-      }
+  /* ── intro: click the photo to flip to the next one ──────────────── */
+  const stack = $('[data-stack]');
+  if (stack) {
+    let busy = false;
+    stack.addEventListener('click', () => {
+      if (busy) return;
+      const cards = $$('.stack-card', stack);
+      const front = cards[cards.length - 1];
+      if (reduced) { stack.prepend(front); return; }
+      busy = true;
+      front.classList.add('is-leaving');
+      setTimeout(() => {
+        stack.prepend(front);
+        front.classList.remove('is-leaving');
+        setTimeout(() => { busy = false; }, 500);
+      }, 380);
     });
-  };
-  if (intro) {
-    new IntersectionObserver((es, o) => {
-      if (!es[0].isIntersecting) return;
-      intro.classList.add('is-in');
-      drawLeaders(true);
-      o.disconnect();
-    }, { threshold: 0.35 }).observe(intro);
-    let rz;
-    addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(() => intro.classList.contains('is-in') && drawLeaders(false), 120); });
-    $('[data-stack]')?.addEventListener('transitionend', () => intro.classList.contains('is-in') && drawLeaders(false));
   }
 
-  /* ── highlighter marks sweep in when read ──────────────────────────── */
-  const hlIO = new IntersectionObserver((entries) => {
-    entries.forEach((e) => {
-      if (!e.isIntersecting) return;
-      const marks = $$('mark.hl', e.target.closest('p, .hero-lead') || e.target);
-      marks.forEach((m, i) => { m.style.setProperty('--d', `${(hero && hero.contains(m) ? 0.7 : 0.15) + i * 0.25}s`); m.classList.add('is-on'); hlIO.unobserve(m); });
-    });
-  }, { rootMargin: '0px 0px -15% 0px', threshold: 1 });
-  $$('mark.hl').forEach((m) => hlIO.observe(m));
+  /* ── company videos on the experience cards: load when scrolled to ── */
+  const yts = $$('[data-yt]');
+  if (yts.length && !reduced) {
+    const ytIO = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        ytIO.unobserve(e.target);
+        const id = e.target.dataset.yt;
+        const f = document.createElement('iframe');
+        f.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&mute=1&loop=1&playlist=${id}&controls=0&modestbranding=1&playsinline=1&rel=0&iv_load_policy=3&disablekb=1`;
+        f.title = 'Company video';
+        f.allow = 'autoplay; encrypted-media; picture-in-picture';
+        f.tabIndex = -1;
+        f.setAttribute('aria-hidden', 'true');
+        f.addEventListener('load', () => setTimeout(() => f.classList.add('is-on'), 900));
+        e.target.append(f);
+      });
+    }, { rootMargin: '200px 0px' });
+    yts.forEach((el) => ytIO.observe(el));
+  }
 
   /* ── project viewer: hover or focus a build to preview it ──────────── */
   const bench = $('[data-bench]');

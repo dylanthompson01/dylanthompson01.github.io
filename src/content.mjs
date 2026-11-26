@@ -26,20 +26,10 @@ export const site = {
 
 export const home = {
   hello: "Hi, I'm Dylan.",
-  // ==text== draws a highlighter mark behind the words.
-  // ^^text^^ sets words in blue; ==text== draws a highlighter mark.
-  tagline: 'I like ^^building things^^: machined parts, thermal research, and robots, ==from CAD to the shop floor==.',
-  lead: 'Mechanical engineering student at UCF. I ==design parts, machine them, and test them==, from CAD to the shop floor.',
-  status: 'Looking for Summer 2027 internships',
-  photo: 'portrait',
-  // Photos fanned out behind the portrait in the hero.
-  stack: ['putter-head', 'arm-hero'],
-  // Leader-line callouts pointing at the hero photo.
-  callouts: [
-    { k: 'Now', v: 'Lockheed Martin, Missiles and Fire Control' },
-    { k: 'Summer 2026', v: 'GE Vernova, manufacturing intern' },
-    { k: 'Certified', v: 'SolidWorks Professional (CSWP)' },
-  ],
+  tagline: 'I like creating.',
+  lead: 'Mechanical engineering student at UCF. I design parts, machine them, and test them, from CAD to the shop floor.',
+  // Photos of me in the intro; clicking the photo cycles through them.
+  photos: ['portrait', 'gev-lounge'],
   // Experience cards (in this order); the rest of `experience` shows as compact rows.
   featured: ['lockheed', 'ge-vernova', 'itl', 'asme'],
   // Builds in the project viewer. media: a video or image name shown in the viewer.
@@ -52,9 +42,8 @@ export const home = {
     { slug: 'liquid-cooling', media: null },
   ],
   about: [
-    'I grew up building things: LEGO, then cardboard, then circuits. Going into college I taught myself SolidWorks and ==earned my CSWA and CSWP before my first semester==.',
-    'Since then I’ve machined race parts for Baja SAE, researched pulsating heat pipes, and led a 60+ member ASME team. Last summer at GE Vernova I ==doubled a production line’s throughput== in a kaizen week.',
-    'Long term I want to work on a close team on hard problems, like ==thermal management for computing hardware==. It’s why I’m building a liquid cooling loop on my own time.',
+    'I grew up building things, from LEGO to circuits. Before my first semester at UCF, I taught myself SolidWorks and earned my CSWA and CSWP.',
+    'Since then I’ve machined Baja SAE race parts, researched heat pipes, led a 60+ member ASME team, and doubled a production line’s throughput at GE Vernova.',
   ],
   background: 'sunset',
   // "About me" section on the home page: past, present, future.
@@ -89,6 +78,7 @@ export const home = {
 export const experience = [
   {
     id: 'lockheed',
+    youtube: 'yJjioe4qafA', // muted looping company video on the homepage card
     pill: 'lockheedmartin.com',
     org: 'Lockheed Martin',
     role: 'Missiles and Fire Control Engineer',
@@ -103,6 +93,7 @@ export const experience = [
   },
   {
     id: 'ge-vernova',
+    youtube: '7I8Szv2W-6Y', // muted looping company video on the homepage card
     pill: 'gevernova.com',
     org: 'GE Vernova',
     role: 'Manufacturing Engineering Intern',
@@ -704,9 +695,9 @@ export const about = {
   lead: 'I’m a mechanical engineering student at UCF. I care about being the best version of myself and learning from my mistakes.',
   body: [
     'I grew up building things. LEGO first, then cardboard, then anything I could take apart and put back together. That led to circuits and math, and eventually to engineering.',
-    'I didn’t put in the work I could have in high school. Going into college I decided that wouldn’t happen again: ==good grades, experience early, and learning as fast as I can==.',
-    'I taught myself SolidWorks and ==earned my CSWA and CSWP before my first semester==, then joined undergraduate research, machined parts for Baja SAE, and led a 60+ member ASME design team. That led to GE Vernova last summer, and this fall I’m with Lockheed Martin Missiles and Fire Control.',
-    'Long term, I want to work on a close team that values collaboration and new ideas, on problems like ==thermal management for computing hardware==. It’s part of why I’m building a liquid cooling loop on my own time.',
+    'I didn’t put in the work I could have in high school. Going into college I decided that wouldn’t happen again: good grades, experience early, and learning as fast as I can.',
+    'I taught myself SolidWorks and earned my CSWA and CSWP before my first semester, then joined undergraduate research, machined parts for Baja SAE, and led a 60+ member ASME design team. That led to GE Vernova last summer, and this fall I’m with Lockheed Martin Missiles and Fire Control.',
+    'Long term, I want to work on a close team that values collaboration and new ideas, on problems like thermal management for computing hardware. It’s part of why I’m building a liquid cooling loop on my own time.',
   ],
   hobbies: ['Hanging out with friends', 'Cooking', 'Personal projects', 'Gym', 'Running'],
   photos: [img('portrait'), img('sunset'), img('gev-lounge')],

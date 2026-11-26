@@ -130,9 +130,7 @@ const NAV = [
 ];
 
 // The only header: initials in script, top left. It scrolls away with the page.
-const masthead = () => `<header class="mast">
-  <div class="mast-inner"><a class="mast-mark" href="/" aria-label="${esc(site.name)}, home">DT</a></div>
-</header>`;
+const masthead = () => `<header class="mast"><a class="mast-mark" href="/" aria-label="${esc(site.name)}, home">DT</a></header>`;
 
 function layout({ path, title, description = site.description, section = 'home', body, models = false, image = '/assets/og.jpg', jsonld = '' }) {
   const fullTitle = title ? `${title} · ${site.name}` : site.name;
@@ -157,7 +155,7 @@ function layout({ path, title, description = site.description, section = 'home',
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <link rel="preload" href="/assets/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/assets/fonts/GreatVibes.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/CormorantGaramond-Italic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/css/main.css?v=${V}">
 <script>document.documentElement.classList.add('js');if('onpagereveal' in window)document.documentElement.classList.add('vt')</script>
 ${models ? `<script type="module" src="${MODEL_VIEWER}"></script>\n` : ''}${jsonld}<script src="/assets/js/vt.js?v=${V}"></script>
@@ -194,7 +192,7 @@ function footer(section) {
     <div class="foot-rev">
       <span class="tb-k">Revised</span><span>${NOW.toLocaleDateString('en-US', { month: 'long', year: 'numeric', timeZone: 'America/New_York' })}</span>
     </div>
-    <nav class="foot-nav" aria-label="Site">${NAV.map(([href, label, id]) => `<a href="${href}"${section === id ? ' aria-current="page"' : ''}>${label}</a>`).join('')}<a href="${site.resume}" target="_blank" rel="noopener">Résumé</a></nav>
+    <nav class="foot-nav" aria-label="Site">${NAV.map(([href, label, id]) => `<a href="${href}"${section === id ? ' aria-current="page"' : ''}>${label}</a>`).join('')}<a href="${site.resume}" target="_blank" rel="noopener">Resume</a></nav>
     <span class="foot-copy">© ${NOW.getFullYear()} Dylan Thompson</span>
     <div class="foot-links">
       <a href="${site.linkedin}" target="_blank" rel="noopener" aria-label="LinkedIn">${I.linkedin}</a>
@@ -264,7 +262,9 @@ const LOOP_SCHEMATIC = `<svg class="schematic" viewBox="0 0 320 240" aria-hidden
 
 function xpCard(x) {
   const p = x.project ? bySlug[x.project] : null;
-  const media = p && p.cover
+  const media = x.youtube
+    ? `<span class="yt" data-yt="${x.youtube}"><img src="https://i.ytimg.com/vi/${x.youtube}/maxresdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/${x.youtube}/hqdefault.jpg'" alt="" loading="lazy"></span>`
+    : p && p.cover
     ? picture(p.cover, { alt: '', sizes: '(max-width: 760px) 92vw, 560px' })
     : `<span class="logo-panel"><img src="${x.logo}" alt="" loading="lazy"></span>`;
   const tools = p ? (p.meta.find(([k]) => k === 'Tools') || [])[1] : '';
@@ -342,35 +342,29 @@ function bom() {
 }
 
 function homePage() {
-  const [back2, back1] = [home.stack[1], home.stack[0]];
   const body = `
 <section class="hero" data-hero>
   <div class="wrap hero-c">
     <h1 class="sig" data-sig>Dylan Thompson</h1>
     <p class="hero-tag">${md(home.tagline)}</p>
-    <p class="status"><span class="status-dot" aria-hidden="true"></span>${esc(home.status)}</p>
   </div>
-  <a class="cue" href="#intro" aria-label="Scroll to introduction"><span class="cue-line" aria-hidden="true"></span><span>scroll</span></a>
 </section>
 
 <section class="intro" id="intro">
   <div class="wrap intro-grid">
-    <ul class="callouts">${home.callouts.map((c, i) => `<li class="co" style="--i:${i}"><span class="co-k">${esc(c.k)}</span><span class="co-v">${esc(c.v)}</span></li>`).join('')}</ul>
-    <figure class="hero-fig">
-      <div class="stack" data-stack>
-        <div class="stack-card s2">${picture(back2, { alt: bySlug['robotic-arm'].title, sizes: '320px' })}</div>
-        <div class="stack-card s1">${picture(back1, { alt: bySlug['cnc-putter'].title, sizes: '320px' })}</div>
-        <div class="stack-card s0">${picture(home.photo, { alt: site.name, sizes: '(max-width: 900px) 70vw, 340px' })}</div>
-      </div>
+    <figure class="intro-fig">
+      <button class="stack" data-stack aria-label="Show the next photo of Dylan">
+        ${home.photos.slice().reverse().map((name) => `<span class="stack-card">${picture(name, { alt: site.name, sizes: '(max-width: 760px) 74vw, 360px' })}</span>`).join('')}
+      </button>
+      <figcaption class="stack-hint">Click to flip</figcaption>
     </figure>
     <div class="intro-copy">
       ${home.about.map((t) => `<p>${md(t)}</p>`).join('')}
       <div class="hero-actions">
-        <a class="btn btn-ink" href="${site.resume}" target="_blank" rel="noopener">${I.down}<span>Résumé</span></a>
+        <a class="btn btn-ink" href="${site.resume}" target="_blank" rel="noopener">${I.down}<span>Resume</span></a>
         <button class="btn btn-line" data-copy="${esc(site.email)}"><span class="i-copy">${I.copy}</span><span class="i-check">${I.check}</span><span>${esc(site.email)}</span></button>
       </div>
     </div>
-    <svg class="leaders" data-leaders aria-hidden="true"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 1.5 10 5 0 8.5z"/></marker></defs></svg>
   </div>
 </section>
 
@@ -381,23 +375,16 @@ function homePage() {
   </div>
 </section>
 
-<section class="sec" id="involvement">
-  <div class="wrap">
-    ${sheetHead('B', 'Involvement')}
-    ${involvementRows()}
-  </div>
-</section>
-
 <section class="sec" id="builds">
   <div class="wrap">
-    ${sheetHead('C', 'Things I’ve built', shLink('/work/', 'All projects'))}
+    ${sheetHead('B', 'Things I’ve built', shLink('/work/', 'All projects'))}
     ${bench()}
   </div>
 </section>
 
 <section class="sec" id="tools">
   <div class="wrap">
-    ${sheetHead('D', 'Bill of materials')}
+    ${sheetHead('C', 'Bill of materials')}
     <p class="sec-note">The tools I use, and how many of my ${projects.length} projects each one shows up in.</p>
     ${bom()}
   </div>
@@ -405,7 +392,7 @@ function homePage() {
 
 <section class="sec" id="photography">
   <div class="wrap">
-    ${sheetHead('E', 'Photography', shLink('/photography/', 'See all'))}
+    ${sheetHead('D', 'Photography', shLink('/photography/', 'See all'))}
     <a class="film" href="/photography/" aria-label="Photography gallery">
       ${['photo-img-9280', 'photo-24-07-08-2357', 'photo-img-7161', 'photo-dsc00066', 'photo-img-7856', 'photo-img-8310'].filter((k) => MEDIA.images[k]).map((k) => `<span class="film-frame">${picture(k, { sizes: '(max-width: 760px) 40vw, 220px' })}</span>`).join('')}
     </a>
@@ -446,7 +433,7 @@ function contactBlock() {
       <div class="contact-links">
         <a href="${site.linkedin}" target="_blank" rel="noopener">LinkedIn ${I.up}</a>
         <a href="${site.github}" target="_blank" rel="noopener">GitHub ${I.up}</a>
-        <a href="${site.resume}" target="_blank" rel="noopener">Résumé ${I.up}</a>
+        <a href="${site.resume}" target="_blank" rel="noopener">Resume ${I.up}</a>
         ${(site.social || []).map((s) => `<a href="${s.url}" target="_blank" rel="noopener">${esc(s.label)} ${I.up}</a>`).join('')}
       </div>
     </div>
@@ -567,7 +554,7 @@ function experiencePage() {
       <td class="cert-go">${c.url ? `<a href="${c.url}" target="_blank" rel="noopener" aria-label="Verify ${esc(c.name)}">Verify ${I.up}</a>` : ''}</td>
     </tr>`).join('');
   const body = `
-${pageHead('Experience', `Industry, research, and team roles. The one-page version is my <a href="${site.resume}" target="_blank" rel="noopener">résumé</a>.`)}
+${pageHead('Experience', `Industry, research, and team roles. The one-page version is my <a href="${site.resume}" target="_blank" rel="noopener">resume</a>.`)}
 <section class="sec sec-tight">
   <div class="wrap">
     ${sheetHead('A', 'Roles')}
