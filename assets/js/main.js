@@ -5,7 +5,7 @@
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const finePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
 
-  /* ── title block: live date + mobile menu ──────────────────────────── */
+  /* ── mobile menu (unused while the header is just initials) ───────── */
   const today = $('[data-today]');
   if (today) today.textContent = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 
@@ -39,19 +39,19 @@
       pending = false;
       ctx.clearRect(0, 0, w, h);
       const off = reduced ? 0 : (scrollY * 0.25) % (GAP * 4000);
-      const r2 = 150 * 150;
+      const r2 = 120 * 120;
       for (let y = (-(off % GAP)); y < h; y += GAP) {
         const gy = (y + off) / GAP;
         for (let x = GAP / 2; x < w; x += GAP) {
           const n = noise(x / GAP / 9, gy / 9);
           let a = n > 0.62 ? 0.06 + (n - 0.62) * 0.55 : 0.035;
           let rad = 0.75;
-          let blue = false;
+          let tint = 0;
           if (finePointer && !reduced) {
             const dx = x - px, dy = y - py, d2 = dx * dx + dy * dy;
-            if (d2 < r2) { const k = 1 - d2 / r2; a += k * 0.35; rad += k * 0.9; blue = k > 0.15; }
+            if (d2 < r2) { const k = 1 - d2 / r2; const e = k * k; a += e * 0.09; rad += e * 0.35; tint = e; }
           }
-          ctx.fillStyle = blue ? `rgba(36,82,214,${a})` : `rgba(31,34,38,${a})`;
+          ctx.fillStyle = tint > 0.2 ? `rgba(30,90,60,${a})` : `rgba(31,34,38,${a})`;
           ctx.fillRect(x - rad, y - rad, rad * 2, rad * 2);
         }
       }

@@ -122,36 +122,17 @@ function months(start, end) {
 
 // ─── layout ─────────────────────────────────────────────────────────────────
 
-// The header is drawn like the title block on an engineering drawing:
-// who drew it, today's date, and which sheet of the set you're on.
 const NAV = [
   ['/work/', 'Work', 'work'],
   ['/experience/', 'Experience', 'experience'],
   ['/about/', 'About', 'about'],
   ['/photography/', 'Photography', 'photography'],
 ];
-const SHEET = { home: 1, work: 2, experience: 3, about: 4, photography: 5 };
-const fmtDate = (d) => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'America/New_York' });
 
-function titleBlock(section) {
-  const cur = (id) => (section === id ? ' aria-current="page"' : '');
-  const sheet = SHEET[section] || 1;
-  return `<header class="tb" data-nav>
-  <div class="tb-inner">
-    <a class="tb-mark" href="/" aria-label="${esc(site.name)}, home"><span>DT</span></a>
-    <div class="tb-cell tb-drawn"><span class="tb-k">Drawn by</span><span class="tb-v">D. Thompson</span></div>
-    <div class="tb-cell tb-date"><span class="tb-k">Date</span><span class="tb-v" data-today>${fmtDate(NOW)}</span></div>
-    <div class="tb-cell tb-sheet"><span class="tb-k">Sheet</span><span class="tb-v">${sheet} of 5</span></div>
-    <nav class="tb-nav" aria-label="Primary">${NAV.map(([href, label, id]) => `<a href="${href}"${cur(id)}>${label}</a>`).join('')}</nav>
-    <a class="tb-resume" href="${site.resume}" target="_blank" rel="noopener">Résumé</a>
-    <button class="tb-menu" data-menu-toggle aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
-  </div>
-  <div class="tb-sheet-menu" data-sheet>
-    <nav aria-label="Main">${NAV.map(([href, label, id]) => `<a href="${href}"${cur(id)}>${label}</a>`).join('')}<a href="${site.resume}" target="_blank" rel="noopener">Résumé</a></nav>
-    <a class="tb-sheet-mail" href="mailto:${esc(site.email)}">${esc(site.email)}</a>
-  </div>
+// The only header: initials in script, top left. It scrolls away with the page.
+const masthead = () => `<header class="mast">
+  <div class="mast-inner"><a class="mast-mark" href="/" aria-label="${esc(site.name)}, home">DT</a></div>
 </header>`;
-}
 
 function layout({ path, title, description = site.description, section = 'home', body, models = false, image = '/assets/og.jpg', jsonld = '' }) {
   const fullTitle = title ? `${title} · ${site.name}` : site.name;
@@ -176,7 +157,7 @@ function layout({ path, title, description = site.description, section = 'home',
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <link rel="preload" href="/assets/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
-${section === 'home' ? '<link rel="preload" href="/assets/fonts/GreatVibes.woff2" as="font" type="font/woff2" crossorigin>\n' : ''}
+<link rel="preload" href="/assets/fonts/GreatVibes.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/css/main.css?v=${V}">
 <script>document.documentElement.classList.add('js');if('onpagereveal' in window)document.documentElement.classList.add('vt')</script>
 ${models ? `<script type="module" src="${MODEL_VIEWER}"></script>\n` : ''}${jsonld}<script src="/assets/js/vt.js?v=${V}"></script>
@@ -185,11 +166,11 @@ ${models ? `<script type="module" src="${MODEL_VIEWER}"></script>\n` : ''}${json
 <body data-section="${section}">
 <canvas class="dots" data-dots aria-hidden="true"></canvas>
 <a class="skip" href="#main">Skip to content</a>
-${titleBlock(section)}
+${masthead()}
 <main id="main">
 ${body}
 </main>
-${footer()}
+${footer(section)}
 <div class="lightbox" data-lightbox hidden>
   <button class="round-btn lb-close" data-lb-close aria-label="Close">${I.close}</button>
   <button class="round-btn lb-prev" data-lb-prev aria-label="Previous image">${I.back}</button>
@@ -207,13 +188,14 @@ const socialLinks = () => (site.social || [])
   .map((s) => `<a href="${s.url}" target="_blank" rel="noopener" aria-label="${esc(s.label)}">${brandIcon(s.id).replace(/ style="color:#[0-9A-Fa-f]+"/, '') || esc(s.label)}</a>`)
   .join('');
 
-function footer() {
+function footer(section) {
   return `<footer class="foot">
   <div class="wrap foot-row">
     <div class="foot-rev">
       <span class="tb-k">Revised</span><span>${NOW.toLocaleDateString('en-US', { month: 'long', year: 'numeric', timeZone: 'America/New_York' })}</span>
     </div>
-    <span class="foot-copy">© ${NOW.getFullYear()} Dylan Thompson · Orlando, FL</span>
+    <nav class="foot-nav" aria-label="Site">${NAV.map(([href, label, id]) => `<a href="${href}"${section === id ? ' aria-current="page"' : ''}>${label}</a>`).join('')}<a href="${site.resume}" target="_blank" rel="noopener">Résumé</a></nav>
+    <span class="foot-copy">© ${NOW.getFullYear()} Dylan Thompson</span>
     <div class="foot-links">
       <a href="${site.linkedin}" target="_blank" rel="noopener" aria-label="LinkedIn">${I.linkedin}</a>
       <a href="${site.github}" target="_blank" rel="noopener" aria-label="GitHub">${brandIcon('github').replace(/ style="color:#[0-9A-Fa-f]+"/, '')}</a>
