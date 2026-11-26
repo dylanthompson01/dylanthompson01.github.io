@@ -45,11 +45,7 @@ export const home = {
   about: [
     'I’ve always loved building and creating. It started with LEGO and electronics, and going into college I set out to become the best version of myself and learn as much as I could.',
     'Now I’m putting that to work in industry, at Lockheed Martin today and GE Vernova before that, where I ==helped double a production line’s throughput==. Just as much as building, I love teaching other people what I’ve learned.',
-  ],
-  // "AI" section on the home page.
-  ai: [
-    'I’m fascinated by AI and where it’s headed. Most of my free time goes to it: trying new tools the week they come out, building small projects with them, and learning how they actually work.',
-    'What excites me most is leverage. Used well, ==AI lets one person do the work of a small team==: research faster, prototype sooner, and spend more time on the problems that need real judgment. I want to be the engineer who knows how to put it to work, and who helps the people around me do the same.',
+    'Outside of work, I’m fascinated by AI and where it’s headed. Most of my free time goes to experimenting with new tools and building with them, because used well, ==AI lets one person do the work of a small team==. I want to be the engineer who knows how to put it to work, and who helps the people around me do the same.',
   ],
   background: 'sunset',
   // "About me" section on the home page: past, present, future.
@@ -87,7 +83,7 @@ export const experience = [
     youtube: 'x2vQAX3hudg', // muted looping company video on the homepage card
     overlay: '/assets/logos/lockheed-martin-full-white.svg', // logo shown over the video
     ytStart: 22, // skip the title card at the start
-    ytPoster: false, // no YouTube still image before it plays
+    ytFrame: 2, // show a still from partway through the video (not the title card) before it plays
     pill: 'lockheedmartin.com',
     org: 'Lockheed Martin',
     role: 'Missiles and Fire Control Engineer',

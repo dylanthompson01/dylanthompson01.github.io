@@ -184,6 +184,12 @@
     yts.forEach((el) => ytIO.observe(el));
   }
 
+  /* ── highlighter marks sweep in when you reach them ─────────────────── */
+  const hlIO = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('is-on'); hlIO.unobserve(e.target); } });
+  }, { rootMargin: '0px 0px -15% 0px', threshold: 0.9 });
+  $$('mark.hl').forEach((m) => hlIO.observe(m));
+
   /* ── project viewer: hover or focus a build to preview it ──────────── */
   const bench = $('[data-bench]');
   if (bench) {

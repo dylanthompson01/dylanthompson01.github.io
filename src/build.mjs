@@ -264,7 +264,7 @@ const LOOP_SCHEMATIC = `<svg class="schematic" viewBox="0 0 320 240" aria-hidden
 function xpCard(x) {
   const p = x.project ? bySlug[x.project] : null;
   const media = x.youtube
-    ? `<span class="yt" data-yt="${x.youtube}" data-start="${x.ytStart || 0}">${x.ytPoster === false ? '' : `<img src="https://i.ytimg.com/vi/${x.youtube}/maxresdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/${x.youtube}/hqdefault.jpg'" alt="" loading="lazy">`}</span>`
+    ? `<span class="yt" data-yt="${x.youtube}" data-start="${x.ytStart || 0}">${x.ytFrame ? `<img class="yt-frame" src="https://i.ytimg.com/vi/${x.youtube}/sd${x.ytFrame}.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/${x.youtube}/hq${x.ytFrame}.jpg'" alt="" loading="lazy">` : `<img src="https://i.ytimg.com/vi/${x.youtube}/maxresdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/${x.youtube}/hqdefault.jpg'" alt="" loading="lazy">`}</span>`
     : p && p.cover
     ? picture(p.cover, { alt: '', sizes: '(max-width: 760px) 92vw, 560px' })
     : `<span class="logo-panel"><img src="${x.logo}" alt="" loading="lazy"></span>`;
@@ -378,16 +378,9 @@ function homePage() {
   </div>
 </section>
 
-<section class="sec" id="ai">
-  <div class="wrap">
-    ${sheetHead('D', 'AI')}
-    <div class="ai">${home.ai.map((t) => `<p>${md(t)}</p>`).join('')}</div>
-  </div>
-</section>
-
 <section class="sec" id="photography">
   <div class="wrap">
-    ${sheetHead('E', 'Photography', shLink('/photography/', 'See all'))}
+    ${sheetHead('D', 'Photography', shLink('/photography/', 'See all'))}
     <div class="prow" data-gallery>
       ${['photo-img-9280', 'photo-24-07-08-2357', 'photo-img-7161', 'photo-img-7856', 'photo-img-8310'].filter((k) => MEDIA.images[k]).map((k) => `<figure>${picture(k, { alt: 'Photo by Dylan Thompson', sizes: '(max-width: 760px) 46vw, 200px', attrs: ' data-zoom' })}</figure>`).join('')}
     </div>
