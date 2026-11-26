@@ -37,6 +37,7 @@ export const home = {
     { slug: 'robotic-arm', media: 'arm-mirror-1' },
     { slug: 'cnc-putter', media: 'putter-machining-1' },
     { slug: 'asme-robot', media: 'asme-drive-1' },
+    { slug: 'heat-pipe-research', media: 'php-imaging' },
     { slug: 'rc-boat', media: 'boat-pool-run' },
     { slug: 'solidworks-certification', media: 'sw-funnel' },
     { slug: 'liquid-cooling', media: null },

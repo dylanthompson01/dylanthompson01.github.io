@@ -376,7 +376,7 @@ function homePage() {
 
 <section class="sec" id="builds">
   <div class="wrap">
-    ${sheetHead('B', 'Things I’ve built', shLink('/work/', 'All projects'))}
+    ${sheetHead('B', 'Projects', shLink('/work/', 'All projects'))}
     ${bench()}
   </div>
 </section>
